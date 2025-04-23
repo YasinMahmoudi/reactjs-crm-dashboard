@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Login from './pages/Auth';
+import ForgetPassword from './features/auth/ForgetPassword';
 
 export default function App() {
   return (
@@ -8,6 +9,11 @@ export default function App() {
         <Route
           index
           element={<Login />}
+        />
+
+        <Route
+          path="forget-password"
+          element={<ForgetPassword />}
         />
       </Routes>
     </BrowserRouter>

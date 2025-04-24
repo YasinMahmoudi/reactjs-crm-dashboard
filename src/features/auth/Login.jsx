@@ -1,10 +1,12 @@
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import AuthLayout from '../../layouts/AuthLayout';
 import AuthBox from '../../components/AuthBox';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Row } from '../../components/Row';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   return (
     <AuthLayout>
       <AuthBox title="Sign In">
@@ -35,7 +37,7 @@ export default function Login() {
               textTransform: 'capitalize',
               '> a': {
                 textDecoration: 'none',
-                color:'inherit'
+                color: 'inherit',
               },
             }}>
             <Link to="/forget-password">Forgot Password</Link>
@@ -45,7 +47,8 @@ export default function Login() {
         <Button
           variant="contained"
           disableElevation
-          fullWidth>
+          fullWidth
+          onClick={() => navigate('/dashboard', { replace: true })}>
           Log In
         </Button>
       </AuthBox>

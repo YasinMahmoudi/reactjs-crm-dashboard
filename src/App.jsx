@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import Login from './pages/Auth';
 import ForgetPassword from './features/auth/ForgetPassword';
 import Dashboard from './pages/dashboard';
-import AppLayout from './layouts/AppLayout';
+import AppLayout from './layouts/Applayout';
 
 export default function App() {
   return (

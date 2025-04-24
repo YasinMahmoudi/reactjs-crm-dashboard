@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Header from './Header';
 
 const StyledAppLayout = styled.div`
   --sidebar-width: 300px;
@@ -20,11 +21,7 @@ const StyledAppLayout = styled.div`
 const Sidebar = styled.aside`
   grid-column: 1 / 2;
   grid-row: 1/ -1;
-`;
-
-const Header = styled.header`
-  grid-column: 2 / -1;
-  grid-row: 1 / 2;
+  padding: max(3rem, 3vw);
 `;
 
 const Main = styled.main`
@@ -32,13 +29,14 @@ const Main = styled.main`
   grid-row: 2 / -1;
   height: calc(100dvh - var(--header-height) - var(--gap-size));
   overflow-y: auto;
+  padding: max(3rem, 3vw);
 `;
 
 export default function AppLayout() {
   return (
     <StyledAppLayout>
       <Sidebar>SIDEBAR</Sidebar>
-      <Header>HEADER</Header>
+      <Header />
       <Main>MAIN</Main>
     </StyledAppLayout>
   );

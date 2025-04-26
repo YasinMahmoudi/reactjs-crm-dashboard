@@ -3,6 +3,7 @@ import { Logout, Person, Settings } from '@mui/icons-material';
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   IconButton,
   ListItemIcon,
@@ -16,16 +17,23 @@ import styled from 'styled-components';
 
 import { Row } from '../../components/Row';
 
+import PropTypes from 'prop-types';
+import MenuIcon from '@mui/icons-material/Menu';
+
 const StyledHeader = styled.header`
-  grid-column: 2 / -1;
-  grid-row: 1 / 2;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 2rem;
+  border-bottom: 1px solid #e3e3e3;
+
+  @media screen and (min-width: 900px) {
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+  }
 `;
 
-export default function Header() {
+export default function Header({ toggleSidebar }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -37,12 +45,25 @@ export default function Header() {
 
   return (
     <StyledHeader>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          textAlign: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+        }}>
+        <Button
+          onClick={toggleSidebar(true)}
+          sx={{ display: { md: 'none' } }}>
+          <MenuIcon sx={{ fill: '#141414' }} />
+        </Button>
+
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
             size="small"
-            sx={{ ml: 2 }}
+            sx={{ ml: 'auto' }}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}>
@@ -127,3 +148,7 @@ export default function Header() {
     </StyledHeader>
   );
 }
+
+Header.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired,
+};

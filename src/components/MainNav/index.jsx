@@ -26,7 +26,7 @@ export default function MainNav() {
       </ListItem>
       <ListItem disablePadding>
         <ListItemLink
-          to="/"
+          to="/customers"
           primary="Customers"
           icon={<HeadphonesOutlined />}
         />
@@ -34,7 +34,7 @@ export default function MainNav() {
 
       <ListItem disablePadding>
         <ListItemLink
-          to="/"
+          to="/invoices"
           primary="Invoices"
           icon={<DescriptionOutlined />}
         />
@@ -42,7 +42,7 @@ export default function MainNav() {
 
       <ListItem disablePadding>
         <ListItemLink
-          to="/"
+          to="/qoutes"
           primary="Qoute"
           icon={<FormatQuoteOutlined />}
         />
@@ -74,7 +74,7 @@ export default function MainNav() {
 
       <ListItem disablePadding>
         <ListItemLink
-          to="/"
+          to="/settings"
           primary="Settings"
           icon={<SettingsOutlined />}
         />
@@ -82,7 +82,7 @@ export default function MainNav() {
 
       <ListItem disablePadding>
         <ListItemLink
-          to="/"
+          to="/about"
           primary="About"
           icon={<ListAltOutlined />}
         />

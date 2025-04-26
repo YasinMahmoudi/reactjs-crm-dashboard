@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { Outlet } from 'react-router';
+import Main from './Main';
 
 const StyledAppLayout = styled.div`
   --sidebar-width: 300px;
@@ -19,21 +21,15 @@ const StyledAppLayout = styled.div`
   }
 `;
 
-const Main = styled.main`
-  grid-column: 2 / -1;
-  grid-row: 2 / -1;
-  height: calc(100dvh - var(--header-height) - var(--gap-size));
-  overflow-y: auto;
-  padding: max(2rem, 2vw);
-`;
-
 export default function AppLayout() {
   return (
     <StyledAppLayout>
       <Sidebar />
 
       <Header />
-      <Main>MAIN</Main>
+      <Main>
+        <Outlet />
+      </Main>
     </StyledAppLayout>
   );
 }

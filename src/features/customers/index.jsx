@@ -1,8 +1,9 @@
-import { Box, Fab, IconButton, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
 import styled from 'styled-components';
 import { Row } from '../../components/Row';
 import { ArrowBack, Refresh } from '@mui/icons-material';
 import { useBack } from '../../hooks/useBack';
+import CustomersTable from './CustomersTable';
 
 const StyledBox = styled(Box)`
   --box-padding: max(2rem, 2vw);
@@ -14,8 +15,7 @@ const StyledBox = styled(Box)`
 `;
 
 export default function Customers() {
-
-  const moveBack = useBack()
+  const moveBack = useBack();
 
   return (
     <StyledBox>
@@ -38,21 +38,26 @@ export default function Customers() {
             variant="outlined"
             size="small"
           />
-          <Fab
-            variant="index.jsx"
-            size="small"
-            color="default">
+          <Button
+            variant="outlined"
+            size="large"
+            sx={{ display: 'flex', gap: '5px' }}>
             <Refresh />
-          </Fab>
+            <Typography> Refresh </Typography>
+          </Button>
 
-          <Fab
-            variant="extended"
-            size="small"
+          <Button
+            variant="contained"
+            size="large"
             color="primary">
-            Add New Client
-          </Fab>
+            <Typography>Add New Client</Typography>
+          </Button>
         </Row>
       </Row>
+
+      <Box sx={{ mt: 3 }}>
+        <CustomersTable />
+      </Box>
     </StyledBox>
   );
 }

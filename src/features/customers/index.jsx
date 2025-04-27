@@ -1,7 +1,8 @@
-import { Box, Fab, TextField, Typography } from '@mui/material';
+import { Box, Fab, IconButton, TextField, Typography } from '@mui/material';
 import styled from 'styled-components';
 import { Row } from '../../components/Row';
 import { ArrowBack, Refresh } from '@mui/icons-material';
+import { useBack } from '../../hooks/useBack';
 
 const StyledBox = styled(Box)`
   --box-padding: max(2rem, 2vw);
@@ -13,11 +14,19 @@ const StyledBox = styled(Box)`
 `;
 
 export default function Customers() {
+
+  const moveBack = useBack()
+
   return (
     <StyledBox>
       <Row>
         <Row>
-          <ArrowBack />
+          <IconButton
+            aria-label="nivigate back"
+            color="warning"
+            onClick={moveBack}>
+            <ArrowBack />
+          </IconButton>
           <Typography variant="body2"> Client List </Typography>
         </Row>
 
@@ -27,14 +36,13 @@ export default function Customers() {
             label="Search"
             type="search"
             variant="outlined"
-            size='small'
+            size="small"
           />
           <Fab
             variant="index.jsx"
             size="small"
             color="default">
             <Refresh />
-            {/* Refresh */}
           </Fab>
 
           <Fab

@@ -4,7 +4,7 @@ const Main = styled.main`
 
   height: calc(100dvh - var(--header-height) - var(--gap-size));
   overflow-y: auto;
-  padding: max(2rem, 2vw);
+  padding: max(1rem, 2vw);
 
 
   @media screen and (min-width: 900px) {

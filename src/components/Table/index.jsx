@@ -113,14 +113,13 @@ export function DataTable({
         orderBy,
         handleRequestSort,
         handleSelectAllClick,
-        title
+        title,
       }}>
-      <Box sx={{ width: '100%', mt: 3 }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+        <Paper sx={{ width: '100%', mb: 2 , overflow:'hidden'}}>
           {hasToolbar && <Toolbar />}
 
-          <TableContainer>
-            <Table>{children}</Table>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader>{children}</Table>
           </TableContainer>
 
           {hasPagination && (
@@ -135,7 +134,6 @@ export function DataTable({
             />
           )}
         </Paper>
-      </Box>
     </TableContext.Provider>
   );
 }
@@ -305,7 +303,7 @@ function Pagination({ data }) {
 }
 
 function Toolbar() {
-  const { selected , title } = useContext(TableContext);
+  const { selected, title } = useContext(TableContext);
 
   const numSelected = selected.length;
 

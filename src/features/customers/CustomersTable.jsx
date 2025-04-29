@@ -1,129 +1,59 @@
 import DataTable from '../../components/Table';
+import { rows } from './data';
 
-function createData(id, name, country, address, phone, email) {
-  return {
-    id,
-    name,
-    country,
-    address,
-    phone,
-    email,
-  };
-}
 
-const rows = [
-  createData(
-    1,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    2,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    3,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    4,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    5,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    6,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    7,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    8,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    9,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    10,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    11,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    12,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
-  createData(
-    13,
-    'User',
-    'United States',
-    'california',
-    '+1 123 234',
-    'user@gmail.com'
-  ),
+
+const headCells = [
+  {
+    id: 'name',
+    numeric: false,
+    disablePadding: true,
+    label: 'Name',
+  },
+  {
+    id: 'country',
+    numeric: true,
+    disablePadding: false,
+    label: 'Country',
+  },
+  {
+    id: 'address',
+    numeric: true,
+    disablePadding: false,
+    label: 'Address',
+  },
+  {
+    id: 'phone',
+    numeric: true,
+    disablePadding: true,
+    label: 'Phone',
+  },
+  {
+    id: 'email',
+    numeric: true,
+    disablePadding: false,
+    label: 'Email',
+  },
+
+  {
+    id: 'action',
+    numeric: false,
+    disablePadding: false,
+    label: '',
+  },
 ];
+
+
 
 export default function CustomersTable() {
   return (
     <DataTable
       data={rows}
-      hasPagination={true}>
-      <DataTable.Head />
+      hasPagination={true}
+      hasToolbar={true}
+      title = "Customers"
+      >
+      <DataTable.Head headCells={headCells} />
       <DataTable.Body
         render={(row) => (
           <DataTable.Row

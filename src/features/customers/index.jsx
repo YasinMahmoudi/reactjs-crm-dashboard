@@ -27,7 +27,6 @@ export default function Customers() {
             onClick={moveBack}>
             <ArrowBack />
           </IconButton>
-          <Typography variant="body2"> Client List </Typography>
         </Row>
 
         <Row sx={{ gap: '10px' }}>

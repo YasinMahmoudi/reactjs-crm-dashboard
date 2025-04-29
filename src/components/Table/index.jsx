@@ -4,7 +4,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import React, { createContext, useContext } from 'react';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import * as TableToolbar from '@mui/material/Toolbar';
+import TableToolbar from '@mui/material/Toolbar';
 import TableHead from '@mui/material/TableHead';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
@@ -25,10 +25,15 @@ Pagination.propTypes = {
 };
 
 DataTable.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.array,
   data: PropTypes.array,
   hasPagination: PropTypes.bool,
   hasToolbar: PropTypes.bool,
+  title: PropTypes.string,
+};
+
+Head.propTypes = {
+  headCells: PropTypes.array,
 };
 
 Row.propTypes = {
@@ -55,46 +60,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'country',
-    numeric: true,
-    disablePadding: false,
-    label: 'Country',
-  },
-  {
-    id: 'address',
-    numeric: true,
-    disablePadding: false,
-    label: 'Address',
-  },
-  {
-    id: 'phone',
-    numeric: true,
-    disablePadding: true,
-    label: 'Phone',
-  },
-  {
-    id: 'email',
-    numeric: true,
-    disablePadding: false,
-    label: 'Email',
-  },
-
-  {
-    id: 'action',
-    numeric: false,
-    disablePadding: false,
-    label: '',
-  },
-];
-
 const TableContext = createContext();
 
 export function DataTable({
@@ -102,6 +67,7 @@ export function DataTable({
   data,
   hasPagination = false,
   hasToolbar = false,
+  title = 'Provide your table name here ...',
 }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -123,25 +89,6 @@ export function DataTable({
     }
     setSelected([]);
   };
-
-  // const handleClick = (event, id) => {
-  //   const selectedIndex = selected.indexOf(id);
-  //   let newSelected = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, id);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       selected.slice(0, selectedIndex),
-  //       selected.slice(selectedIndex + 1)
-  //     );
-  //   }
-  //   setSelected(newSelected);
-  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -166,10 +113,11 @@ export function DataTable({
         orderBy,
         handleRequestSort,
         handleSelectAllClick,
+        title
       }}>
       <Box sx={{ width: '100%', mt: 3 }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          {hasToolbar ? <Toolbar /> : null}
+          {hasToolbar && <Toolbar />}
 
           <TableContainer>
             <Table>{children}</Table>
@@ -192,7 +140,7 @@ export function DataTable({
   );
 }
 
-function Head() {
+function Head({ headCells }) {
   const {
     handleRequestSort,
     handleSelectAllClick,
@@ -246,6 +194,37 @@ function Head() {
         ))}
       </TableRow>
     </TableHead>
+  );
+}
+
+function Body({ render }) {
+  const { data, page, rowsPerPage, order, orderBy } = useContext(TableContext);
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
+
+  const visibleRows = React.useMemo(
+    () =>
+      [...data]
+        .sort(getComparator(order, orderBy))
+        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [order, orderBy, page, rowsPerPage]
+  );
+
+  return (
+    <TableBody>
+      {visibleRows.map(render)}
+
+      {emptyRows > 0 && (
+        <TableRow
+          style={{
+            height: 53 * emptyRows,
+          }}>
+          <TableCell colSpan={6} />
+        </TableRow>
+      )}
+    </TableBody>
   );
 }
 
@@ -326,7 +305,7 @@ function Pagination({ data }) {
 }
 
 function Toolbar() {
-  const { selected } = useContext(TableContext);
+  const { selected , title } = useContext(TableContext);
 
   const numSelected = selected.length;
 
@@ -359,7 +338,7 @@ function Toolbar() {
           variant="h6"
           id="tableTitle"
           component="div">
-          Nutrition
+          {title ?? 'Table name'}
         </Typography>
       )}
       {numSelected > 0 ? (
@@ -379,41 +358,8 @@ function Toolbar() {
   );
 }
 
-function Body({ render }) {
-  const { data, page, rowsPerPage, order, orderBy } = useContext(TableContext);
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
-
-  const visibleRows = React.useMemo(
-    () =>
-      [...data]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
-  );
-
-  return (
-    <TableBody>
-      {visibleRows.map(render)}
-
-      {emptyRows > 0 && (
-        <TableRow
-          style={{
-            height: 53 * emptyRows,
-          }}>
-          <TableCell colSpan={6} />
-        </TableRow>
-      )}
-    </TableBody>
-  );
-}
-
 DataTable.Head = Head;
 DataTable.Row = Row;
-DataTable.Pagination = Pagination;
-// DataTable.Toolbar = Toolbar;
 DataTable.Body = Body;
 
 export default DataTable;

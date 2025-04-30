@@ -19,7 +19,7 @@ export default function Customers() {
 
   return (
     <StyledBox>
-      <Row sx={{ flexDirection: { xs: 'column' , sm:'row' } }}>
+      <Row sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
         <IconButton
           aria-label="nivigate back"
           color="warning"
@@ -39,10 +39,10 @@ export default function Customers() {
             variant="outlined"
             size="small"
             sx={{
-              order: { xs: '3' },
+              order: { xs: '3', sm: '0' },
               flexGrow: { xs: '1', sm: 'initial' },
               marginTop: { xs: '8px', sm: '0' },
-              width:{ xs:'100%' , sm:'auto' }
+              width: { xs: '100%', sm: 'auto' },
             }}
           />
           <Button

@@ -19,10 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { Box, IconButton, Typography } from '@mui/material';
-
-Pagination.propTypes = {
-  data: PropTypes.array,
-};
+import { getComparator } from '../../utils/getComparator';
 
 DataTable.propTypes = {
   children: PropTypes.array,
@@ -43,22 +40,6 @@ Row.propTypes = {
 Body.propTypes = {
   render: PropTypes.func,
 };
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
 const TableContext = createContext();
 
@@ -115,25 +96,25 @@ export function DataTable({
         handleSelectAllClick,
         title,
       }}>
-        <Paper sx={{ width: '100%', mb: 2 , overflow:'hidden'}}>
-          {hasToolbar && <Toolbar />}
+      <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
+        {hasToolbar && <Toolbar />}
 
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader>{children}</Table>
-          </TableContainer>
+        <TableContainer sx={{ maxHeight: 440 }}>
+          <Table stickyHeader>{children}</Table>
+        </TableContainer>
 
-          {hasPagination && (
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          )}
-        </Paper>
+        {hasPagination && (
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </Paper>
     </TableContext.Provider>
   );
 }
@@ -282,23 +263,6 @@ function Row({ row }) {
       <TableCell align="right">{row.phone}</TableCell>
       <TableCell align="right">{row.email}</TableCell>
     </TableRow>
-  );
-}
-
-function Pagination({ data }) {
-  const { page, rowsPerPage, handleChangePage, handleChangeRowsPerPage } =
-    useContext(TableContext);
-
-  return (
-    <TablePagination
-      rowsPerPageOptions={[5, 10, 25]}
-      component="div"
-      count={data.length}
-      rowsPerPage={rowsPerPage}
-      page={page}
-      onPageChange={handleChangePage}
-      onRowsPerPageChange={handleChangeRowsPerPage}
-    />
   );
 }
 

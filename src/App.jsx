@@ -8,7 +8,7 @@ import Qoutes from './features/qoutes';
 import Settings from './features/settings';
 import About from './pages/About';
 import CustomersPage from './pages/Customers';
-import Customers from './features/customers';
+import CustomerCreateModal from './features/customers/CustomerCreateModal';
 
 export default function App() {
   return (
@@ -34,11 +34,9 @@ export default function App() {
             path="customers"
             element={<CustomersPage />}>
             <Route
-              index
-              element={<Customers />}
+              path="create"
+              element={<CustomerCreateModal />}
             />
-
-            <Route path='create' element={<p>Create</p>} />
           </Route>
 
           <Route

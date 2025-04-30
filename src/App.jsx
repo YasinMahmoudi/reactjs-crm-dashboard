@@ -3,11 +3,12 @@ import Login from './pages/Auth';
 import ForgetPassword from './features/auth/ForgetPassword';
 import Dashboard from './pages/dashboard';
 import AppLayout from './layouts/Applayout';
-import Customers from './features/customers';
 import Invoices from './features/invoices';
 import Qoutes from './features/qoutes';
 import Settings from './features/settings';
 import About from './pages/About';
+import CustomersPage from './pages/Customers';
+import Customers from './features/customers';
 
 export default function App() {
   return (
@@ -31,8 +32,14 @@ export default function App() {
 
           <Route
             path="customers"
-            element={<Customers />}
-          />
+            element={<CustomersPage />}>
+            <Route
+              index
+              element={<Customers />}
+            />
+
+            <Route path='create' element={<p>Create</p>} />
+          </Route>
 
           <Route
             path="invoices"

@@ -1,24 +1,14 @@
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
-import styled from 'styled-components';
 import { Row } from '../../components/Row';
 import { ArrowBack, Refresh } from '@mui/icons-material';
 import { useBack } from '../../hooks/useBack';
 import CustomersTable from './CustomersTable';
 
-const StyledBox = styled(Box)`
-  --box-padding: max(1rem, 2vw);
-  --border-radius: 10px;
-
-  border: 1px solid #e3e3e3;
-  padding: var(--box-padding);
-  border-radius: var(--border-radius);
-`;
-
 export default function Customers() {
   const moveBack = useBack();
 
   return (
-    <StyledBox>
+    <>
       <Row sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
         <IconButton
           aria-label="nivigate back"
@@ -66,6 +56,6 @@ export default function Customers() {
       <Box sx={{ mt: 3 }}>
         <CustomersTable />
       </Box>
-    </StyledBox>
+    </>
   );
 }

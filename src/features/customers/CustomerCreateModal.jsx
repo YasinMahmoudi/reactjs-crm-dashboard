@@ -1,134 +1,102 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { useBack } from '../../hooks/useBack';
-import { Button, Grid, IconButton, TextField } from '@mui/material';
-import { CloseRounded } from '@mui/icons-material';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'min(90% , 800px)',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 2,
-};
+/* eslint-disable react/prop-types */
+import { Autocomplete, Box, Button, Grid, TextField } from '@mui/material';
+import EnhancedModal from '../../components/Modal';
+import { countries } from '../../data/countries';
 
 export default function CustomerCreateModal() {
-  const moveBack = useBack();
-
-  const [open, setOpen] = React.useState(true);
-  const handleClose = () => {
-    setOpen(false);
-    moveBack();
-  };
-
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box sx={style}>
-          <Grid
-            container
-            justifyContent="space-between"
-            alignItems="center"
-            mb={1}
-            >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2">
-              Create user
-            </Typography>
+    <EnhancedModal title="Add new customer">
+      <Grid
+        container
+        spacing={{ xs: 2, md: 2 }}
+        columns={{ xs: 1, sm: 4 }}>
+        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <TextField
+            id="name"
+            label="Name"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
 
-            <IconButton
-              aria-label="close"
-              color="error">
-              <CloseRounded />
-            </IconButton>
-          </Grid>
+        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <TextField
+            id="email"
+            label="Email"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
 
-          <Grid
-            container
-            spacing={{ xs: 2, md: 2 }}
-            columns={{ xs: 1, sm: 4 }}>
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <TextField
+            id="phone"
+            label="Phone"
+            variant="outlined"
+            size=""
+            fullWidth
+          />
+        </Grid>
+
+        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <Autocomplete
+            id="country"
+            sx={{ width: 300 }}
+            options={countries}
+            autoHighlight
+            getOptionLabel={(option) => option.label}
+            renderOption={(props, option) => {
+              const { key, ...optionProps } = props;
+              return (
+                <Box
+                  key={key}
+                  component="li"
+                  sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
+                  {...optionProps}>
+                  <img
+                    loading="lazy"
+                    width="20"
+                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                    alt=""
+                  />
+                  {option.label} ({option.code}) +{option.phone}
+                </Box>
+              );
+            }}
+            renderInput={(params) => (
               <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
+                {...params}
+                label="Choose a country"
+                slotProps={{
+                  htmlInput: {
+                    ...params.inputProps,
+                    autoComplete: 'new-password', // disable autocomplete and autofill
+                  },
+                }}
               />
-            </Grid>
+            )}
+          />
+        </Grid>
 
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
-              />
-            </Grid>
+        <Grid size={{ xs: 2, sm: 4 }}>
+          <TextField
+            id="address"
+            label="Address"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
 
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
-              />
-            </Grid>
-
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
-              />
-            </Grid>
-
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
-              />
-            </Grid>
-
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                size=""
-                fullWidth
-              />
-            </Grid>
-
-            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-              <Button
-                variant="contained"
-                color="info">
-                Add User
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Modal>
-    </div>
+        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <Button
+            variant="contained"
+            color="info"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}>
+            Add User
+          </Button>
+        </Grid>
+      </Grid>
+    </EnhancedModal>
   );
 }

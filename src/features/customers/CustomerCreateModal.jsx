@@ -41,7 +41,6 @@ export default function CustomerCreateModal() {
         <Grid size={{ xs: 2, sm: 2, md: 2 }}>
           <Autocomplete
             id="country"
-            sx={{ width: 300 }}
             options={countries}
             autoHighlight
             getOptionLabel={(option) => option.label}

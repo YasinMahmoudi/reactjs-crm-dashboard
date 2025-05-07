@@ -1,5 +1,8 @@
 import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import React, { createContext, useContext } from 'react';
@@ -20,6 +23,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { Box, IconButton, Typography } from '@mui/material';
 import { getComparator } from '../../utils/getComparator';
+import ContextMenu from '../ContextMenu';
 
 DataTable.propTypes = {
   children: PropTypes.array,
@@ -233,36 +237,56 @@ function Row({ row }) {
   const labelId = `enhanced-table-checkbox-${row.id}`;
 
   return (
-    <TableRow
-      hover
-      onClick={(event) => handleClick(event, row.id)}
-      role="checkbox"
-      aria-checked={isItemSelected}
-      tabIndex={-1}
-      key={row.id}
-      selected={isItemSelected}
-      sx={{ cursor: 'pointer' }}>
-      <TableCell padding="checkbox">
-        <Checkbox
-          color="primary"
-          checked={isItemSelected}
-          inputProps={{
-            'aria-labelledby': labelId,
-          }}
-        />
-      </TableCell>
-      <TableCell
-        component="th"
-        id={labelId}
-        scope="row"
-        padding="none">
-        {row.name}
-      </TableCell>
-      <TableCell align="right">{row.country}</TableCell>
-      <TableCell align="right">{row.address}</TableCell>
-      <TableCell align="right">{row.phone}</TableCell>
-      <TableCell align="right">{row.email}</TableCell>
-    </TableRow>
+    <>
+      <TableRow
+        hover
+        role="checkbox"
+        tabIndex={-1}
+        key={row.id}
+        sx={{ cursor: 'pointer' }}>
+        <TableCell padding="checkbox">
+          <Checkbox
+            onClick={(event) => handleClick(event, row.id)}
+            aria-checked={isItemSelected}
+            selected={isItemSelected}
+            color="primary"
+            checked={isItemSelected}
+            inputProps={{
+              'aria-labelledby': labelId,
+            }}
+          />
+        </TableCell>
+        <TableCell
+          component="th"
+          id={labelId}
+          scope="row"
+          padding="none">
+          {row.name}
+        </TableCell>
+        <TableCell align="right">{row.country}</TableCell>
+        <TableCell align="right">{row.address}</TableCell>
+        <TableCell align="right">{row.phone}</TableCell>
+        <TableCell align="right">{row.email}</TableCell>
+        <TableCell align="right">
+          <ContextMenu
+            options={[
+              {
+                name: 'Show',
+                icon: <EyeIcon fontSize='10px' />,
+              },
+              {
+                name: 'Edit',
+                icon: <EditIcon fontSize='10px' />,
+              },
+              {
+                name: 'Delete',
+                icon: <DeleteIcon fontSize='10px' />,
+              },
+            ]}
+          />
+        </TableCell>
+      </TableRow>
+    </>
   );
 }
 

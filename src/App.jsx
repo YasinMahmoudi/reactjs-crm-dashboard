@@ -9,6 +9,7 @@ import Settings from './features/settings';
 import About from './pages/About';
 import CustomersPage from './pages/Customers';
 import CustomerCreateModal from './features/customers/CustomerCreateModal';
+import PrivateRoute from './components/PrivateRoute';
 
 export default function App() {
   return (
@@ -24,7 +25,12 @@ export default function App() {
           element={<ForgetPassword />}
         />
 
-        <Route element={<AppLayout />}>
+        <Route
+          element={
+            <PrivateRoute>
+              <AppLayout />
+            </PrivateRoute>
+          }>
           <Route
             path="dashboard"
             element={<Dashboard />}

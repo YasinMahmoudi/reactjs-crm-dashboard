@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { verifyUserService } from '../../services/auth/login';
+import { useEffect, useTransition } from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
+import { useVerifyUser } from '../../features/auth/useVerifyUser';
 
 PrivateRoute.propTypes = {
   children: PropTypes.object,
@@ -9,21 +9,19 @@ PrivateRoute.propTypes = {
 
 export default function PrivateRoute({ children }) {
   const navigate = useNavigate();
+  const [isPending] = useTransition();
+
+
+  const { hasToken, isLoading } = useVerifyUser();
 
   useEffect(
     function () {
-      async function userInfo() {
-        const user = await verifyUserService();
-
-        const authToken = user.token;
-
-        if (!authToken) navigate('/');
-      }
-
-      userInfo();
+      if (!hasToken && !isLoading) navigate('/');
     },
-    [navigate]
+    [hasToken, isLoading, navigate]
   );
+
+  if (isPending) return <h1> Loading ... </h1>;
 
   return children;
 }

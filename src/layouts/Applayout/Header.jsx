@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  CircularProgress,
   Divider,
   IconButton,
   ListItemIcon,
@@ -19,6 +20,7 @@ import { Row } from '../../components/Row';
 
 import PropTypes from 'prop-types';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useLogout } from '../../features/auth/useLogout';
 
 const StyledHeader = styled.header`
   display: flex;
@@ -34,6 +36,8 @@ const StyledHeader = styled.header`
 `;
 
 export default function Header({ toggleSidebar }) {
+  const { logout, isLogingout } = useLogout();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -134,13 +138,22 @@ export default function Header({ toggleSidebar }) {
           App Settings
         </MenuItem>
         <MenuItem
-          onClick={handleClose}
+          onClick={() => {
+            logout();
+          }}
           sx={{ color: 'crimson' }}>
           <ListItemIcon>
-            <Logout
-              fontSize="small"
-              sx={{ fill: 'crimson' }}
-            />
+            {isLogingout ? (
+              <CircularProgress
+                size={20}
+                color="error"
+              />
+            ) : (
+              <Logout
+                fontSize="small"
+                sx={{ fill: 'crimson' }}
+              />
+            )}
           </ListItemIcon>
           Logout
         </MenuItem>

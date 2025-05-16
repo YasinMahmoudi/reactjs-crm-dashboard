@@ -12,9 +12,16 @@ import CustomerCreateModal from './features/customers/CustomerCreateModal';
 import PrivateRoute from './components/PrivateRoute';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 0,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -74,6 +81,7 @@ export default function App() {
       </BrowserRouter>
 
       <ReactQueryDevtools />
+      <Toaster />
     </QueryClientProvider>
   );
 }

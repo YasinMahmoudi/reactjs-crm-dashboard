@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8888/api';
+import { API_URL } from '../../utils/constants';
 
 export async function loginService(credentials) {
   try {
@@ -15,29 +15,28 @@ export async function loginService(credentials) {
     );
     const data = await res.json();
 
-    console.log(data);
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 export async function verifyUserService() {
   try {
-    const res = await fetch(
-      `${API_URL}/verify-user`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      }
-    );
+    const res = await fetch(`${API_URL}/verify-user`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+
     const data = await res.json();
 
     return data;
-    
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }

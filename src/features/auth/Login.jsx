@@ -1,18 +1,32 @@
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import AuthLayout from '../../layouts/AuthLayout';
 import AuthBox from '../../components/AuthBox';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Row } from '../../components/Row';
-import { useState } from 'react';
-import { loginService } from '../../services/auth/login';
+import { useEffect, useState } from 'react';
+import { useLogin } from './useLogin';
+import { useVerifyUser } from './useVerifyUser';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('admin@demo.com');
   const [password, setPassword] = useState('admin123');
   const [remember, setRemember] = useState(false);
 
+  const { login, isPending } = useLogin();
+  const { hasToken, isLoading } = useVerifyUser();
+
+  useEffect(
+    function () {
+      if (!hasToken && !isLoading) navigate('/');
+      else navigate('/dashboard');
+    },
+    [hasToken, isLoading, navigate]
+  );
+
   function handleLogin() {
-    loginService({ email, password, remember });
+    login({ email, password, remember });
   }
 
   return (
@@ -61,7 +75,10 @@ export default function Login() {
           variant="contained"
           disableElevation
           fullWidth
-          onClick={handleLogin}>
+          onClick={handleLogin}
+          endIcon={<></>}
+          loading={isPending || isLoading}
+          loadingPosition="end">
           Log In
         </Button>
       </AuthBox>

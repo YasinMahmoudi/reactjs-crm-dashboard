@@ -5,8 +5,8 @@ import AppThemeProvider from './components/Themeprovider/index.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AppThemeProvider>
-      <App />
-    </AppThemeProvider>
+      <AppThemeProvider>
+        <App />
+      </AppThemeProvider>
   </StrictMode>
 );

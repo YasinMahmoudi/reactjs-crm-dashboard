@@ -10,62 +10,70 @@ import About from './pages/About';
 import CustomersPage from './pages/Customers';
 import CustomerCreateModal from './features/customers/CustomerCreateModal';
 import PrivateRoute from './components/PrivateRoute';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export default function App() {
+  const queryClient = new QueryClient();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          index
-          element={<Login />}
-        />
-
-        <Route
-          path="forget-password"
-          element={<ForgetPassword />}
-        />
-
-        <Route
-          element={
-            <PrivateRoute>
-              <AppLayout />
-            </PrivateRoute>
-          }>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
           <Route
-            path="dashboard"
-            element={<Dashboard />}
+            index
+            element={<Login />}
           />
 
           <Route
-            path="customers"
-            element={<CustomersPage />}>
+            path="forget-password"
+            element={<ForgetPassword />}
+          />
+
+          <Route
+            element={
+              <PrivateRoute>
+                <AppLayout />
+              </PrivateRoute>
+            }>
             <Route
-              path="create"
-              element={<CustomerCreateModal />}
+              path="dashboard"
+              element={<Dashboard />}
+            />
+
+            <Route
+              path="customers"
+              element={<CustomersPage />}>
+              <Route
+                path="create"
+                element={<CustomerCreateModal />}
+              />
+            </Route>
+
+            <Route
+              path="invoices"
+              element={<Invoices />}
+            />
+
+            <Route
+              path="qoutes"
+              element={<Qoutes />}
+            />
+
+            <Route
+              path="settings"
+              element={<Settings />}
+            />
+
+            <Route
+              path="about"
+              element={<About />}
             />
           </Route>
+        </Routes>
+      </BrowserRouter>
 
-          <Route
-            path="invoices"
-            element={<Invoices />}
-          />
-
-          <Route
-            path="qoutes"
-            element={<Qoutes />}
-          />
-
-          <Route
-            path="settings"
-            element={<Settings />}
-          />
-
-          <Route
-            path="about"
-            element={<About />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }

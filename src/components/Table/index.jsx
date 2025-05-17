@@ -68,7 +68,7 @@ export function DataTable({
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = data.map((n) => n.id);
+      const newSelected = data.map((n) => n._id);
       setSelected(newSelected);
       return;
     }
@@ -218,6 +218,7 @@ function Row({ row }) {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
+
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
@@ -233,8 +234,8 @@ function Row({ row }) {
     setSelected(newSelected);
   };
 
-  const isItemSelected = selected.includes(row.id);
-  const labelId = `enhanced-table-checkbox-${row.id}`;
+  const isItemSelected = selected.includes(row._id);
+  const labelId = `enhanced-table-checkbox-${row._id}`;
 
   return (
     <>
@@ -242,11 +243,11 @@ function Row({ row }) {
         hover
         role="checkbox"
         tabIndex={-1}
-        key={row.id}
+        key={row._id}
         sx={{ cursor: 'pointer' }}>
         <TableCell padding="checkbox">
           <Checkbox
-            onClick={(event) => handleClick(event, row.id)}
+            onClick={(event) => handleClick(event, row._id)}
             aria-checked={isItemSelected}
             selected={isItemSelected}
             color="primary"

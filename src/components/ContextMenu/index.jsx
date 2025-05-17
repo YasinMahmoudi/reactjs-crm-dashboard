@@ -1,13 +1,14 @@
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { CircularProgress, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PropTypes from 'prop-types';
 
 ContextMenu.propTypes = {
   options: PropTypes.array,
+  loading:PropTypes.bool
 };
 
-export default function ContextMenu({ options }) {
+export default function ContextMenu({ options, loading = false }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -38,7 +39,7 @@ export default function ContextMenu({ options }) {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleCloseDots}
+        onClose={!loading && handleCloseDots}
         slotProps={{
           paper: {
             style: {
@@ -49,13 +50,17 @@ export default function ContextMenu({ options }) {
         {options.map((option, index) => (
           <MenuItem
             key={index}
-            onClick={handleCloseDots}
-            sx={option.icon ? { gap: '5px' } : {}}>
-            {option.icon && option.icon}
+            onClick={() => {
+              option.onClick?.();
+              handleCloseDots();
+            }}
+            sx={option.icon ? { gap: '5px' } : {}}
+            disabled={option.disabled}>
+            {option.loading && <CircularProgress size={15} />}
+            {!option.loading && option.icon && option.icon}
             {option.name}
           </MenuItem>
         ))}
-
       </Menu>
     </>
   );

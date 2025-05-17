@@ -1,60 +1,40 @@
-import { Row } from '../../components/Row';
-import { Button, IconButton, TextField, Typography } from '@mui/material';
-import { ArrowBack, Refresh } from '@mui/icons-material';
-import { useBack } from '../../hooks/useBack';
-import { Link } from 'react-router';
+import ContextMenu from '../../components/ContextMenu';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import { useDeleteCustomer } from './useDeleteCustomer';
 
-export default function CustomerActions() {
+import PropTypes from 'prop-types';
 
-    const moveBack = useBack();
+CustomerActions.propTypes = {
+  id: PropTypes.string,
+};
 
-
+export default function CustomerActions({ id }) {
+  const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
 
   return (
-    <Row sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
-      <IconButton
-        aria-label="nivigate back"
-        color="warning"
-        onClick={moveBack}
-        sx={{
-          alignSelf: { xs: 'flex-start', sm: 'stretch' },
-          marginBottom: { xs: '10px', sm: 0 },
-        }}>
-        <ArrowBack />
-      </IconButton>
-
-      <Row sx={{ gap: '10px', flexWrap: 'wrap' }}>
-        <TextField
-          id="standard-password-input"
-          label="Search"
-          type="search"
-          variant="outlined"
-          size="small"
-          sx={{
-            order: { xs: '3', sm: '0' },
-            flexGrow: { xs: '1', sm: 'initial' },
-            marginTop: { xs: '8px', sm: '0' },
-            width: { xs: '100%', sm: 'auto' },
-          }}
-        />
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{ display: 'flex', gap: '5px', paddingBlock: '7px' }}>
-          <Refresh />
-          <Typography sx={{ display: { xs: 'none' } }}> Refresh </Typography>
-        </Button>
-
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          sx={{ paddingBlock: '7px' }}
-          LinkComponent={Link}
-          to="/customers/create">
-          <Typography>Add New Client</Typography>
-        </Button>
-      </Row>
-    </Row>
+    <ContextMenu
+      loading={isDeletingCustomer}
+      options={[
+        {
+          name: 'Show',
+          icon: <EyeIcon fontSize="10px" />,
+          disabled: isDeletingCustomer,
+        },
+        {
+          name: 'Edit',
+          icon: <EditIcon fontSize="10px" />,
+          disabled: isDeletingCustomer,
+        },
+        {
+          name: 'Delete',
+          icon: <DeleteIcon fontSize="10px" />,
+          onClick: () => deleteCustomer(id),
+          loading: isDeletingCustomer,
+          disabled: isDeletingCustomer,
+        },
+      ]}
+    />
   );
 }

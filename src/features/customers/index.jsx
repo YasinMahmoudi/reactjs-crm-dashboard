@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 
 import CustomersTable from './CustomersTable';
-import CustomerActions from './CustomerActions';
+import CustomerToolbar from './CustomerToolbar';
 
 export default function Customers() {
   return (
     <>
-      <CustomerActions />
+      <CustomerToolbar />
 
       <Box sx={{ mt: 3 }}>
         <CustomersTable />

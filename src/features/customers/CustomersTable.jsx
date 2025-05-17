@@ -1,8 +1,7 @@
 import { CircularProgress } from '@mui/material';
 import DataTable from '../../components/Table';
 import { useGetCustomers } from './useGetCustomers';
-
-
+import CustomerActions from './CustomerActions';
 
 const headCells = [
   {
@@ -44,29 +43,24 @@ const headCells = [
   },
 ];
 
-
-
 export default function CustomersTable() {
+  const { customers, isLoadingCustomers } = useGetCustomers();
 
-  const {customers , isLoadingCustomers} = useGetCustomers()
-
-
-  if(isLoadingCustomers) return <CircularProgress/>
-
+  if (isLoadingCustomers) return <CircularProgress />;
 
   return (
     <DataTable
       data={customers}
       hasPagination={true}
       hasToolbar={true}
-      title = "Customers"
-      >
+      title="Customers">
       <DataTable.Head headCells={headCells} />
       <DataTable.Body
         render={(row) => (
           <DataTable.Row
             key={row._id}
             row={row}
+            ActionsComponent={<CustomerActions id={row._id} />}
           />
         )}
       />

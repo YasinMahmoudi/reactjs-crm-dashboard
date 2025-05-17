@@ -1,7 +1,5 @@
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
-import EditIcon from '@mui/icons-material/EditOutlined';
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
@@ -23,7 +21,6 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { Box, IconButton, Typography } from '@mui/material';
 import { getComparator } from '../../utils/getComparator';
-import ContextMenu from '../ContextMenu';
 
 DataTable.propTypes = {
   children: PropTypes.array,
@@ -39,6 +36,7 @@ Head.propTypes = {
 
 Row.propTypes = {
   row: PropTypes.object,
+  ActionsComponent: PropTypes.object,
 };
 
 Body.propTypes = {
@@ -200,24 +198,23 @@ function Body({ render }) {
       {visibleRows.map(render)}
 
       {emptyRows > 0 && (
-        <TableRow
+        <Row
           style={{
             height: 53 * emptyRows,
           }}>
           <TableCell colSpan={6} />
-        </TableRow>
+        </Row>
       )}
     </TableBody>
   );
 }
 
-function Row({ row }) {
+function Row({ row, ActionsComponent = <></> }) {
   const { selected, setSelected } = useContext(TableContext);
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
-
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -268,24 +265,8 @@ function Row({ row }) {
         <TableCell align="right">{row.address}</TableCell>
         <TableCell align="right">{row.phone}</TableCell>
         <TableCell align="right">{row.email}</TableCell>
-        <TableCell align="right">
-          <ContextMenu
-            options={[
-              {
-                name: 'Show',
-                icon: <EyeIcon fontSize='10px' />,
-              },
-              {
-                name: 'Edit',
-                icon: <EditIcon fontSize='10px' />,
-              },
-              {
-                name: 'Delete',
-                icon: <DeleteIcon fontSize='10px' />,
-              },
-            ]}
-          />
-        </TableCell>
+
+        <TableCell align="right">{ActionsComponent}</TableCell>
       </TableRow>
     </>
   );

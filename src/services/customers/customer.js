@@ -38,3 +38,24 @@ export async function createCustomerService(newCustomer) {
     return error;
   }
 }
+
+
+
+export async function deleteCustomerService(id) {
+  try {
+    const res = await fetch(`${API_URL}/client/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

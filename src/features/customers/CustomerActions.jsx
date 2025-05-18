@@ -5,13 +5,20 @@ import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { useDeleteCustomer } from './useDeleteCustomer';
 
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router';
 
 CustomerActions.propTypes = {
   id: PropTypes.string,
 };
 
 export default function CustomerActions({ id }) {
+  const navigate = useNavigate();
+
   const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
+
+  function handleEdit() {
+    navigate(`/customers/create?edit=true&id=${id}`);
+  }
 
   return (
     <ContextMenu
@@ -26,6 +33,7 @@ export default function CustomerActions({ id }) {
           name: 'Edit',
           icon: <EditIcon fontSize="10px" />,
           disabled: isDeletingCustomer,
+          onClick: handleEdit,
         },
         {
           name: 'Delete',

@@ -39,7 +39,46 @@ export async function createCustomerService(newCustomer) {
   }
 }
 
+export async function getCustomerService(id) {
+  try {
+    const res = await fetch(`${API_URL}/client/read/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
 
+    if (!res.ok) throw new Error(data.message);
+
+    const data = await res.json();
+
+    return data.result;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function updateCustomerService({ id, updatedData }) {
+  try {
+    const res = await fetch(`${API_URL}/client/update/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+      credentials: 'include',
+    });
+
+    if (!res.ok) throw new Error(data.message);
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
 
 export async function deleteCustomerService(id) {
   try {

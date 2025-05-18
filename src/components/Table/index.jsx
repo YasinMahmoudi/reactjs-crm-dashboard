@@ -190,7 +190,7 @@ function Body({ render }) {
       [...data]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
+    [data, order, orderBy, page, rowsPerPage]
   );
 
   return (

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getCustomersService } from '../../services/customers/customer';
 
 function useGetCustomers() {
-  const { data, isPending: isLoadingCustomers } = useQuery({
+  const { data, isLoading: isLoadingCustomers } = useQuery({
     queryKey: ['customers'],
     queryFn: getCustomersService,
   });

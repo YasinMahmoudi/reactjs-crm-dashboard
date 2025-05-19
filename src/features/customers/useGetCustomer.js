@@ -8,7 +8,7 @@ function useGetCustomer() {
   const id = searchParams.get('id');
 
 
-  const { data: customer, isPending: isLoadingCustomer } = useQuery({
+  const { data: customer, isLoading: isLoadingCustomer } = useQuery({
     queryKey: ['customer', id],
     queryFn: () => getCustomerService(id),
     enabled: id !== null,

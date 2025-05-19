@@ -1,6 +1,8 @@
 import { CircularProgress } from '@mui/material';
 import DataTable from '../../components/Table';
 import { useGetCustomers } from './useGetCustomers';
+import { useSearchCustomers } from './useSearchCustomers';
+
 import CustomerActions from './CustomerActions';
 
 const headCells = [
@@ -45,12 +47,20 @@ const headCells = [
 
 export default function CustomersTable() {
   const { customers, isLoadingCustomers } = useGetCustomers();
+  const { searchCustomers, isLoadingSearchCustomers } = useSearchCustomers();
 
-  if (isLoadingCustomers) return <CircularProgress />;
+  if (isLoadingCustomers || isLoadingSearchCustomers)
+    return <CircularProgress />;
+
+  if (
+    customers.length === 0 ||
+    (Array.isArray(searchCustomers) && searchCustomers.length === 0)
+  )
+    return <p> No data found </p>;
 
   return (
     <DataTable
-      data={customers}
+      data={searchCustomers || customers}
       hasPagination={true}
       hasToolbar={true}
       title="Customers">

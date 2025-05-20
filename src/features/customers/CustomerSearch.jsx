@@ -3,23 +3,27 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 function CustomerSearch() {
-  const [query, setQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [query, setQuery] = useState(function () {
+    return searchParams.get('query') || '';
+  });
 
   useEffect(
     function () {
-
-      if (!query)
-        setSearchParams((searchParams) => searchParams.delete('query'));
+      if (searchParams.has('query') && searchParams.get('query').length < 1) {
+        searchParams.delete('query');
+        setSearchParams(searchParams);
+      }
     },
-    [query, setSearchParams]
+    [searchParams, query, setSearchParams]
   );
 
   function handleQueyParam(e) {
     setQuery(e.target.value);
 
     searchParams.set('query', e.target.value);
-    
+
     setSearchParams(searchParams);
   }
 

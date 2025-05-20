@@ -89,8 +89,6 @@ export function DataTable({
         setSelected,
         page,
         rowsPerPage,
-        handleChangePage,
-        handleChangeRowsPerPage,
         data,
         order,
         orderBy,
@@ -101,7 +99,7 @@ export function DataTable({
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
         {hasToolbar && <Toolbar />}
 
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 500 }}>
           <Table stickyHeader>{children}</Table>
         </TableContainer>
 
@@ -198,12 +196,12 @@ function Body({ render }) {
       {visibleRows.map(render)}
 
       {emptyRows > 0 && (
-        <Row
+        <TableRow
           style={{
-            height: 53 * emptyRows,
+            height: 73 * emptyRows,
           }}>
-          <TableCell colSpan={6} />
-        </Row>
+          <TableCell colSpan={10} />
+        </TableRow>
       )}
     </TableBody>
   );
@@ -231,8 +229,8 @@ function Row({ row, ActionsComponent = <></> }) {
     setSelected(newSelected);
   };
 
-  const isItemSelected = selected.includes(row._id);
-  const labelId = `enhanced-table-checkbox-${row._id}`;
+  const isItemSelected = selected?.includes(row?._id);
+  const labelId = `enhanced-table-checkbox-${row?._id}`;
 
   return (
     <>
@@ -240,11 +238,11 @@ function Row({ row, ActionsComponent = <></> }) {
         hover
         role="checkbox"
         tabIndex={-1}
-        key={row._id}
+        key={row?._id}
         sx={{ cursor: 'pointer' }}>
         <TableCell padding="checkbox">
           <Checkbox
-            onClick={(event) => handleClick(event, row._id)}
+            onClick={(event) => handleClick(event, row?._id)}
             aria-checked={isItemSelected}
             selected={isItemSelected}
             color="primary"
@@ -259,12 +257,12 @@ function Row({ row, ActionsComponent = <></> }) {
           id={labelId}
           scope="row"
           padding="none">
-          {row.name}
+          {row?.name}
         </TableCell>
-        <TableCell align="right">{row.country}</TableCell>
-        <TableCell align="right">{row.address}</TableCell>
-        <TableCell align="right">{row.phone}</TableCell>
-        <TableCell align="right">{row.email}</TableCell>
+        <TableCell align="right">{row?.country}</TableCell>
+        <TableCell align="right">{row?.address}</TableCell>
+        <TableCell align="right">{row?.phone}</TableCell>
+        <TableCell align="right">{row?.email}</TableCell>
 
         <TableCell align="right">{ActionsComponent}</TableCell>
       </TableRow>

@@ -14,12 +14,11 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Pagination, Stack, Typography } from '@mui/material';
 import { getComparator } from '../../utils/getComparator';
 
 DataTable.propTypes = {
@@ -48,15 +47,12 @@ const TableContext = createContext();
 export function DataTable({
   children,
   data,
-  hasPagination = false,
   hasToolbar = false,
   title = 'Provide your table name here ...',
 }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -73,22 +69,11 @@ export function DataTable({
     setSelected([]);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
     <TableContext.Provider
       value={{
         selected,
         setSelected,
-        page,
-        rowsPerPage,
         data,
         order,
         orderBy,
@@ -103,17 +88,7 @@ export function DataTable({
           <Table stickyHeader>{children}</Table>
         </TableContainer>
 
-        {hasPagination && (
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        )}
+        <TablePagination />
       </Paper>
     </TableContext.Provider>
   );
@@ -177,34 +152,16 @@ function Head({ headCells }) {
 }
 
 function Body({ render }) {
-  const { data, page, rowsPerPage, order, orderBy } = useContext(TableContext);
+  const { data, order, orderBy } = useContext(TableContext);
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
   const visibleRows = React.useMemo(
-    () =>
-      [...data]
-        .sort(getComparator(order, orderBy))
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [data, order, orderBy, page, rowsPerPage]
+    () => [...data].sort(getComparator(order, orderBy)),
+    [data, order, orderBy]
   );
 
-  return (
-    <TableBody>
-      {visibleRows.map(render)}
-
-      {emptyRows > 0 && (
-        <TableRow
-          style={{
-            height: 73 * emptyRows,
-          }}>
-          <TableCell colSpan={10} />
-        </TableRow>
-      )}
-    </TableBody>
-  );
+  return <TableBody>{visibleRows.map(render)}</TableBody>;
 }
 
 function Row({ row, ActionsComponent = <></> }) {
@@ -324,8 +281,27 @@ function Toolbar() {
   );
 }
 
+function TablePagination() {
+  return (
+    <Stack
+      width={'100%'}
+      borderTop={1}
+      borderColor={'#e3e3e3'}
+      sx={{
+        paddingBlock: '1.25rem',
+        alignItems: 'flex-end',
+      }}>
+      <Pagination
+        count={10}
+        shape="rounded"
+      />
+    </Stack>
+  );
+}
+
 DataTable.Head = Head;
 DataTable.Row = Row;
 DataTable.Body = Body;
+DataTable.Pagination = Pagination;
 
 export default DataTable;

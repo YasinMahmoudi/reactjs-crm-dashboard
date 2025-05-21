@@ -1,8 +1,24 @@
 import { API_URL } from '../../utils/constants';
 
-export async function getCustomersService() {
+export const LIMIT_ITEMS = 5;
+
+export async function getCustomersService({ page = 1, query = '' }) {
+  const searchableFields = ['name'];
+
+  let fetchUrl;
+
+  if (query) {
+    fetchUrl = `${API_URL}/client/list?page=${page}&items=${LIMIT_ITEMS}&q=${query}&fields=${[
+      ...searchableFields,
+    ]}`;
+  }
+
+  if (!query) {
+    fetchUrl = `${API_URL}/client/list?page=${page}&items=${LIMIT_ITEMS}`;
+  }
+
   try {
-    const res = await fetch(`${API_URL}/client/list`, {
+    const res = await fetch(fetchUrl, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -95,39 +111,6 @@ export async function deleteCustomerService(id) {
 
     return data;
   } catch (error) {
-    return error;
-  }
-}
-
-export async function searchCustomerService(query) {
-  const fields = ['name'];
-
-  const controller = new AbortController();
-  const timeoutSignal = AbortSignal.timeout(5000);
-
-  try {
-    const res = await fetch(
-      `${API_URL}/client/search?q=${query}&fields=${[...fields]}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        signal: AbortSignal.any([controller.signal, timeoutSignal]),
-      }
-    );
-
-    if (!res.ok) throw new Error(data.message);
-
-    const data = await res.json();
-
-    return data.result;
-  } catch (error) {
-    if (error.name === 'AbortError' || error.name === 'TimeoutError') return;
-
-    console.log(error);
-
     return error;
   }
 }

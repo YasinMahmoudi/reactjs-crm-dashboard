@@ -1,7 +1,6 @@
 import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import React, { createContext, useContext } from 'react';
 import TableSortLabel from '@mui/material/TableSortLabel';
@@ -18,15 +17,27 @@ import TableRow from '@mui/material/TableRow';
 
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
-import { Box, IconButton, Pagination, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  IconButton,
+  Pagination,
+  Skeleton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { getComparator } from '../../utils/getComparator';
+import { useSearchParams } from 'react-router';
+import { LIMIT_ITEMS } from '../../services/customers/customer';
 
 DataTable.propTypes = {
   children: PropTypes.array,
   data: PropTypes.array,
+  pagination: PropTypes.object,
   hasPagination: PropTypes.bool,
   hasToolbar: PropTypes.bool,
   title: PropTypes.string,
+  state: PropTypes.bool,
 };
 
 Head.propTypes = {
@@ -42,16 +53,23 @@ Body.propTypes = {
   render: PropTypes.func,
 };
 
+TablePagination.propTypes = {
+  data: PropTypes.array,
+  pagination: PropTypes.object,
+};
+
 const TableContext = createContext();
 
 export function DataTable({
   children,
+  state = true,
   data,
+  pagination = {},
   hasToolbar = false,
   title = 'Provide your table name here ...',
 }) {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
 
   const handleRequestSort = (event, property) => {
@@ -69,26 +87,55 @@ export function DataTable({
     setSelected([]);
   };
 
+  if (state)
+    return (
+      <TableContext.Provider
+        value={{
+          title,
+          state,
+        }}>
+        <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
+          {hasToolbar && <Toolbar />}
+
+          <TableContainer sx={{ minHeight: 400, maxHeight: 500 }}>
+            <Table stickyHeader>
+              <TableBody>
+                <RowSkeleton />
+                <RowSkeleton />
+                <RowSkeleton />
+                <RowSkeleton />
+                <RowSkeleton />
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <PaginationSkeleton />
+        </Paper>
+      </TableContext.Provider>
+    );
+
   return (
     <TableContext.Provider
       value={{
         selected,
         setSelected,
         data,
+        pagination,
         order,
         orderBy,
         handleRequestSort,
         handleSelectAllClick,
         title,
+        state,
       }}>
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
         {hasToolbar && <Toolbar />}
 
-        <TableContainer sx={{ maxHeight: 500 }}>
+        <TableContainer sx={{ minHeight: 400, maxHeight: 500 }}>
           <Table stickyHeader>{children}</Table>
         </TableContainer>
 
-        <TablePagination />
+        {pagination?.count > 1 && <TablePagination />}
       </Paper>
     </TableContext.Provider>
   );
@@ -128,8 +175,7 @@ function Head({ headCells }) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            padding={'normal'}
             sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -152,16 +198,36 @@ function Head({ headCells }) {
 }
 
 function Body({ render }) {
-  const { data, order, orderBy } = useContext(TableContext);
+  const {
+    data,
+    order,
+    orderBy,
+    pagination: { page },
+  } = useContext(TableContext);
 
   // Avoid a layout jump when reaching the last page with empty rows.
+
+  const emptyRows = page > 1 ? Math.max(0, LIMIT_ITEMS - data.length) : 0;
 
   const visibleRows = React.useMemo(
     () => [...data].sort(getComparator(order, orderBy)),
     [data, order, orderBy]
   );
 
-  return <TableBody>{visibleRows.map(render)}</TableBody>;
+  return (
+    <TableBody>
+      {visibleRows.map(render)}
+
+      {emptyRows > 0 && (
+        <TableRow
+          style={{
+            height: 73 * emptyRows,
+          }}>
+          <TableCell colSpan={10} />
+        </TableRow>
+      )}
+    </TableBody>
+  );
 }
 
 function Row({ row, ActionsComponent = <></> }) {
@@ -216,19 +282,67 @@ function Row({ row, ActionsComponent = <></> }) {
           padding="none">
           {row?.name}
         </TableCell>
-        <TableCell align="right">{row?.country}</TableCell>
-        <TableCell align="right">{row?.address}</TableCell>
-        <TableCell align="right">{row?.phone}</TableCell>
-        <TableCell align="right">{row?.email}</TableCell>
+        <TableCell>{row?.country}</TableCell>
+        <TableCell>{row?.address}</TableCell>
+        <TableCell>{row?.phone}</TableCell>
+        <TableCell>{row?.email}</TableCell>
 
-        <TableCell align="right">{ActionsComponent}</TableCell>
+        <TableCell>{ActionsComponent}</TableCell>
+      </TableRow>
+    </>
+  );
+}
+
+function RowSkeleton() {
+  return (
+    <>
+      <TableRow
+        hover
+        role="checkbox"
+        tabIndex={-1}
+        key={3}
+        sx={{ cursor: 'pointer' }}>
+        <TableCell>
+          <Skeleton
+            animation="wave"
+            variant="rounded"
+            width={20}
+            height={20}
+          />
+        </TableCell>
+        <TableCell
+          component="th"
+          scope="row">
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
+
+        <TableCell>
+          <Skeleton animation="wave" />
+        </TableCell>
       </TableRow>
     </>
   );
 }
 
 function Toolbar() {
-  const { selected, title } = useContext(TableContext);
+  const {
+    selected = [],
+    title,
+    pagination: { count } = {},
+    state,
+  } = useContext(TableContext);
 
   const numSelected = selected.length;
 
@@ -249,7 +363,7 @@ function Toolbar() {
       ]}>
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ marginRight: 'auto' }}
           color="inherit"
           variant="subtitle1"
           component="div">
@@ -257,7 +371,7 @@ function Toolbar() {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ marginRight: 'auto' }}
           variant="h6"
           id="tableTitle"
           component="div">
@@ -271,29 +385,88 @@ function Toolbar() {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <Typography
+          variant="subtitle1"
+          sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span>Totla items :</span>
+          {state ? (
+            <span>
+              <CircularProgress
+                color="warning"
+                size={15}
+              />
+            </span>
+          ) : (
+            <span>{count}</span>
+          )}
+        </Typography>
       )}
     </TableToolbar>
   );
 }
 
 function TablePagination() {
+  const { pagination } = useContext(TableContext);
+
+  const { page, pages: count } = pagination;
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = parseInt(page);
+
+  function handleChange(_e, value) {
+    searchParams.set('page', value);
+    setSearchParams(searchParams);
+  }
+
   return (
     <Stack
       width={'100%'}
       borderTop={1}
       borderColor={'#e3e3e3'}
       sx={{
-        paddingBlock: '1.25rem',
+        padding: '1.25rem',
         alignItems: 'flex-end',
       }}>
       <Pagination
-        count={10}
+        count={count}
+        page={currentPage}
         shape="rounded"
+        onChange={handleChange}
+        color="primary"
+      />
+    </Stack>
+  );
+}
+
+function PaginationSkeleton() {
+  return (
+    <Stack
+      width={'100%'}
+      borderTop={1}
+      borderColor={'#e3e3e3'}
+      sx={{
+        padding: '1.25rem',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        gap: '10px',
+      }}>
+      <Skeleton
+        width={40}
+        height={50}
+      />
+      <Skeleton
+        width={40}
+        height={50}
+      />
+      <Skeleton
+        width={40}
+        height={50}
+      />
+      <Skeleton
+        width={40}
+        height={50}
       />
     </Stack>
   );
@@ -302,6 +475,5 @@ function TablePagination() {
 DataTable.Head = Head;
 DataTable.Row = Row;
 DataTable.Body = Body;
-DataTable.Pagination = Pagination;
 
 export default DataTable;

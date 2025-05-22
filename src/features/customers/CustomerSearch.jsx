@@ -22,6 +22,7 @@ function CustomerSearch() {
   function handleQueyParam(e) {
     setQuery(e.target.value);
 
+    searchParams.set('page', '1');
     searchParams.set('query', e.target.value);
 
     setSearchParams(searchParams);

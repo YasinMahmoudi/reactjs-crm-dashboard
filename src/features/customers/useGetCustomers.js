@@ -9,13 +9,16 @@ function useGetCustomers() {
 
   const page = searchParams.get('page') ?? 1;
 
-
   const { data, isLoading: isLoadingCustomers } = useQuery({
-    queryKey: ['customers' , page , query],
-    queryFn: () => getCustomersService ({page , query}),
+    queryKey: ['customers', page, query],
+    queryFn: () => getCustomersService({ page, query }),
   });
 
-  return { customers: data?.result, isLoadingCustomers };
+  return {
+    customers: data?.result,
+    pagination: data?.pagination,
+    isLoadingCustomers,
+  };
 }
 
 export { useGetCustomers };

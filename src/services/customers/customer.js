@@ -1,6 +1,6 @@
 import { API_URL } from '../../utils/constants';
 
-export const LIMIT_ITEMS = 1;
+export const LIMIT_ITEMS = 5;
 
 export async function getCustomersService({ page = 1, query = '' }) {
   const searchableFields = ['name'];

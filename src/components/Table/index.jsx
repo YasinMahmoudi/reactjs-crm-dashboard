@@ -170,6 +170,7 @@ function Head({ headCells }) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
+            id='check-all-head'
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -273,6 +274,7 @@ function Row({ row, ActionsComponent = <></> }) {
             inputProps={{
               'aria-labelledby': labelId,
             }}
+            id={`${row._id}`}
           />
         </TableCell>
         <TableCell

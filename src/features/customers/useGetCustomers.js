@@ -9,14 +9,17 @@ function useGetCustomers() {
 
   const query = searchParams.get('query') || null;
 
-  const page = parseInt(searchParams.get('page') ?? 1);
+  const page = !searchParams.has('page') ? 1 : Number(searchParams.get('page'));
 
-  const { data, isLoading: isLoadingCustomers } = useQuery({
+  const {
+    data: { result, pagination, pagination: { pages } = {} } = {},
+    isLoading: isLoadingCustomers,
+  } = useQuery({
     queryKey: ['customers', page, query],
     queryFn: () => getCustomersService({ page, query }),
   });
 
-  if (page < data?.pagination.pages) {
+  if (page < pages) {
     queryClient.prefetchQuery({
       queryKey: ['customers', page + 1, query],
       queryFn: () => getCustomersService({ page: page + 1, query }),
@@ -30,8 +33,8 @@ function useGetCustomers() {
     });
 
   return {
-    customers: data?.result,
-    pagination: data?.pagination,
+    customers: result,
+    pagination: pagination,
     isLoadingCustomers,
   };
 }

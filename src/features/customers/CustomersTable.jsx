@@ -1,7 +1,7 @@
-import DataTable from '../../components/Table';
 import { useGetCustomers } from './useGetCustomers';
 
 import CustomerActions from './CustomerActions';
+import { DataTable } from '../../components/Table';
 
 const headCells = [
   {

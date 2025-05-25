@@ -1,16 +1,22 @@
-import { useTable } from '..';
+import PropTypes from 'prop-types';
 import TableToolbar from '@mui/material/Toolbar';
-import { alpha, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material';
+import {
+  alpha,
+  CircularProgress,
+  IconButton,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import { useTable } from '../TableContext/useTable';
 
+Toolbar.propTypes = {
+  title: PropTypes.string,
+  state: PropTypes.bool,
+};
 
-export default function Toolbar() {
-  const {
-    selected = [],
-    title,
-    pagination: { count } = {},
-    state,
-  } = useTable();
+export default function Toolbar({ title, state }) {
+  const { selected = [], pagination: { count } = {} } = useTable();
 
   const numSelected = selected.length;
 
@@ -72,5 +78,3 @@ export default function Toolbar() {
     </TableToolbar>
   );
 }
-
-

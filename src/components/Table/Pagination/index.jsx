@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useTable } from '..';
 import { useSearchParams } from 'react-router';
 import { Pagination as TablePagination, Stack } from '@mui/material';
+import { useTable } from '../TableContext/useTable';
 
 Pagination.propTypes = {
   data: PropTypes.array,

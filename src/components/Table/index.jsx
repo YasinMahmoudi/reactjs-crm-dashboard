@@ -1,21 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useContext } from 'react';
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
+import React from 'react';
 
 import Paper from '@mui/material/Paper';
 import Body from './Body';
-import Head from './Head';
-import Pagination from './Pagination';
-import SkeletonType from './SkeletonType';
-import PaginationSkeleton from './SkeletonType/PaginationSkeleton';
-import RowSkeleton from './SkeletonType/RowSkeleton';
-import Toolbar from './Toolbar';
 import Row from './Body/Row';
+import Head from './Head';
+import { TableContext } from './TableContext';
+import TableLoader from './TableLoader';
+import DataTable from './DataTable';
 
-DataTable.propTypes = {
+Table.propTypes = {
   children: PropTypes.array,
   data: PropTypes.array,
   pagination: PropTypes.object,
@@ -25,9 +19,7 @@ DataTable.propTypes = {
   state: PropTypes.bool,
 };
 
-const TableContext = createContext();
-
-function DataTable({
+export default function Table({
   children,
   state = true,
   data,
@@ -54,49 +46,6 @@ function DataTable({
     setSelected([]);
   };
 
-  if (state)
-    return (
-      <TableContext.Provider
-        value={{
-          title,
-          state,
-        }}>
-        <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
-          {hasToolbar && <Toolbar />}
-
-          <TableContainer sx={{ minHeight: 400, maxHeight: 500 }}>
-            <Table stickyHeader>
-              <TableBody>
-                <SkeletonType>
-                  <RowSkeleton />
-                </SkeletonType>
-
-                <SkeletonType>
-                  <RowSkeleton />
-                </SkeletonType>
-
-                <SkeletonType>
-                  <RowSkeleton />
-                </SkeletonType>
-
-                <SkeletonType>
-                  <RowSkeleton />
-                </SkeletonType>
-
-                <SkeletonType>
-                  <RowSkeleton />
-                </SkeletonType>
-              </TableBody>
-            </Table>
-          </TableContainer>
-
-          <SkeletonType>
-            <PaginationSkeleton />
-          </SkeletonType>
-        </Paper>
-      </TableContext.Provider>
-    );
-
   return (
     <TableContext.Provider
       value={{
@@ -112,30 +61,20 @@ function DataTable({
         state,
       }}>
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
-        {hasToolbar && <Toolbar />}
-
-        <TableContainer sx={{ minHeight: 400, maxHeight: 500 }}>
-          <Table stickyHeader>{children}</Table>
-        </TableContainer>
-
-        {pagination?.count > 1 && <Pagination />}
+        {state ? (
+          <TableLoader />
+        ) : (
+          <DataTable
+            pagination={pagination}
+            hasToolbar={hasToolbar}>
+            {children}
+          </DataTable>
+        )}
       </Paper>
     </TableContext.Provider>
   );
 }
 
-
-DataTable.Head = Head;
-DataTable.Row = Row;
-DataTable.Body = Body;
-
-function useTable() {
-  const context = useContext(TableContext);
-
-  if (context === undefined)
-    throw new Error('Using context outside of provide !');
-
-  return context;
-}
-
-export { DataTable, useTable };
+Table.Head = Head;
+Table.Row = Row;
+Table.Body = Body;

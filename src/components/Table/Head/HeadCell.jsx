@@ -1,7 +1,7 @@
 import { Box, TableCell, TableSortLabel } from '@mui/material';
-import { useTable } from '..';
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
+import { useTable } from '../TableContext/useTable';
 
 HeadCell.propTypes = {
   headCell: PropTypes.object,

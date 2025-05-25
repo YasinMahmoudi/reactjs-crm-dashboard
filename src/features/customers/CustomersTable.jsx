@@ -1,7 +1,7 @@
 import { useGetCustomers } from './useGetCustomers';
 
-import CustomerActions from './CustomerActions';
-import { DataTable } from '../../components/Table';
+import DataTable from '../../components/Table';
+import CustomerTableBody from './CustomerTableBody';
 
 const headCells = [
   {
@@ -51,15 +51,8 @@ export default function CustomersTable() {
       hasToolbar={true}
       title="Customers">
       <DataTable.Head headCells={headCells} />
-      <DataTable.Body
-        render={(row) => (
-          <DataTable.Row
-            key={row._id}
-            row={row}
-            ActionsComponent={<CustomerActions id={row._id} />}
-          />
-        )}
-      />
+
+      <CustomerTableBody />
     </DataTable>
   );
 }

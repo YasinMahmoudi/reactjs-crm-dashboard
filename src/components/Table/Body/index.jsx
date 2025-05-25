@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTable } from '..';
 import { LIMIT_ITEMS } from '../../../services/customers/customer';
 import { getComparator } from '../../../utils/getComparator';
 import { TableBody, TableCell, TableRow } from '@mui/material';
+import { useTable } from '../TableContext/useTable';
 
 Body.propTypes = {
   render: PropTypes.func,

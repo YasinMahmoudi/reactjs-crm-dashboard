@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types';
-import { useTable } from '..';
 import { Checkbox, TableCell, TableRow } from '@mui/material';
+import { useTable } from '../TableContext/useTable';
 
 Row.propTypes = {
-  row: PropTypes.object,
+  rowId: PropTypes.string,
   ActionsComponent: PropTypes.object,
+  hasChechBox: PropTypes.bool,
+  children: PropTypes.object,
 };
-function Row({ row, ActionsComponent = <></> }) {
+function Row({
+  rowId,
+  ActionsComponent = <></>,
+  hasChechBox = true,
+  children,
+}) {
   const { selected, setSelected } = useTable();
 
   const handleClick = (event, id) => {
@@ -28,8 +35,8 @@ function Row({ row, ActionsComponent = <></> }) {
     setSelected(newSelected);
   };
 
-  const isItemSelected = selected?.includes(row?._id);
-  const labelId = `enhanced-table-checkbox-${row?._id}`;
+  const isItemSelected = selected?.includes(rowId);
+  const labelId = `enhanced-table-checkbox-${rowId}`;
 
   return (
     <>
@@ -37,32 +44,25 @@ function Row({ row, ActionsComponent = <></> }) {
         hover
         role="checkbox"
         tabIndex={-1}
-        key={row?._id}
+        key={rowId}
         sx={{ cursor: 'pointer' }}>
-        <TableCell padding="checkbox">
-          <Checkbox
-            onClick={(event) => handleClick(event, row?._id)}
-            aria-checked={isItemSelected}
-            selected={isItemSelected}
-            color="primary"
-            checked={isItemSelected}
-            inputProps={{
-              'aria-labelledby': labelId,
-            }}
-            id={`${row._id}`}
-          />
-        </TableCell>
-        <TableCell
-          component="th"
-          id={labelId}
-          scope="row"
-          padding="none">
-          {row?.name}
-        </TableCell>
-        <TableCell>{row?.country}</TableCell>
-        <TableCell>{row?.address}</TableCell>
-        <TableCell>{row?.phone}</TableCell>
-        <TableCell>{row?.email}</TableCell>
+        {hasChechBox && (
+          <TableCell padding="checkbox">
+            <Checkbox
+              onClick={(event) => handleClick(event, rowId)}
+              aria-checked={isItemSelected}
+              selected={isItemSelected}
+              color="primary"
+              checked={isItemSelected}
+              inputProps={{
+                'aria-labelledby': labelId,
+              }}
+              id={`${rowId}`}
+            />
+          </TableCell>
+        )}
+
+        {children}
 
         <TableCell>{ActionsComponent}</TableCell>
       </TableRow>

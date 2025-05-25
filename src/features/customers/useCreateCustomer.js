@@ -14,7 +14,6 @@ function useCreateCustomer() {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: ['customers'],
-          exact: true,
         });
 
         toast.success('Customer created successfuly');

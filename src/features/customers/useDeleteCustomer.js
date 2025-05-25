@@ -12,7 +12,6 @@ function useDeleteCustomer() {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: ['customers'],
-          exact: true,
         });
 
         toast.success('Customer deleted successfuly');

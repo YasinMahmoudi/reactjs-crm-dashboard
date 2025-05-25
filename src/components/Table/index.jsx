@@ -45,7 +45,7 @@ export default function Table({
     }
     setSelected([]);
   };
-
+  
   return (
     <TableContext.Provider
       value={{

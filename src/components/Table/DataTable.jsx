@@ -1,6 +1,7 @@
-import { Pagination, Table, TableContainer } from '@mui/material';
+import { Table, TableContainer } from '@mui/material';
 import PropTypes from 'prop-types';
 import Toolbar from './Toolbar';
+import Pagination from './Pagination';
 
 DataTable.propTypes = {
   children: PropTypes.array,
@@ -8,7 +9,7 @@ DataTable.propTypes = {
   hasToolbar: PropTypes.bool,
 };
 
-function DataTable({ hasToolbar = true, pagination, children }) {
+function DataTable({ hasToolbar = true, pagination, children }) { 
   return (
     <>
       {hasToolbar && <Toolbar />}
@@ -17,7 +18,7 @@ function DataTable({ hasToolbar = true, pagination, children }) {
         <Table stickyHeader>{children}</Table>
       </TableContainer>
 
-      {pagination?.count > 1 && <Pagination />}
+      {pagination.pages > 1 && <Pagination />}
     </>
   );
 }

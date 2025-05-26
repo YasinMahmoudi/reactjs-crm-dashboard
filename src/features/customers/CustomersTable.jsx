@@ -1,5 +1,7 @@
 import { useGetCustomers } from './useGetCustomers';
 
+import { useSearchParams } from 'react-router';
+import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import CustomerTableBody from './CustomerTableBody';
 
@@ -40,8 +42,11 @@ const headCells = [
 
 export default function CustomersTable() {
   const { customers, pagination, isLoadingCustomers } = useGetCustomers();
+  const [searchParams] = useSearchParams();
 
-  if (customers?.length === 0) return <p> No data found </p>;
+  const query = searchParams.get('query');
+
+  if (customers?.length === 0) return <EmptyResource keyWord={query} resourceName="Customer" />;
 
   return (
     <DataTable

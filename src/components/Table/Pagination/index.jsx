@@ -9,7 +9,7 @@ Pagination.propTypes = {
 };
 
 export default function Pagination() {
-  const { pagination } = useTable();
+  const { pagination , setSelected } = useTable();
 
   const { page, pages: count } = pagination;
 
@@ -20,6 +20,7 @@ export default function Pagination() {
   function handleChange(_e, value) {
     searchParams.set('page', value);
     setSearchParams(searchParams);
+    setSelected([])
   }
 
   return (

@@ -4,7 +4,7 @@ import { useTable } from '../TableContext/useTable';
 HeadCheckAll.propTypes = {};
 
 function HeadCheckAll() {
-  const { handleSelectAllClick, selected, data } = useTable();
+  const { handleSelectAllClick, selected, data , isDeletingMultipleRecords} = useTable();
 
   const numSelected = selected.length;
   const rowCount = data.length;
@@ -20,6 +20,7 @@ function HeadCheckAll() {
           'aria-label': 'select all desserts',
         }}
         id="check-all-head"
+        disabled={isDeletingMultipleRecords}
       />
     </TableCell>
   );

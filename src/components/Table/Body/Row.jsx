@@ -14,7 +14,7 @@ function Row({
   hasChechBox = true,
   children,
 }) {
-  const { selected, setSelected } = useTable();
+  const { selected, setSelected , isDeletingMultipleRecords } = useTable();
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);
@@ -58,6 +58,7 @@ function Row({
                 'aria-labelledby': labelId,
               }}
               id={`${rowId}`}
+              disabled={isDeletingMultipleRecords}
             />
           </TableCell>
         )}

@@ -9,7 +9,7 @@ DataTable.propTypes = {
   hasToolbar: PropTypes.bool,
 };
 
-function DataTable({ hasToolbar = true, pagination, children }) { 
+function DataTable({ hasToolbar = true, pagination, children }) {
   return (
     <>
       {hasToolbar && <Toolbar />}

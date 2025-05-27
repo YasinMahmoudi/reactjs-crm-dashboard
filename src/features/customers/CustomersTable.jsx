@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import CustomerTableBody from './CustomerTableBody';
+import { useDeleteManyCustomers } from './useDeleteMany';
 
 const headCells = [
   {
@@ -42,11 +43,21 @@ const headCells = [
 
 export default function CustomersTable() {
   const { customers, pagination, isLoadingCustomers } = useGetCustomers();
+
+  const { deleteManyCustomers, isDeletingManyCustomers } =
+    useDeleteManyCustomers();
+
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('query');
 
-  if (customers?.length === 0) return <EmptyResource keyWord={query} resourceName="Customer" />;
+  if (customers?.length === 0)
+    return (
+      <EmptyResource
+        keyWord={query}
+        resourceName="Customer"
+      />
+    );
 
   return (
     <DataTable
@@ -54,6 +65,8 @@ export default function CustomersTable() {
       data={customers}
       pagination={pagination}
       hasToolbar={true}
+      isDeletingMultipleRecords={isDeletingManyCustomers}
+      onDeleteMultipleRecords={deleteManyCustomers}
       title="Customers">
       <DataTable.Head headCells={headCells} />
 

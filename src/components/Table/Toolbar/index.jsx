@@ -1,5 +1,4 @@
-import PropTypes from 'prop-types';
-import TableToolbar from '@mui/material/Toolbar';
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import {
   alpha,
   CircularProgress,
@@ -7,7 +6,8 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import TableToolbar from '@mui/material/Toolbar';
+import PropTypes from 'prop-types';
 import { useTable } from '../TableContext/useTable';
 
 Toolbar.propTypes = {
@@ -16,9 +16,18 @@ Toolbar.propTypes = {
 };
 
 export default function Toolbar({ title, state }) {
-  const { selected = [], pagination: { count } = {} } = useTable();
+  const {
+    selected = [],
+    pagination: { count } = {},
+    onDeleteMultipleRecords,
+    isDeletingMultipleRecords,
+  } = useTable();
 
   const numSelected = selected.length;
+
+  function handleDeleteMultipleRecords() {
+    onDeleteMultipleRecords(selected);
+  }
 
   return (
     <TableToolbar
@@ -53,11 +62,18 @@ export default function Toolbar({ title, state }) {
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        isDeletingMultipleRecords ? (
+          <CircularProgress
+            size={20}
+            color="info"
+          />
+        ) : (
+          <Tooltip title="Delete">
+            <IconButton onClick={handleDeleteMultipleRecords}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        )
       ) : (
         <Typography
           variant="subtitle1"

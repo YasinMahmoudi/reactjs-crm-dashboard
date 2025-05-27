@@ -8,7 +8,8 @@ HeadCell.propTypes = {
 };
 
 export default function HeadCell({ headCell }) {
-  const { order, orderBy, handleRequestSort } = useTable();
+  const { order, orderBy, handleRequestSort, isDeletingMultipleRecords } =
+    useTable();
 
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);
@@ -22,7 +23,9 @@ export default function HeadCell({ headCell }) {
       <TableSortLabel
         active={orderBy === headCell.id}
         direction={orderBy === headCell.id ? order : 'asc'}
-        onClick={createSortHandler(headCell.id)}>
+        onClick={
+          !isDeletingMultipleRecords ? createSortHandler(headCell.id) : null
+        }>
         {headCell.label}
         {orderBy === headCell.id ? (
           <Box

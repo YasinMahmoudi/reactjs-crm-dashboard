@@ -17,6 +17,8 @@ Table.propTypes = {
   hasToolbar: PropTypes.bool,
   title: PropTypes.string,
   state: PropTypes.bool,
+  isDeletingMultipleRecords: PropTypes.bool,
+  onDeleteMultipleRecords: PropTypes.func,
 };
 
 export default function Table({
@@ -26,6 +28,8 @@ export default function Table({
   pagination = {},
   hasToolbar = false,
   title = 'Provide your table name here ...',
+  isDeletingMultipleRecords,
+  onDeleteMultipleRecords,
 }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -45,7 +49,7 @@ export default function Table({
     }
     setSelected([]);
   };
-  
+
   return (
     <TableContext.Provider
       value={{
@@ -59,6 +63,8 @@ export default function Table({
         handleSelectAllClick,
         title,
         state,
+        isDeletingMultipleRecords,
+        onDeleteMultipleRecords
       }}>
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
         {state ? (

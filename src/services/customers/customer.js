@@ -114,3 +114,24 @@ export async function deleteCustomerService(id) {
     return error;
   }
 }
+
+export async function deleteManyCustomersService(ids = []) {
+
+  try {
+    const res = await fetch(`${API_URL}/client/delete-many`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ids),
+      credentials: 'include',
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

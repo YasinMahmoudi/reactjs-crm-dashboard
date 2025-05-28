@@ -41,14 +41,7 @@ export default function Table({
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = data.map((n) => n._id);
-      setSelected(newSelected);
-      return;
-    }
-    setSelected([]);
-  };
+
 
   return (
     <TableContext.Provider
@@ -60,7 +53,6 @@ export default function Table({
         order,
         orderBy,
         handleRequestSort,
-        handleSelectAllClick,
         title,
         state,
         isDeletingMultipleRecords,

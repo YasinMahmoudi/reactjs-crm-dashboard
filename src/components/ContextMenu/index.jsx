@@ -1,5 +1,5 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { CircularProgress, IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
@@ -55,10 +55,8 @@ export default function ContextMenu({ options }) {
               option.onClick?.();
               handleCloseDots();
             }}
-            sx={option.icon ? { gap: '5px' } : {}}
-            disabled={option.disabled}>
-            {option.loading && <CircularProgress size={15} />}
-            {!option.loading && option.icon && option.icon}
+            sx={option.icon ? { gap: '5px' } : {}}>
+            {option.icon}
             {option.name}
           </MenuItem>
         ))}

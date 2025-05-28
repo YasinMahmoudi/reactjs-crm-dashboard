@@ -5,6 +5,7 @@ import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import CustomerTableBody from './CustomerTableBody';
 import { useDeleteManyCustomers } from './useDeleteMany';
+import CustomerDeleteModal from './CustomerDeleteModal';
 
 const headCells = [
   {
@@ -60,17 +61,20 @@ export default function CustomersTable() {
     );
 
   return (
-    <DataTable
-      state={isLoadingCustomers}
-      data={customers}
-      pagination={pagination}
-      hasToolbar={true}
-      isDeletingMultipleRecords={isDeletingManyCustomers}
-      onDeleteMultipleRecords={deleteManyCustomers}
-      title="Customers">
-      <DataTable.Head headCells={headCells} />
+    <>
+      <DataTable
+        state={isLoadingCustomers}
+        data={customers}
+        pagination={pagination}
+        hasToolbar={true}
+        isDeletingMultipleRecords={isDeletingManyCustomers}
+        onDeleteMultipleRecords={deleteManyCustomers}
+        title="Customers">
+        <DataTable.Head headCells={headCells} />
 
-      <CustomerTableBody />
-    </DataTable>
+        <CustomerTableBody />
+      </DataTable>
+      <CustomerDeleteModal />
+    </>
   );
 }

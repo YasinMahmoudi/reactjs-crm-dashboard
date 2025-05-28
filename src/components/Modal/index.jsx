@@ -25,13 +25,13 @@ const style = {
 EnhancedModal.propTypes = {
   children: PropTypes.object,
   title: PropTypes.string,
+  isOpen: PropTypes.bool,
 };
 
-export default function EnhancedModal({ children, title='' }) {
-
+export default function EnhancedModal({ children, title = '', isOpen = true }) {
   const moveBack = useBack();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(isOpen);
 
   const handleClose = () => {
     setOpen(false);
@@ -61,8 +61,7 @@ export default function EnhancedModal({ children, title='' }) {
             <IconButton
               aria-label="close"
               color="error"
-              onClick={handleClose}
-              >
+              onClick={handleClose}>
               <CloseRounded />
             </IconButton>
           </Grid>

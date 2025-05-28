@@ -4,10 +4,19 @@ import { useTable } from '../TableContext/useTable';
 HeadCheckAll.propTypes = {};
 
 function HeadCheckAll() {
-  const { handleSelectAllClick, selected, data , isDeletingMultipleRecords} = useTable();
+  const { selected, setSelected, data, isDeletingMultipleRecords } = useTable();
 
   const numSelected = selected.length;
   const rowCount = data.length;
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelected = data.map((n) => n._id);
+      setSelected(newSelected);
+      return;
+    }
+    setSelected([]);
+  };
 
   return (
     <TableCell padding="checkbox">

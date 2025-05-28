@@ -7,20 +7,16 @@ import {
   Typography,
 } from '@mui/material';
 import TableToolbar from '@mui/material/Toolbar';
-import PropTypes from 'prop-types';
 import { useTable } from '../TableContext/useTable';
 
-Toolbar.propTypes = {
-  title: PropTypes.string,
-  state: PropTypes.bool,
-};
-
-export default function Toolbar({ title, state }) {
+export default function Toolbar() {
   const {
     selected = [],
     pagination: { count } = {},
     onDeleteMultipleRecords,
     isDeletingMultipleRecords,
+    title,
+    state,
   } = useTable();
 
   const numSelected = selected.length;

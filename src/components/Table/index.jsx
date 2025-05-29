@@ -8,6 +8,7 @@ import Head from './Head';
 import { TableContext } from './TableContext';
 import TableLoader from './TableLoader';
 import DataTable from './DataTable';
+import TableDeleteConfirm from './TableDeleteConfirm';
 
 Table.propTypes = {
   children: PropTypes.array,
@@ -41,8 +42,6 @@ export default function Table({
     setOrderBy(property);
   };
 
-
-
   return (
     <TableContext.Provider
       value={{
@@ -56,17 +55,20 @@ export default function Table({
         title,
         state,
         isDeletingMultipleRecords,
-        onDeleteMultipleRecords
+        onDeleteMultipleRecords,
       }}>
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
         {state ? (
           <TableLoader />
         ) : (
-          <DataTable
-            pagination={pagination}
-            hasToolbar={hasToolbar}>
-            {children}
-          </DataTable>
+          <>
+            <DataTable
+              pagination={pagination}
+              hasToolbar={hasToolbar}>
+              {children}
+            </DataTable>
+            <TableDeleteConfirm />
+          </>
         )}
       </Paper>
     </TableContext.Provider>

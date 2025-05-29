@@ -16,10 +16,8 @@ function useDeleteManyCustomers() {
 
         const deletCount = data.result.deletedCount;
 
-        console.log(deletCount)
-
-        const message = `${deletCount} ${
-          deletCount > 0 ? 'customers' : 'customer'
+        const message = ` ${
+          deletCount > 0 ? `${deletCount} customers ` : 'customer'
         }`;
 
         toast.success(`${message} deleted successfuly`);

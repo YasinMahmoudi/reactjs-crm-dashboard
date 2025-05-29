@@ -8,12 +8,14 @@ import {
 } from '@mui/material';
 import TableToolbar from '@mui/material/Toolbar';
 import { useTable } from '../TableContext/useTable';
+import { useSearchParams } from 'react-router';
 
 export default function Toolbar() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const {
     selected = [],
     pagination: { count } = {},
-    onDeleteMultipleRecords,
     isDeletingMultipleRecords,
     title,
     state,
@@ -21,8 +23,11 @@ export default function Toolbar() {
 
   const numSelected = selected.length;
 
-  function handleDeleteMultipleRecords() {
-    onDeleteMultipleRecords(selected);
+
+  function handleDeletModal() {
+    searchParams.set('delete-multiple', true);
+    setSearchParams(searchParams);
+
   }
 
   return (
@@ -65,7 +70,7 @@ export default function Toolbar() {
           />
         ) : (
           <Tooltip title="Delete">
-            <IconButton onClick={handleDeleteMultipleRecords}>
+            <IconButton onClick={handleDeletModal}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

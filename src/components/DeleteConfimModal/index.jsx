@@ -16,19 +16,33 @@ DeleteConfirmModal.propTypes = {
   onDelete: PropTypes.func,
   isDeleting: PropTypes.bool,
   resourceName: PropTypes.string,
+  deleteMultipleOptions: PropTypes.object,
 };
 
-function DeleteConfirmModal({ onDelete, isDeleting, resourceName = 'record' }) {
+function DeleteConfirmModal({
+  onDelete,
+  isDeleting,
+  resourceName = 'record',
+  deleteMultipleOptions: { params, resetParams },
+}) {
   const [open, setOpen] = React.useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const deleteId = searchParams.get('delete-id');
+  const isDeleteMultipe = searchParams.has('delete-multiple');
 
-  const lowerCaseResourceName = resourceName.toLocaleLowerCase()
+  const lowerCaseResourceName = `${
+    isDeleteMultipe
+      ? `${resourceName.toLocaleLowerCase()}s`
+      : resourceName.toLocaleLowerCase()
+  }`;
 
   useEffect(
     function () {
-      if (searchParams.has('delete-id')) {
+      const isOpenConfirmModal =
+        searchParams.has('delete-id') || searchParams.has('delete-multiple');
+
+      if (isOpenConfirmModal) {
         setOpen(true);
       }
     },
@@ -38,13 +52,18 @@ function DeleteConfirmModal({ onDelete, isDeleting, resourceName = 'record' }) {
   const handleClose = () => {
     setOpen(false);
     searchParams.delete('delete-id');
+    searchParams.delete('delete-multiple');
     setSearchParams(searchParams);
   };
 
   function handleDelete() {
-    onDelete(deleteId, {
+    const deletionParams = isDeleteMultipe ? params : deleteId;
+
+    onDelete(deletionParams, {
       onSuccess() {
         handleClose();
+
+        if (isDeleteMultipe) resetParams();
       },
     });
   }
@@ -62,7 +81,8 @@ function DeleteConfirmModal({ onDelete, isDeleting, resourceName = 'record' }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            By deleting a {lowerCaseResourceName} all of the informations deleted !
+            By deleting {lowerCaseResourceName} all of the informations deleted
+            !
           </DialogContentText>
         </DialogContent>
         <DialogActions>

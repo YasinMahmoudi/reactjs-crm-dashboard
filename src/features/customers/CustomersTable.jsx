@@ -4,8 +4,9 @@ import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import CustomerTableBody from './CustomerTableBody';
+import { useDeleteCustomer } from './useDeleteCustomer';
 import { useDeleteManyCustomers } from './useDeleteMany';
-import CustomerDeleteModal from './CustomerDeleteModal';
+
 
 const headCells = [
   {
@@ -45,12 +46,16 @@ const headCells = [
 export default function CustomersTable() {
   const { customers, pagination, isLoadingCustomers } = useGetCustomers();
 
+  const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
+
   const { deleteManyCustomers, isDeletingManyCustomers } =
     useDeleteManyCustomers();
 
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('query');
+
+  const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
   if (customers?.length === 0)
     return (
@@ -67,14 +72,13 @@ export default function CustomersTable() {
         data={customers}
         pagination={pagination}
         hasToolbar={true}
-        isDeletingMultipleRecords={isDeletingManyCustomers}
-        onDeleteMultipleRecords={deleteManyCustomers}
+        isDeletingMultipleRecords={isDeleteMultiple ? isDeletingManyCustomers : isDeletingCustomer}
+        onDeleteMultipleRecords={isDeleteMultiple ? deleteManyCustomers : deleteCustomer}
         title="Customers">
         <DataTable.Head headCells={headCells} />
 
         <CustomerTableBody />
       </DataTable>
-      <CustomerDeleteModal />
     </>
   );
 }

@@ -3,12 +3,13 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { CloseRounded } from '@mui/icons-material';
+import CloseRounded from '@mui/icons-material/CloseRounded';
 
 import { useBack } from '../../hooks/useBack';
 
 import PropTypes from 'prop-types';
-import { Grid, IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid';
 
 const style = {
   position: 'absolute',

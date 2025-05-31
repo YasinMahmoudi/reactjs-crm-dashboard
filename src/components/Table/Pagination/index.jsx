@@ -1,4 +1,6 @@
-import { Stack, Pagination as TablePagination } from '@mui/material';
+import TablePagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
 import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router';
 import { useTable } from '../TableContext/useTable';
@@ -9,7 +11,7 @@ Pagination.propTypes = {
 };
 
 export default function Pagination() {
-  const { pagination , setSelected } = useTable();
+  const { pagination, setSelected } = useTable();
 
   const { page, pages: count } = pagination;
 
@@ -20,7 +22,7 @@ export default function Pagination() {
   function handleChange(_e, value) {
     searchParams.set('page', value);
     setSearchParams(searchParams);
-    setSelected([])
+    setSelected([]);
   }
 
   return (

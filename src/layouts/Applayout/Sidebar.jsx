@@ -1,10 +1,15 @@
 import Paper from '@mui/material/Paper';
 
-import { Drawer } from '@mui/material';
+import  Drawer  from '@mui/material/Drawer';
 import styled from 'styled-components';
 import MainNav from '../../components/MainNav';
 
 import PropTypes from 'prop-types';
+
+Sidebar.propTypes = {
+  toggleSidebar: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+};
 
 const StyledSidebar = styled.aside`
   grid-column: 1 / 2;
@@ -41,14 +46,7 @@ export default function Sidebar({ toggleSidebar, open }) {
         </Drawer>
 
         <MainNav />
-
-
       </StyledPaper>
     </StyledSidebar>
   );
 }
-
-Sidebar.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-};

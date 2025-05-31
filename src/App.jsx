@@ -1,15 +1,21 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Login from './pages/Auth';
-import ForgetPassword from './features/auth/ForgetPassword';
-import Dashboard from './pages/dashboard';
-import AppLayout from './layouts/Applayout';
-import Invoices from './features/invoices';
-import Qoutes from './features/qoutes';
-import Settings from './features/settings';
-import About from './pages/About';
-import CustomersPage from './pages/Customers';
-import CustomerCreateModal from './features/customers/CustomerCreateModal';
-import PrivateRoute from './components/PrivateRoute';
+import PageLoader from './components/PageLoader';
+
+const PrivateRoute = lazy(() => import('./components/PrivateRoute'));
+const AppLayout = lazy(() => import('./layouts/Applayout'));
+
+const Login = lazy(() => import('./pages/Auth'));
+const ForgetPassword = lazy(() => import('./features/auth/ForgetPassword'));
+const Dashboard = lazy(() => import('./pages/dashboard'));
+const Invoices = lazy(() => import('./features/invoices'));
+const Qoutes = lazy(() => import('./features/qoutes'));
+const Settings = lazy(() => import('./features/settings'));
+const CustomerCreateModal = lazy(() =>
+  import('./features/customers/CustomerCreateModal')
+);
+const About = lazy(() => import('./pages/About'));
+const CustomersPage = lazy(() => import('./pages/Customers'));
 
 export default function App() {
   return (
@@ -18,7 +24,13 @@ export default function App() {
         <Routes>
           <Route
             index
-            element={<Login />}
+            element={
+              <Suspense
+                fallback={<PageLoader size={80} />}
+                key="login">
+                <Login />
+              </Suspense>
+            }
           />
 
           <Route
@@ -29,17 +41,31 @@ export default function App() {
           <Route
             element={
               <PrivateRoute>
-                <AppLayout />
+                <Suspense fallback={<PageLoader size={80} />}>
+                  <AppLayout />
+                </Suspense>
               </PrivateRoute>
             }>
             <Route
               path="dashboard"
-              element={<Dashboard />}
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="dashboard">
+                  <Dashboard />
+                </Suspense>
+              }
             />
 
             <Route
               path="customers"
-              element={<CustomersPage />}>
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="customers">
+                  <CustomersPage />
+                </Suspense>
+              }>
               <Route
                 path="create"
                 element={<CustomerCreateModal />}
@@ -48,22 +74,46 @@ export default function App() {
 
             <Route
               path="invoices"
-              element={<Invoices />}
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="invoices">
+                  <Invoices />
+                </Suspense>
+              }
             />
 
             <Route
               path="qoutes"
-              element={<Qoutes />}
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="qoutes">
+                  <Qoutes />
+                </Suspense>
+              }
             />
 
             <Route
               path="settings"
-              element={<Settings />}
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="settings">
+                  <Settings />
+                </Suspense>
+              }
             />
 
             <Route
               path="about"
-              element={<About />}
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="about">
+                  <About />
+                </Suspense>
+              }
             />
           </Route>
         </Routes>

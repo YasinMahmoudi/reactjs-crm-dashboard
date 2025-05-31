@@ -1,5 +1,8 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import IconButton from '@mui/material/IconButton';
+
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 

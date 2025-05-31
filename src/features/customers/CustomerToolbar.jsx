@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import MainButton from '../../components/MainButton';
 import MoveBackButton from '../../components/MoveBackButton';
 import RefreshButton from '../../components/RefreshButton';

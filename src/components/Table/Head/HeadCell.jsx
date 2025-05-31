@@ -1,4 +1,7 @@
-import { Box, TableCell, TableSortLabel } from '@mui/material';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import TableCell from '@mui/material/TableCell';
+import Box from '@mui/material/Box';
+
 import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
 import { useTable } from '../TableContext/useTable';

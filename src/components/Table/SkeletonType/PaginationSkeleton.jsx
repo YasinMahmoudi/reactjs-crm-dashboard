@@ -1,5 +1,5 @@
-import { Skeleton, Stack } from '@mui/material';
-
+import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function PaginationSkeleton() {
   return (
@@ -33,4 +33,3 @@ export default function PaginationSkeleton() {
     </Stack>
   );
 }
-

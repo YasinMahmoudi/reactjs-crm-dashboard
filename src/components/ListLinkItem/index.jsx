@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { NavLink } from 'react-router';
 
+import ListItemButton from '@mui/material/ListItemButton';
 import styled from 'styled-components';
-import { ListItemButton } from '@mui/material';
 
 ListItemLink.propTypes = {
-  icon: PropTypes.element,
-  primary: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
+  children: PropTypes.object,
 };
 
 const StyledListItemLink = styled(ListItemButton)`
@@ -26,13 +23,12 @@ const StyledListItemLink = styled(ListItemButton)`
   }
 `;
 
-export default function ListItemLink({ icon, primary, to }) {
+export default function ListItemLink({ to, children }) {
   return (
     <StyledListItemLink
       component={NavLink}
       to={to}>
-      {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
-      <ListItemText primary={primary} />
+      {children}
     </StyledListItemLink>
   );
 }

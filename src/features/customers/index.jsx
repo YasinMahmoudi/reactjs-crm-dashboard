@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import  Box from '@mui/material/Box';
 
 import CustomersTable from './CustomersTable';
 import CustomerToolbar from './CustomerToolbar';

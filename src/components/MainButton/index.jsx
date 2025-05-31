@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import { Link } from 'react-router';
 
 MainButton.propTypes = {

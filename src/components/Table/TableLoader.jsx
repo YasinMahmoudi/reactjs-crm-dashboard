@@ -1,4 +1,7 @@
-import { Table, TableBody, TableContainer } from '@mui/material';
+import TableContainer from '@mui/material/TableContainer';
+import TableBody from '@mui/material/TableBody';
+import Table from '@mui/material/Table';
+
 import PropTypes from 'prop-types';
 import SkeletonType from './SkeletonType';
 import PaginationSkeleton from './SkeletonType/PaginationSkeleton';

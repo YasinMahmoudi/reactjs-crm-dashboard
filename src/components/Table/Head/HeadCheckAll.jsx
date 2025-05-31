@@ -1,4 +1,6 @@
-import { Checkbox, TableCell } from '@mui/material';
+import TableCell from '@mui/material/TableCell';
+import Checkbox from '@mui/material/Checkbox';
+
 import { useTable } from '../TableContext/useTable';
 
 HeadCheckAll.propTypes = {};

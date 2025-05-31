@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import { Logout, Person, Settings } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Divider,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import Logout from '@mui/icons-material/Logout';
+import Person from '@mui/icons-material/Person';
+import Settings from '@mui/icons-material/Settings';
+
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
+
 import { deepOrange } from '@mui/material/colors';
 import styled from 'styled-components';
 
 import { Row } from '../../components/Row';
 
 import PropTypes from 'prop-types';
-import MenuIcon from '@mui/icons-material/Menu';
 import { useLogout } from '../../features/auth/useLogout';
 
 const StyledHeader = styled.header`

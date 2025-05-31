@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */
-import {
-  Autocomplete,
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  TextField,
-} from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+
 import EnhancedModal from '../../components/Modal';
 import { countries } from '../../data/countries';
 import { useForm } from 'react-hook-form';
@@ -115,6 +113,7 @@ export default function CustomerCreateModal() {
                     : null
                 }
                 renderOption={(props, option) => {
+                  // eslint-disable-next-line react/prop-types
                   const { key, ...optionProps } = props;
 
                   return (
@@ -128,7 +127,7 @@ export default function CustomerCreateModal() {
                         width="20"
                         srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
                         src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                        alt=""
+                        alt={`Country ${option.label}`}
                       />
                       {option.label} ({option.code}) +{option.phone}
                     </Box>

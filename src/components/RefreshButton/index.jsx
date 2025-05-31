@@ -1,21 +1,19 @@
-import PropTypes from 'prop-types';
-import { Button, Typography } from '@mui/material';
-import { Refresh } from '@mui/icons-material';
+import Refresh from '@mui/icons-material/Refresh';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
-RefreshButton.propTypes = {};
-
+const style = { display: 'flex', gap: '5px', paddingBlock: '7px' };
 
 function RefreshButton() {
   return (
     <Button
       variant="outlined"
       size="small"
-      sx={{ display: 'flex', gap: '5px', paddingBlock: '7px' }}>
+      sx={style}>
       <Refresh />
       <Typography sx={{ display: { xs: 'none' } }}> Refresh </Typography>
     </Button>
   );
 }
-
 
 export default RefreshButton;

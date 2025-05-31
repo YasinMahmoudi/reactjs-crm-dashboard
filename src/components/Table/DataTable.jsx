@@ -1,4 +1,6 @@
-import { Table, TableContainer } from '@mui/material';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+
 import PropTypes from 'prop-types';
 import Toolbar from './Toolbar';
 import Pagination from './Pagination';

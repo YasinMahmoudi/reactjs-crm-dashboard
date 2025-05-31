@@ -1,4 +1,4 @@
-import { TableCell } from '@mui/material';
+import TableCell from '@mui/material/TableCell';
 import DataTable from '../../components/Table';
 import CustomerActions from './CustomerActions';
 import PropTypes from 'prop-types';

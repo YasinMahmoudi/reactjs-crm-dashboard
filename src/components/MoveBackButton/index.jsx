@@ -1,6 +1,11 @@
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import { useBack } from '../../hooks/useBack';
-import { ArrowBack } from '@mui/icons-material';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+
+const buttonStyle = {
+  alignSelf: { xs: 'flex-start', sm: 'stretch' },
+  marginBottom: { xs: '10px', sm: 0 },
+};
 
 export default function MoveBackButton() {
   const moveBack = useBack();
@@ -10,10 +15,7 @@ export default function MoveBackButton() {
       aria-label="nivigate back"
       color="warning"
       onClick={moveBack}
-      sx={{
-        alignSelf: { xs: 'flex-start', sm: 'stretch' },
-        marginBottom: { xs: '10px', sm: 0 },
-      }}>
+      sx={buttonStyle}>
       <ArrowBack />
     </IconButton>
   );

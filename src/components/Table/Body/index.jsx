@@ -1,4 +1,7 @@
-import { TableBody, TableCell, TableRow } from '@mui/material';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import { LIMIT_ITEMS } from '../../../services/customers/customer';

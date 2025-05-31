@@ -1,10 +1,15 @@
-import { Box, Chip, Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
+
 import PropTypes from 'prop-types';
 
 EmptyResource.propTypes = {
   keyWord: PropTypes.string,
   resourceName: PropTypes.string,
 };
+
+const lableStyle = { marginInline: '10px', width: 'min(100px , 120px )' };
 
 function EmptyResource({ keyWord, resourceName = 'resource' }) {
   const modifiedResourceName = resourceName.toLocaleLowerCase();
@@ -18,7 +23,7 @@ function EmptyResource({ keyWord, resourceName = 'resource' }) {
         <Chip
           label={keyWord}
           color="error"
-          sx={{ marginInline: '10px', width: 'min(100px , 120px )' }}
+          sx={lableStyle}
         />
         key word ! 😓
       </Typography>

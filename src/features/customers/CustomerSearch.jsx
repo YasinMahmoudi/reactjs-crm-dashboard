@@ -30,7 +30,7 @@ function CustomerSearch() {
 
   return (
     <TextField
-      id="standard-password-input"
+      id="customerSearch"
       label="Search"
       type="search"
       variant="outlined"

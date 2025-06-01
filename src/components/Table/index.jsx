@@ -25,7 +25,7 @@ Table.propTypes = {
 export default function Table({
   children,
   state = true,
-  data,
+  data = [],
   pagination = {},
   hasToolbar = false,
   title = 'Provide your table name here ...',
@@ -36,12 +36,6 @@ export default function Table({
   const [orderBy, setOrderBy] = React.useState('name');
   const [selected, setSelected] = React.useState([]);
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
   return (
     <TableContext.Provider
       value={{
@@ -51,7 +45,8 @@ export default function Table({
         pagination,
         order,
         orderBy,
-        handleRequestSort,
+        setOrder,
+        setOrderBy,
         title,
         state,
         isDeletingMultipleRecords,

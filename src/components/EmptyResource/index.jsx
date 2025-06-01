@@ -17,6 +17,7 @@ function EmptyResource({ keyWord, resourceName = 'resource' }) {
   return (
     <Box
       mt={10}
+      mb={10}
       textAlign={'center'}>
       <Typography variant="h6">
         No {modifiedResourceName} found with

@@ -8,6 +8,7 @@ const BorderBox = styled(Box)`
   border: 1px solid #e3e3e3;
   padding: var(--box-padding);
   border-radius: var(--border-radius);
+  min-height: 600px;
 `;
 
 export default BorderBox;

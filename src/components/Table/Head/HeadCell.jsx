@@ -11,8 +11,14 @@ HeadCell.propTypes = {
 };
 
 export default function HeadCell({ headCell }) {
-  const { order, orderBy, handleRequestSort, isDeletingMultipleRecords } =
+  const { order, setOrder, orderBy, setOrderBy, isDeletingMultipleRecords } =
     useTable();
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
   const createSortHandler = (property) => (event) => {
     handleRequestSort(event, property);

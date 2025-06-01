@@ -2,7 +2,15 @@ import { API_URL } from '../../utils/constants';
 
 export const LIMIT_ITEMS = 5;
 
-export async function getCustomersService({ page = 1, query = '' }) {
+export async function getCustomersService({ page = 1, query = '', signal }) {
+  // await new Promise((resolve) =>
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 2000)
+  // );
+
+  console.log(signal)
+
   const searchableFields = ['name'];
 
   let fetchUrl;
@@ -24,6 +32,7 @@ export async function getCustomersService({ page = 1, query = '' }) {
         'Content-Type': 'application/json',
       },
       credentials: 'include',
+      signal,
     });
     const data = await res.json();
 
@@ -116,7 +125,6 @@ export async function deleteCustomerService(id) {
 }
 
 export async function deleteManyCustomersService(ids = []) {
-
   try {
     const res = await fetch(`${API_URL}/client/delete-many`, {
       method: 'PATCH',

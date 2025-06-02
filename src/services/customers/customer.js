@@ -9,8 +9,6 @@ export async function getCustomersService({ page = 1, query = '', signal }) {
   //   }, 2000)
   // );
 
-  console.log(signal)
-
   const searchableFields = ['name'];
 
   let fetchUrl;

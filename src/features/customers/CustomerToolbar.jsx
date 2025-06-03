@@ -5,12 +5,15 @@ import RefreshButton from '../../components/RefreshButton';
 import { Row } from '../../components/Row';
 import CustomerSearch from './CustomerSearch';
 
+const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' } };
+const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
+
 export default function CustomerToolbar() {
   return (
-    <Row sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
+    <Row sx={mainRowStyle}>
       <MoveBackButton />
 
-      <Row sx={{ gap: '10px', flexWrap: 'wrap' }}>
+      <Row sx={actionRowStyle}>
         <CustomerSearch />
 
         <RefreshButton />

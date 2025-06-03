@@ -4,6 +4,8 @@ import Sidebar from './Sidebar';
 import { Outlet } from 'react-router';
 import Main from './Main';
 import { useState } from 'react';
+import MobileSidebar from '../../components/MobileSidebar';
+import MainNav from '../../components/MainNav';
 
 const StyledAppLayout = styled.div`
   --sidebar-width: 300px;
@@ -30,10 +32,15 @@ export default function AppLayout() {
 
   return (
     <StyledAppLayout>
-      <Sidebar
-        toggleSidebar={toggleSidebar}
-        open={open}
-      />
+      <Sidebar>
+        <MainNav />
+
+        <MobileSidebar
+          toggleSidebar={toggleSidebar}
+          open={open}>
+          <MainNav />
+        </MobileSidebar>
+      </Sidebar>
 
       <Header toggleSidebar={toggleSidebar} />
       <Main>

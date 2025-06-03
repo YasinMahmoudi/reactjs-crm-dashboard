@@ -65,7 +65,8 @@ export default function App() {
                   key="customers">
                   <CustomersPage />
                 </Suspense>
-              }>
+              }
+              >
               <Route
                 path="create"
                 element={<CustomerCreateModal />}

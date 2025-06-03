@@ -1,14 +1,11 @@
 import Paper from '@mui/material/Paper';
 
-import  Drawer  from '@mui/material/Drawer';
 import styled from 'styled-components';
-import MainNav from '../../components/MainNav';
 
 import PropTypes from 'prop-types';
 
 Sidebar.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  children: PropTypes.object,
 };
 
 const StyledSidebar = styled.aside`
@@ -27,26 +24,10 @@ const StyledPaper = styled(Paper)`
   background-color: transparent !important;
 `;
 
-export default function Sidebar({ toggleSidebar, open }) {
+export default function Sidebar({ children,  }) {
   return (
     <StyledSidebar>
-      <StyledPaper elevation={0}>
-        <Drawer
-          open={open}
-          onClose={toggleSidebar(false)}
-          sx={{
-            display: { sm: 'block', md: 'none' },
-          }}
-          slotProps={{
-            root: {
-              keepMounted: true,
-            },
-          }}>
-          <MainNav />
-        </Drawer>
-
-        <MainNav />
-      </StyledPaper>
+      <StyledPaper elevation={0}>{children}</StyledPaper>
     </StyledSidebar>
   );
 }

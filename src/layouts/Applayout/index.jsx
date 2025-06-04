@@ -6,6 +6,8 @@ import Main from './Main';
 import { useState } from 'react';
 import MobileSidebar from '../../components/MobileSidebar';
 import MainNav from '../../components/MainNav';
+import MenuToggleButton from '../../components/MenuToggleButton';
+import HeaderMenu from '../../components/HeaderMenu';
 
 const StyledAppLayout = styled.div`
   --sidebar-width: 300px;
@@ -32,6 +34,11 @@ export default function AppLayout() {
 
   return (
     <StyledAppLayout>
+      <Header>
+        <MenuToggleButton toggleSidebar={toggleSidebar} />
+        <HeaderMenu />
+      </Header>
+
       <Sidebar>
         <MainNav />
 
@@ -42,7 +49,6 @@ export default function AppLayout() {
         </MobileSidebar>
       </Sidebar>
 
-      <Header toggleSidebar={toggleSidebar} />
       <Main>
         <Outlet />
       </Main>

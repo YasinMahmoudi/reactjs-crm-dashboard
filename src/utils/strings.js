@@ -33,3 +33,11 @@ export function generateFirstWordCapitalize(words) {
 
   return capitalizedSentence;
 }
+
+/**
+ * Extract first letter from a strin
+ */
+
+export function extractFirstLetter(str) {
+  return str?.at(0).toUpperCase();
+}

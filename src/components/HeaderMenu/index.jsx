@@ -13,26 +13,38 @@ import Settings from '@mui/icons-material/Settings';
 
 import { deepOrange } from '@mui/material/colors';
 import { useLogout } from '../../features/auth/useLogout';
+import { useGetAdmin } from '../../features/admin/useGetAdmin';
+import { extractFirstLetter } from '../../utils/strings';
 
 export default function HeaderMenu() {
   const { logout, isLogingout } = useLogout();
+  const { admin: { email, name } = {}, isLoadingAdmin } = useGetAdmin();
+
+  const avatarDisplayName = extractFirstLetter(name);
 
   return (
     <CollapseMenu>
-      <CollapseMenu.Button>
-        <Avatar sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}>
-          Y
-        </Avatar>
-      </CollapseMenu.Button>
+      {isLoadingAdmin ? (
+        <CircularProgress
+          size={30}
+          sx={{ display: 'inline-block', marginLeft: 'auto' }}
+        />
+      ) : (
+        <CollapseMenu.Button>
+          <Avatar sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}>
+            {avatarDisplayName}
+          </Avatar>
+        </CollapseMenu.Button>
+      )}
 
       <CollapseMenu.Menu>
         <CollapseMenu.MenuItem>
           <Row>
             <Avatar />
 
-            <Row sx={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-              <Typography variant="body2"> Yasin </Typography>
-              <Typography variant="caption"> admin@gmailc.om </Typography>
+            <Row sx={{ flexDirection: 'column', marginLeft: '8px' }}>
+              <Typography variant="body2"> {name} </Typography>
+              <Typography variant="caption"> {email} </Typography>
             </Row>
           </Row>
         </CollapseMenu.MenuItem>
@@ -73,6 +85,3 @@ export default function HeaderMenu() {
     </CollapseMenu>
   );
 }
-
-HeaderMenu.propTypes = {};
-

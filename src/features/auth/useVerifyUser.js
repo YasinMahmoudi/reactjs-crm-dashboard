@@ -7,7 +7,7 @@ function useVerifyUser() {
     queryFn: verifyUserService,
   });
 
-  return { hasToken: user?.token === true, isLoading };
+  return { hasToken: user?.token === true, id: user?.id, isLoading };
 }
 
 export { useVerifyUser };

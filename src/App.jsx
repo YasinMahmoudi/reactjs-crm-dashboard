@@ -17,6 +17,8 @@ const CustomerCreateModal = lazy(() =>
 const About = lazy(() => import('./pages/About'));
 const CustomersPage = lazy(() => import('./pages/Customers'));
 
+const ProfilePage = lazy(() => import('./features/admin/Profile'));
+
 export default function App() {
   return (
     <>
@@ -65,8 +67,7 @@ export default function App() {
                   key="customers">
                   <CustomersPage />
                 </Suspense>
-              }
-              >
+              }>
               <Route
                 path="create"
                 element={<CustomerCreateModal />}
@@ -116,6 +117,19 @@ export default function App() {
                 </Suspense>
               }
             />
+
+            <Route path="profile">
+              <Route
+                index
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="profile">
+                    <ProfilePage />
+                  </Suspense>
+                }
+              />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

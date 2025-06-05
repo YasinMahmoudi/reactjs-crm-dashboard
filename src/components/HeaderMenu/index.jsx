@@ -15,8 +15,11 @@ import { deepOrange } from '@mui/material/colors';
 import { useLogout } from '../../features/auth/useLogout';
 import { useGetAdmin } from '../../features/admin/useGetAdmin';
 import { extractFirstLetter } from '../../utils/strings';
+import { useNavigate } from 'react-router';
 
 export default function HeaderMenu() {
+  const navigate = useNavigate();
+
   const { logout, isLogingout } = useLogout();
   const { admin: { email, name } = {}, isLoadingAdmin } = useGetAdmin();
 
@@ -49,7 +52,7 @@ export default function HeaderMenu() {
           </Row>
         </CollapseMenu.MenuItem>
         <Divider />
-        <CollapseMenu.MenuItem>
+        <CollapseMenu.MenuItem onClick={() => navigate('/profile')}>
           <ListItemIcon>
             <Person fontSize="small" />
           </ListItemIcon>

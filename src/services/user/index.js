@@ -1,11 +1,11 @@
 import { API_URL } from '../../utils/constants';
 
 export async function getAdminService(id) {
-//   await new Promise((resolve) =>
-//     setTimeout(() => {
-//       resolve();
-//     }, 2000)
-//   );
+  // await new Promise((resolve) =>
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 3000)
+  // );
 
   try {
     const res = await fetch(`${API_URL}/admin/read/${id}`, {

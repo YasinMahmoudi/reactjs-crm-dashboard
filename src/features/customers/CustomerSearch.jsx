@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 function CustomerSearch() {
@@ -9,18 +9,15 @@ function CustomerSearch() {
     return searchParams.get('query') || '';
   });
 
-  useEffect(
-    function () {
-      if (searchParams.has('query') && searchParams.get('query').length < 1) {
-        searchParams.delete('query');
-        setSearchParams(searchParams);
-      }
-    },
-    [searchParams, query, setSearchParams]
-  );
-
   function handleQueyParam(e) {
     setQuery(e.target.value);
+
+    if (searchParams.has('query') && e.target.value.length === 0) {
+      searchParams.delete('query');
+      setSearchParams(searchParams);
+
+      return;
+    }
 
     searchParams.set('page', '1');
     searchParams.set('query', e.target.value);

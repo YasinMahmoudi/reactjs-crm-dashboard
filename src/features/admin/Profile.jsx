@@ -1,4 +1,8 @@
-import { Button, Grid, Skeleton, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
+
 import BorderBox from '../../components/BorderBox';
 import FormInput from '../../components/FormInput';
 import MainButton from '../../components/MainButton';
@@ -134,8 +138,7 @@ function Profile() {
               variant="contained"
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
-              color='secondary'
-              >
+              color="secondary">
               Upload files
               <VisuallyHiddenInput
                 type="file"

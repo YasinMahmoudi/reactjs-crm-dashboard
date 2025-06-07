@@ -1,7 +1,9 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 
-import { Box, TextField } from '@mui/material';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router';
 import FormInput from '../../components/FormInput';
@@ -22,8 +24,6 @@ export default function CustomerCreateModal() {
   const { customer, isLoadingCustomer } = useGetCustomer();
 
   const isEditing = searchParams.get('edit') === 'true';
-
-
 
   if (isEditing && isLoadingCustomer) return <CircularProgress />;
 
@@ -143,7 +143,6 @@ export default function CustomerCreateModal() {
               }}
             />
           </Grid>
-
         </CustomerCreateForm>
       )}
     </EnhancedModal>

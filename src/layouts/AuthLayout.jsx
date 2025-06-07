@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 
 /* eslint-disable react/prop-types */
 export default function AuthLayout({ children }) {
@@ -7,7 +7,7 @@ export default function AuthLayout({ children }) {
       sx={{
         display: 'grid',
         placeItems: 'center',
-        height:'100dvh'
+        height: '100dvh',
       }}>
       {children}
     </Box>

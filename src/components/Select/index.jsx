@@ -1,4 +1,4 @@
-import { Autocomplete } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import PropTypes from 'prop-types';
 import { countries } from '../../data/countries';
 import { generateCamelCaseString } from '../../utils/strings';

@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 import {
   generateCamelCaseString,
@@ -12,7 +12,6 @@ FormInput.propTypes = {
   validation: PropTypes.object,
   disabled: PropTypes.bool,
   id: PropTypes.string | null,
-
 };
 
 export default function FormInput({
@@ -37,6 +36,6 @@ export default function FormInput({
       error={errors[inputNameCamelCase]?.type === 'required'}
       helperText={errors[inputNameCamelCase]?.message}
       disabled={disabled}
-      />
+    />
   );
 }

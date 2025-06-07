@@ -1,4 +1,8 @@
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TextField from '@mui/material/TextField';
+
 import AuthLayout from '../../layouts/AuthLayout';
 import AuthBox from '../../components/AuthBox';
 import { Link, useNavigate } from 'react-router';

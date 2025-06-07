@@ -1,9 +1,8 @@
-import {
-  IconButton,
-  Menu as PortalMenu,
-  Tooltip,
-  MenuItem as MenuItemMui,
-} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import PortalMenu from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItemMui from '@mui/material/MenuItem';
+
 import PropTypes from 'prop-types';
 import { createContext, useContext, useState } from 'react';
 

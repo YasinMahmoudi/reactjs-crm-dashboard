@@ -12,6 +12,7 @@ FormInput.propTypes = {
   validation: PropTypes.object,
   disabled: PropTypes.bool,
   id: PropTypes.string | null,
+  onBlur: PropTypes.func | null,
 };
 
 export default function FormInput({
@@ -21,9 +22,20 @@ export default function FormInput({
   inputData = {},
   validation,
   disabled = false,
+  onBlur = null,
 }) {
   const inputNameCamelCase = generateCamelCaseString(inputName);
   const inputNameUpperCase = generateFirstWordCapitalize(inputName);
+
+  function handleUpdate(e, field) {
+    if (onBlur) {
+      const { value } = e.target;
+
+      const modifiedData = { ...inputData, [field]: value };
+
+      onBlur(modifiedData);
+    }
+  }
 
   return (
     <TextField
@@ -36,6 +48,7 @@ export default function FormInput({
       error={errors[inputNameCamelCase]?.type === 'required'}
       helperText={errors[inputNameCamelCase]?.message}
       disabled={disabled}
+      onBlur={(e) => handleUpdate(e, id)}
     />
   );
 }

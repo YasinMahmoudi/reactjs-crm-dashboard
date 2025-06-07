@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAdminService } from '../../services/user';
+import { getAdminService } from '../../services/admin';
 import { useVerifyUser } from '../auth/useVerifyUser';
 
 function useGetAdmin() {

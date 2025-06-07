@@ -11,7 +11,10 @@ import { Row } from '../../components/Row';
 import { useGetAdmin } from './useGetAdmin';
 
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { UPLOAD_URL } from '../../utils/constants';
+import { useAdminUpdateProfile } from './useAdminUpdateProfile';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -30,6 +33,8 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
 function Profile() {
   const { admin, isLoadingAdmin } = useGetAdmin();
+
+  const { updateAdminProfile } = useAdminUpdateProfile();
 
   return (
     <BorderBox>
@@ -56,6 +61,69 @@ function Profile() {
         spacing={{ xs: 2, md: 4 }}
         columns={{ xs: 1, sm: 4 }}
         mt={8}>
+        <Grid
+          size={{ xs: 4, sm: 4, md: 12 }}
+          mb={8}>
+          <Grid
+            container
+            alignItems="baseline"
+            spacing={{ xs: 2, md: 4 }}
+            columns={{ xs: 1, sm: 4 }}>
+            {isLoadingAdmin ? (
+              <>
+                <Skeleton
+                  variant="circular"
+                  width={100}
+                  height={100}
+                />
+                <Skeleton
+                  variant="rounded"
+                  width={100}
+                  height={30}
+                />
+              </>
+            ) : (
+              <>
+                <Box
+                  width={100}
+                  height={100}
+                  borderRadius={100}
+                  bgcolor="tomato">
+                  <img
+                    src={`${UPLOAD_URL}/${admin.photo}`}
+                    alt={`Admin Photo ${admin.name}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: 'inherit',
+                    }}
+                  />
+                </Box>
+                <Button
+                  component="label"
+                  role={undefined}
+                  variant="contained"
+                  tabIndex={-1}
+                  startIcon={<CloudUploadIcon />}
+                  color="secondary"
+                  size="small">
+                  Upload file
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={(event) =>
+                      updateAdminProfile({
+                        ...admin,
+                        photo: event.target.files[0],
+                      })
+                    }
+                  />
+                </Button>
+              </>
+            )}
+          </Grid>
+        </Grid>
+
         <Grid size={{ xs: 2, sm: 2, md: 2 }}>
           {isLoadingAdmin ? (
             <Skeleton
@@ -69,6 +137,7 @@ function Profile() {
               inputData={admin}
               errors={{}}
               validation={{}}
+              onBlur={updateAdminProfile}
             />
           )}
         </Grid>
@@ -86,6 +155,7 @@ function Profile() {
               inputData={admin}
               errors={{}}
               validation={{}}
+              onBlur={updateAdminProfile}
             />
           )}
         </Grid>
@@ -103,6 +173,7 @@ function Profile() {
               inputData={admin}
               errors={{}}
               validation={{}}
+              onBlur={updateAdminProfile}
             />
           )}
         </Grid>
@@ -122,30 +193,6 @@ function Profile() {
               validation={{}}
               disabled={true}
             />
-          )}
-        </Grid>
-
-        <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-          {isLoadingAdmin ? (
-            <Skeleton
-              variant="rounded"
-              height={56}
-            />
-          ) : (
-            <Button
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              color="secondary">
-              Upload files
-              <VisuallyHiddenInput
-                type="file"
-                onChange={(event) => console.log(event.target.files)}
-                multiple
-              />
-            </Button>
           )}
         </Grid>
       </Grid>

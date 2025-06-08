@@ -45,10 +45,10 @@ export default function FormInput({
       fullWidth
       defaultValue={inputData[id]}
       {...validation}
-      error={errors[inputNameCamelCase]?.type === 'required'}
-      helperText={errors[inputNameCamelCase]?.message}
+      error={errors[id]?.type === 'required'}
+      helperText={errors[id]?.message}
       disabled={disabled}
-      onBlur={(e) => handleUpdate(e, id)}
+      // onBlur={(e) => handleUpdate(e, id)}
     />
   );
 }

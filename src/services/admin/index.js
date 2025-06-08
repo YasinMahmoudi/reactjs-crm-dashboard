@@ -27,14 +27,20 @@ export async function getAdminService(id) {
 }
 
 export async function updateAdminProfileService(updatedData) {
-  
+  const formData = new FormData();
+
+  formData.append('name', updatedData.name);
+  formData.append('surname', updatedData.surname);
+  formData.append('email', updatedData.email);
+
+  if (updatedData.photo) {
+    formData.append('file', updatedData.photo);
+  }
+
   try {
     const res = await fetch(`${API_URL}/admin/profile/update`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
+      body: formData,
       credentials: 'include',
     });
 

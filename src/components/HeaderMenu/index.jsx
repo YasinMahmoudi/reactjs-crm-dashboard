@@ -16,12 +16,13 @@ import { useLogout } from '../../features/auth/useLogout';
 import { useGetAdmin } from '../../features/admin/useGetAdmin';
 import { extractFirstLetter } from '../../utils/strings';
 import { useNavigate } from 'react-router';
+import { UPLOAD_URL } from '../../utils/constants';
 
 export default function HeaderMenu() {
   const navigate = useNavigate();
 
   const { logout, isLogingout } = useLogout();
-  const { admin: { email, name } = {}, isLoadingAdmin } = useGetAdmin();
+  const { admin: { email, name, photo } = {}, isLoadingAdmin } = useGetAdmin();
 
   const avatarDisplayName = extractFirstLetter(name);
 
@@ -34,7 +35,10 @@ export default function HeaderMenu() {
         />
       ) : (
         <CollapseMenu.Button>
-          <Avatar sx={{ width: 32, height: 32, bgcolor: deepOrange[500] }}>
+          <Avatar
+            sx={{ width: 40, height: 40, bgcolor: deepOrange[500] }}
+            alt={`Admin Avatar ${name}`}
+            src={`${UPLOAD_URL}/${photo}`}>
             {avatarDisplayName}
           </Avatar>
         </CollapseMenu.Button>
@@ -43,8 +47,13 @@ export default function HeaderMenu() {
       <CollapseMenu.Menu>
         <CollapseMenu.MenuItem>
           <Row>
-            <Avatar />
-
+            <Avatar
+              sx={{ width: 40, height: 40, bgcolor: deepOrange[500] }}
+              alt={`Admin Avatar ${name}`}
+              src={`${UPLOAD_URL}/${photo}`}>
+              {avatarDisplayName}
+            </Avatar>
+            
             <Row sx={{ flexDirection: 'column', marginLeft: '8px' }}>
               <Typography variant="body2"> {name} </Typography>
               <Typography variant="caption"> {email} </Typography>

@@ -47,8 +47,13 @@ export default function HeaderMenu() {
       <CollapseMenu.Menu>
         <CollapseMenu.MenuItem>
           <Row>
-            <Avatar />
-
+            <Avatar
+              sx={{ width: 40, height: 40, bgcolor: deepOrange[500] }}
+              alt={`Admin Avatar ${name}`}
+              src={`${UPLOAD_URL}/${photo}`}>
+              {avatarDisplayName}
+            </Avatar>
+            
             <Row sx={{ flexDirection: 'column', marginLeft: '8px' }}>
               <Typography variant="body2"> {name} </Typography>
               <Typography variant="caption"> {email} </Typography>

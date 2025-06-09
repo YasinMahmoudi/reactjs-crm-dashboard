@@ -17,7 +17,11 @@ const CustomerCreateModal = lazy(() =>
 const About = lazy(() => import('./pages/About'));
 const CustomersPage = lazy(() => import('./pages/Customers'));
 
+const ProfileLayout = lazy(() => import('./layouts/ProfileLayout'));
 const ProfilePage = lazy(() => import('./features/admin/Profile'));
+const UpdatePasswordPage = lazy(() =>
+  import('./features/admin/UpdatePassword')
+);
 
 export default function App() {
   return (
@@ -118,14 +122,33 @@ export default function App() {
               }
             />
 
-            <Route path="profile">
+            <Route
+              element={
+                <Suspense
+                  fallback={<PageLoader size={60} />}
+                  key="profile">
+                  <ProfileLayout />
+                </Suspense>
+              }>
               <Route
                 index
+                path="profile"
                 element={
                   <Suspense
                     fallback={<PageLoader size={60} />}
                     key="profile">
                     <ProfilePage />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="update-password"
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="updatepassword">
+                    <UpdatePasswordPage />
                   </Suspense>
                 }
               />

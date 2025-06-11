@@ -15,10 +15,13 @@ function useUpdateCustomer() {
       mutationFn: (updatedData) => updateCustomerService({ id, updatedData }),
 
       onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ['customers'],
-        });
-
+        Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: ['customers'],
+          }),
+          queryClient.invalidateQueries({ queryKey: ['customer', id] }),
+        ]);
+        
         toast.success('Customer updated successfuly');
 
         navigate('/customers');

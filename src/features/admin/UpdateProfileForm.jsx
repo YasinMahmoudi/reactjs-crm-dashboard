@@ -4,7 +4,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 import { useGetAdmin } from './useGetAdmin';
 import { useState } from 'react';
@@ -15,11 +15,7 @@ import FileUpload from '../../components/FileUpload';
 export default function UpdateProfileForm() {
   const [avatar, setAvatar] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const { admin, isLoadingAdmin } = useGetAdmin();
 
@@ -108,19 +104,20 @@ export default function UpdateProfileForm() {
               height={56}
             />
           ) : (
-            <FormInput
-              inputName="First Name"
-              id="name"
-              inputData={admin}
-              errors={errors}
-              validation={{
-                ...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Please add a first name.',
-                  },
-                }),
+            <Controller
+              name="name"
+              control={control}
+              defaultValue={admin.name}
+              rules={{
+                required: 'This field is required',
               }}
+              render={(field) => (
+                <FormInput
+                  label="Name"
+                  control={control}
+                  {...field}
+                />
+              )}
             />
           )}
         </Grid>
@@ -132,19 +129,20 @@ export default function UpdateProfileForm() {
               height={56}
             />
           ) : (
-            <FormInput
-              inputName="Last Name"
-              id="surname"
-              inputData={admin}
-              errors={errors}
-              validation={{
-                ...register('surname', {
-                  required: {
-                    value: true,
-                    message: 'Please add a last name.',
-                  },
-                }),
+            <Controller
+              name="surname"
+              defaultValue={admin.surname}
+              control={control}
+              rules={{
+                required: 'This field is required',
               }}
+              render={(field) => (
+                <FormInput
+                  label="Last name"
+                  control={control}
+                  {...field}
+                />
+              )}
             />
           )}
         </Grid>
@@ -156,19 +154,20 @@ export default function UpdateProfileForm() {
               height={56}
             />
           ) : (
-            <FormInput
-              inputName="Email"
-              id="email"
-              inputData={admin}
-              errors={errors}
-              validation={{
-                ...register('email', {
-                  required: {
-                    value: true,
-                    message: 'Please add a valid email.',
-                  },
-                }),
+            <Controller
+              name="email"
+              defaultValue={admin.email}
+              control={control}
+              rules={{
+                required: 'This field is required',
               }}
+              render={(field) => (
+                <FormInput
+                  label="Email"
+                  control={control}
+                  {...field}
+                />
+              )}
             />
           )}
         </Grid>
@@ -180,13 +179,18 @@ export default function UpdateProfileForm() {
               height={56}
             />
           ) : (
-            <FormInput
-              inputName="Role"
-              id="role"
-              inputData={admin}
-              errors={{}}
-              validation={{}}
-              disabled={true}
+            <Controller
+              name="role"
+              control={control}
+              defaultValue={admin.role}
+              render={(field) => (
+                <FormInput
+                  label="Role"
+                  control={control}
+                  disabled={true}
+                  {...field}
+                />
+              )}
             />
           )}
         </Grid>

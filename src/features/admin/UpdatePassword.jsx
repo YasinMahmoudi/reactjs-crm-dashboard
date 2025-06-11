@@ -2,30 +2,55 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 
 import FormInput from '../../components/FormInput';
+import { Controller, useForm } from 'react-hook-form';
 
 function UpdatePassword() {
+  const { control, handleSubmit, getValues } = useForm();
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
         container
         spacing={{ xs: 2, md: 4 }}
         columns={{ xs: 1, sm: 4 }}
         mt={8}>
         <Grid size={{ xs: 12, sm: 12, md: 2 }}>
-          <FormInput
-            inputName="New password"
-            id="newPassword"
-            errors={{}}
-            validation={{}}
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: 'This field is required',
+            }}
+            render={(field) => (
+              <FormInput
+                label="New password"
+                control={control}
+                {...field}
+              />
+            )}
           />
         </Grid>
 
         <Grid size={{ xs: 12, sm: 12, md: 2 }}>
-          <FormInput
-            inputName="Confirm password"
-            id="confirmpassword"
-            errors={{}}
-            validation={{}}
+          <Controller
+            name="passwordCheck"
+            control={control}
+            rules={{
+              required: 'This field is required',
+              validate: (value) =>
+                getValues().password === value || 'Passwords need to match',
+            }}
+            render={(field) => (
+              <FormInput
+                label="Confirm password"
+                control={control}
+                {...field}
+              />
+            )}
           />
         </Grid>
 

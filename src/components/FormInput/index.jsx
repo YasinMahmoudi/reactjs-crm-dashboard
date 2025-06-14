@@ -29,7 +29,7 @@ export default function FormInput({
       label={label}
       variant="outlined"
       fullWidth
-      defaultValue={field.value}
+      value={field.value}
       onChange={field.onChange}
       onBlur={field.onBlur}
       name={field.name}

@@ -1,14 +1,27 @@
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
-import FormInput from '../../components/FormInput';
 import { Controller, useForm } from 'react-hook-form';
+import FormInput from '../../components/FormInput';
+import { useAdminUpdatePassword } from './useAdminUpdatePassword';
 
 function UpdatePassword() {
-  const { control, handleSubmit, getValues } = useForm();
+  const { control, handleSubmit, getValues, reset } = useForm({
+    defaultValues: {
+      password: '',
+      passwordCheck: '',
+    },
+  });
+
+  const { updateAdminPassword, isUpdatingAdminPassword } =
+    useAdminUpdatePassword();
 
   function onSubmit(data) {
-    console.log(data);
+    updateAdminPassword(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   }
 
   return (
@@ -24,6 +37,11 @@ function UpdatePassword() {
             control={control}
             rules={{
               required: 'This field is required',
+              minLength: {
+                value: 8,
+                message:
+                  'The password needs to be at least 8 characters long. ',
+              },
             }}
             render={(field) => (
               <FormInput
@@ -60,8 +78,8 @@ function UpdatePassword() {
             color="info"
             sx={{ width: { xs: '100%', sm: 'auto', letterSpacing: 2 } }}
             type="submit"
-            loading={false}
-            disabled={false}
+            loading={isUpdatingAdminPassword}
+            disabled={isUpdatingAdminPassword}
             loadingPosition="start">
             Update password
           </Button>

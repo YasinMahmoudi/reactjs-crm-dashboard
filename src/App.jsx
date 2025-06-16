@@ -8,7 +8,6 @@ const AppLayout = lazy(() => import('./layouts/Applayout'));
 const Login = lazy(() => import('./pages/Auth'));
 const ForgetPassword = lazy(() => import('./features/auth/ForgetPassword'));
 const Dashboard = lazy(() => import('./pages/dashboard'));
-const Invoices = lazy(() => import('./features/invoices'));
 const Qoutes = lazy(() => import('./features/qoutes'));
 const Settings = lazy(() => import('./features/settings'));
 const CustomerCreateModal = lazy(() =>
@@ -22,6 +21,9 @@ const ProfilePage = lazy(() => import('./features/admin/Profile'));
 const UpdatePasswordPage = lazy(() =>
   import('./features/admin/UpdatePassword')
 );
+
+const Invoices = lazy(() => import('./pages/Invoices'));
+const InvoiceCreate = lazy(() => import('./pages/Invoices/Create'));
 
 export default function App() {
   return (
@@ -78,16 +80,29 @@ export default function App() {
               />
             </Route>
 
-            <Route
-              path="invoices"
-              element={
-                <Suspense
-                  fallback={<PageLoader size={60} />}
-                  key="invoices">
-                  <Invoices />
-                </Suspense>
-              }
-            />
+            <Route path="invoices">
+              <Route
+                index
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="invoices">
+                    <Invoices />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="create"
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="invoiceCreate">
+                    <InvoiceCreate />
+                  </Suspense>
+                }
+              />
+            </Route>
 
             <Route
               path="qoutes"

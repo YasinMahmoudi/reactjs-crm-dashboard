@@ -20,17 +20,20 @@ export default function InvoiceTableRow({ row }) {
         id={labelId}
         scope="row"
         padding="none">
-        {row?.name}
+        {row?.number}
       </TableCell>
 
-      <TableCell>{row?.country}</TableCell>
-      <TableCell>{row?.address}</TableCell>
-      <TableCell>{row?.phone}</TableCell>
-      <TableCell>{row?.email}</TableCell>
-      <TableCell>{row?.email}</TableCell>
-      <TableCell>{row?.email}</TableCell>
-      <TableCell>{row?.email}</TableCell>
-
+      <TableCell>{row?.client?.name}</TableCell>
+      <TableCell>{row?.date}</TableCell>
+      <TableCell>{row?.expiredDate}</TableCell>
+      <TableCell>
+        {row?.total} <span>{row?.currency}</span>
+      </TableCell>
+      <TableCell>
+        {row?.credit} <span>{row?.currency}</span>
+      </TableCell>
+      <TableCell>{row?.status}</TableCell>
+      <TableCell>{row?.paymentStatus}</TableCell>
     </DataTable.Row>
   );
 }

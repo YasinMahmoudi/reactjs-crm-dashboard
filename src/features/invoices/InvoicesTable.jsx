@@ -3,8 +3,8 @@ import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import { useDeleteCustomer } from '../customers/useDeleteCustomer';
 import { useDeleteManyCustomers } from '../customers/useDeleteMany';
-import { useGetCustomers } from '../customers/useGetCustomers';
 import InvoiceTableBody from './InvoiceTableBody';
+import { useGetInvoices } from './useGetInvoices';
 
 const headCells = [
   {
@@ -58,7 +58,7 @@ const headCells = [
 ];
 
 export default function InvoicesTable() {
-  const { customers, pagination, isLoadingCustomers } = useGetCustomers();
+  const { invoices, pagination, isLoadingInvoices } = useGetInvoices();
 
   const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
 
@@ -71,7 +71,7 @@ export default function InvoicesTable() {
 
   const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
-  if (customers?.length === 0)
+  if (invoices?.length === 0)
     return (
       <EmptyResource
         keyWord={query}
@@ -79,11 +79,13 @@ export default function InvoicesTable() {
       />
     );
 
+    console.log(invoices)
+
   return (
     <>
       <DataTable
-        state={isLoadingCustomers}
-        data={customers}
+        state={isLoadingInvoices}
+        data={invoices}
         pagination={pagination}
         hasToolbar={true}
         isDeletingMultipleRecords={

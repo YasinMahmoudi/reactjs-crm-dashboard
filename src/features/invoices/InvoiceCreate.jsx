@@ -1,9 +1,10 @@
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Divider from '@mui/material/Divider';
 import Autocomplete from '@mui/material/Autocomplete';
+import Divider from '@mui/material/Divider';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -11,6 +12,9 @@ import Select from '@mui/material/Select';
 import { Controller, useForm } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 import InvoiceCreateToolbar from './InvoiceCreateToolbar';
+
+import DeleteIcon from '@mui/icons-material/DeleteOutline';
+import PlusIcon from '@mui/icons-material/Add';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
@@ -45,7 +49,7 @@ export default function InvoiceCreate() {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Movie"
+                      label="Client"
                     />
                   )}
                   {...field}
@@ -174,21 +178,419 @@ export default function InvoiceCreate() {
 
           <Grid
             size={{ xs: 6, sm: 6, md: 6 }}
-            my={5}>
+            my={3}>
             <Divider sx={{ borderStyle: 'dashed' }} />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <Grid
+            container
+            columns={{ md: 6 }}
+            sx={{ width: '100%' }}>
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="item"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Item"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+              <Controller
+                name="description"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a description .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Description"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
+              <Controller
+                name="quantity"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a quantity .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Quantity"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="price"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a price .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Price"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="total"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Total"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid
+              size={{ xs: 2, sm: 2, md: 0.5 }}
+              alignSelf="center">
+              <Button color="error">
+                <DeleteIcon />
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            columns={{ md: 6 }}
+            sx={{ width: '100%' }}>
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="item"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Item"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+              <Controller
+                name="description"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a description .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Description"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
+              <Controller
+                name="quantity"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a quantity .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Quantity"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="price"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a price .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Price"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="total"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Total"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid
+              size={{ xs: 2, sm: 2, md: 0.5 }}
+              alignSelf="center">
+              <Button color="error">
+                <DeleteIcon />
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            columns={{ md: 6 }}
+            sx={{ width: '100%' }}>
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="item"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Item"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+              <Controller
+                name="description"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a description .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Description"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
+              <Controller
+                name="quantity"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a quantity .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Quantity"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="price"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a price .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Price"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Controller
+                name="total"
+                defaultValue=""
+                control={control}
+                rules={{
+                  required: 'Please add a name for item .',
+                }}
+                render={(field) => (
+                  <FormInput
+                    label="Total"
+                    control={control}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid
+              size={{ xs: 2, sm: 2, md: 0.5 }}
+              alignSelf="center">
+              <Button color="error">
+                <DeleteIcon />
+              </Button>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            columns={{ md: 6 }}
+            width="100%"
+            mt={1}>
             <Button
-              variant="contained"
-              color="info"
-              sx={{ width: { xs: '100%', sm: 'auto', letterSpacing: 2 } }}
-              type="submit"
-              loading={false}
-              disabled={false}
-              loadingPosition="start">
-              Save
+              variant="outlined"
+              sx={{
+                py: 1.5,
+                fontSize: '18px',
+                borderStyle: 'dashed',
+                marginLeft: 'auto',
+                gap:'10px'
+              }}>
+              <PlusIcon />
+
+              <span> Add Field</span>
             </Button>
+          </Grid>
+
+          <Grid
+            size={{ xs: 6, sm: 6, md: 6 }}
+            my={3}>
+            <Divider sx={{ borderStyle: 'dashed' }} />
+          </Grid>
+
+          <Grid
+            container
+            columns={{ md: 6 }}
+            width="100%"
+            justifyContent="space-between">
+            <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+              <Button
+                variant="contained"
+                color="info"
+                sx={{
+                  width: { md: '100%', letterSpacing: 2 },
+                  padding: '10px',
+                  gap: '10px',
+                }}
+                type="submit"
+                loading={false}
+                disabled={false}
+                loadingPosition="start">
+                <PlusIcon />
+                <Typography variant="h6">Save</Typography>
+              </Button>
+            </Grid>
+
+            <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
+              <Grid
+                container
+                spacing={{ xs: 2, md: 2 }}
+                columns={{ md: 2 }}>
+                <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+                  <Controller
+                    name="subTotal"
+                    defaultValue=""
+                    control={control}
+                    render={(field) => (
+                      <FormInput
+                        label="Sub Total"
+                        control={control}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+                  <Controller
+                    name="subTotal"
+                    defaultValue=""
+                    control={control}
+                    render={(field) => (
+                      <FormInput
+                        label="Sub Total"
+                        control={control}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+                  <Controller
+                    name="total"
+                    defaultValue=""
+                    control={control}
+                    render={(field) => (
+                      <FormInput
+                        label="Total"
+                        control={control}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </form>

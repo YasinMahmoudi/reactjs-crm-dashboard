@@ -15,6 +15,7 @@ import InvoiceCreateToolbar from './InvoiceCreateToolbar';
 
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import PlusIcon from '@mui/icons-material/Add';
+import { FormHelperText } from '@mui/material';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
@@ -43,13 +44,26 @@ export default function InvoiceCreate() {
               }}
               render={(field) => (
                 <Autocomplete
+                  id="client"
                   disablePortal
                   options={['Test 1', 'Test 2', 'Test 3', 'Test 4']}
                   fullWidth
+                  onChange={(_event, data) => field.field.onChange(data)}
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       label="Client"
+                      slotProps={{
+                        htmlInput: {
+                          ...params.inputProps,
+                          autoComplete: 'new-password', // disable autocomplete and autofill
+                        },
+                      }}
+                      onBlur={field.field.onBlur}
+                      name={field.field.name}
+                      inputRef={field.field.ref}
+                      error={field.fieldState.error}
+                      helperText={field.fieldState.error?.message}
                     />
                   )}
                   {...field}
@@ -105,18 +119,27 @@ export default function InvoiceCreate() {
               render={(field) => (
                 <FormControl
                   fullWidth
-                  {...field}>
-                  <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                  {...field}
+                  onBlur={field.field.onBlur}
+                  name={field.field.name}
+                  inputRef={field.field.ref}
+                  error={field.fieldState.error}>
+                  <InputLabel id="status">Status</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={''}
+                    aria-describedby="statusError"
+                    labelId="status"
+                    id="status"
                     label="Status"
-                    onChange={{}}>
+                    onChange={(event) =>
+                      field.field.onChange(event.target.value)
+                    }>
                     <MenuItem value="draft"> Draft </MenuItem>
                     <MenuItem value="pending"> Pending </MenuItem>
                     <MenuItem value="sent"> Sent </MenuItem>
                   </Select>
+                  <FormHelperText id="statusError">
+                    {field.fieldState.error?.message}
+                  </FormHelperText>
                 </FormControl>
               )}
             />
@@ -503,7 +526,7 @@ export default function InvoiceCreate() {
                 fontSize: '18px',
                 borderStyle: 'dashed',
                 marginLeft: 'auto',
-                gap:'10px'
+                gap: '10px',
               }}>
               <PlusIcon />
 

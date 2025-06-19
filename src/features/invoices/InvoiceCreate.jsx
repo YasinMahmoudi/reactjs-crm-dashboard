@@ -102,6 +102,7 @@ export default function InvoiceCreate() {
                 <FormInput
                   label="Year"
                   control={control}
+                  type="number"
                   {...field}
                 />
               )}
@@ -256,6 +257,7 @@ export default function InvoiceCreate() {
                 render={(field) => (
                   <FormInput
                     label="Quantity"
+                    type='number'
                     control={control}
                     {...field}
                   />

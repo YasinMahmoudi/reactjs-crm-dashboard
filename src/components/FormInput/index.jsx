@@ -4,6 +4,7 @@ import { useController } from 'react-hook-form';
 
 FormInput.propTypes = {
   label: PropTypes.string,
+  type: PropTypes.string,
   control: PropTypes.object,
   fields: PropTypes.shape({
     name: PropTypes.string,
@@ -12,6 +13,7 @@ FormInput.propTypes = {
 
 export default function FormInput({
   label = 'from input',
+  type = 'text',
   control,
   ...fields
 }) {
@@ -26,6 +28,7 @@ export default function FormInput({
 
   return (
     <TextField
+      type={type}
       label={label}
       variant="outlined"
       fullWidth

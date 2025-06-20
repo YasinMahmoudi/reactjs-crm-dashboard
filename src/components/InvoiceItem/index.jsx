@@ -9,12 +9,14 @@ InvoiceItem.propTypes = {
   control: PropTypes.object,
   initial: PropTypes.bool,
   position: PropTypes.string,
+  onDelete: PropTypes.func,
 };
 
 export default function InvoiceItem({
   control,
   initial = false,
   position = 0,
+  onDelete,
 }) {
   return (
     <Grid
@@ -113,15 +115,18 @@ export default function InvoiceItem({
         />
       </Grid>
 
-      {initial && (
+      {!initial ? (
         <Grid
           size={{ xs: 2, sm: 2, md: 0.5 }}
           alignSelf="center">
-          <Button color="error">
+          <Button
+            color="error"
+            data-id={position}
+            onClick={onDelete}>
             <DeleteIcon />
           </Button>
         </Grid>
-      )}
+      ) : null}
     </Grid>
   );
 }

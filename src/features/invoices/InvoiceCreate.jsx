@@ -210,7 +210,7 @@ export default function InvoiceCreate() {
           <InvoiceItemContainer>
             <InvoiceItem
               control={control}
-              initial={false}
+              initial={true}
             />
           </InvoiceItemContainer>
 

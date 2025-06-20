@@ -12,14 +12,24 @@ function InvoiceItemContainer({ children }) {
   const [addintionalItemElements, setAddintionalItemElements] = useState([]);
 
   function InsertItemHandler() {
+    const position = addintionalItemElements.length + 1;
+
     const newItem = createElement(children.type, {
       ...children.props,
-      position: addintionalItemElements.length + 1,
+      initial: false,
+      position,
+      onDelete: () => handleDelete(position),
     });
     setAddintionalItemElements((addintionalItemElements) => [
       ...addintionalItemElements,
       newItem,
     ]);
+  }
+
+  function handleDelete(id) {
+    setAddintionalItemElements((addintionalItemElements) =>
+      addintionalItemElements.filter((item) => item.props.position !== id)
+    );
   }
 
   return (

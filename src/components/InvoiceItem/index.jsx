@@ -7,9 +7,15 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
 InvoiceItem.propTypes = {
   control: PropTypes.object,
+  initial: PropTypes.bool,
+  position: PropTypes.string,
 };
 
-export default function InvoiceItem({ control }) {
+export default function InvoiceItem({
+  control,
+  initial = false,
+  position = 0,
+}) {
   return (
     <Grid
       container
@@ -18,7 +24,7 @@ export default function InvoiceItem({ control }) {
       sx={{ width: '100%' }}>
       <Grid size={{ xs: 2, sm: 2, md: 1 }}>
         <Controller
-          name="item"
+          name={`item-${position}`}
           defaultValue=""
           control={control}
           rules={{
@@ -36,7 +42,7 @@ export default function InvoiceItem({ control }) {
 
       <Grid size={{ xs: 2, sm: 2, md: 2 }}>
         <Controller
-          name="description"
+          name={`description-${position}`}
           defaultValue=""
           control={control}
           rules={{
@@ -54,7 +60,7 @@ export default function InvoiceItem({ control }) {
 
       <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
         <Controller
-          name="quantity"
+          name={`quantity-${position}`}
           defaultValue=""
           control={control}
           rules={{
@@ -73,7 +79,7 @@ export default function InvoiceItem({ control }) {
 
       <Grid size={{ xs: 2, sm: 2, md: 1 }}>
         <Controller
-          name="price"
+          name={`price-${position}`}
           defaultValue=""
           control={control}
           rules={{
@@ -91,7 +97,7 @@ export default function InvoiceItem({ control }) {
 
       <Grid size={{ xs: 2, sm: 2, md: 1 }}>
         <Controller
-          name="total"
+          name={`total-${position}`}
           defaultValue=""
           control={control}
           rules={{
@@ -107,13 +113,15 @@ export default function InvoiceItem({ control }) {
         />
       </Grid>
 
-      <Grid
-        size={{ xs: 2, sm: 2, md: 0.5 }}
-        alignSelf="center">
-        <Button color="error">
-          <DeleteIcon />
-        </Button>
-      </Grid>
+      {initial && (
+        <Grid
+          size={{ xs: 2, sm: 2, md: 0.5 }}
+          alignSelf="center">
+          <Button color="error">
+            <DeleteIcon />
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 }

@@ -207,10 +207,11 @@ export default function InvoiceCreate() {
             <Divider sx={{ borderStyle: 'dashed' }} />
           </Grid>
 
-          {/* INVOICE ITEM CONTAINER */}
-
           <InvoiceItemContainer>
-            <InvoiceItem control={control} />
+            <InvoiceItem
+              control={control}
+              initial={false}
+            />
           </InvoiceItemContainer>
 
           <Grid

@@ -12,7 +12,10 @@ function InvoiceItemContainer({ children }) {
   const [addintionalItemElements, setAddintionalItemElements] = useState([]);
 
   function InsertItemHandler() {
-    const newItem = createElement(children.type, { ...children.props });
+    const newItem = createElement(children.type, {
+      ...children.props,
+      position: addintionalItemElements.length + 1,
+    });
     setAddintionalItemElements((addintionalItemElements) => [
       ...addintionalItemElements,
       newItem,

@@ -4,6 +4,7 @@ import { useController } from 'react-hook-form';
 
 FormInput.propTypes = {
   label: PropTypes.string,
+  readOnly: PropTypes.bool,
   type: PropTypes.string,
   control: PropTypes.object,
   fields: PropTypes.shape({
@@ -13,6 +14,7 @@ FormInput.propTypes = {
 
 export default function FormInput({
   label = 'from input',
+  readOnly = false,
   type = 'text',
   control,
   ...fields
@@ -39,7 +41,8 @@ export default function FormInput({
       inputRef={field.ref}
       error={error}
       helperText={error?.message}
-      disabled={field.disabled}
+      disabled={field.disabled || readOnly}
+      aria-readonly={readOnly}
     />
   );
 }

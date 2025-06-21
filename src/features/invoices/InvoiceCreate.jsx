@@ -15,8 +15,8 @@ import InvoiceCreateToolbar from './InvoiceCreateToolbar';
 
 import PlusIcon from '@mui/icons-material/Add';
 import { FormHelperText } from '@mui/material';
-import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import InvoiceItem from '../../components/InvoiceItem';
+import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
@@ -48,6 +48,7 @@ export default function InvoiceCreate() {
                   id="client"
                   disablePortal
                   options={['Test 1', 'Test 2', 'Test 3', 'Test 4']}
+                  getOptionLabel={(option) => option}
                   fullWidth
                   onChange={(_event, data) => field.field.onChange(data)}
                   renderInput={(params) => (
@@ -67,7 +68,6 @@ export default function InvoiceCreate() {
                       helperText={field.fieldState.error?.message}
                     />
                   )}
-                  {...field}
                 />
               )}
             />
@@ -121,10 +121,8 @@ export default function InvoiceCreate() {
               render={(field) => (
                 <FormControl
                   fullWidth
-                  {...field}
                   onBlur={field.field.onBlur}
                   name={field.field.name}
-                  inputRef={field.field.ref}
                   error={field.fieldState.error}>
                   <InputLabel id="status">Status</InputLabel>
                   <Select
@@ -134,7 +132,9 @@ export default function InvoiceCreate() {
                     label="Status"
                     onChange={(event) =>
                       field.field.onChange(event.target.value)
-                    }>
+                    }
+                    inputRef={field.field.ref}
+                    defaultValue="">
                     <MenuItem value="draft"> Draft </MenuItem>
                     <MenuItem value="pending"> Pending </MenuItem>
                     <MenuItem value="sent"> Sent </MenuItem>

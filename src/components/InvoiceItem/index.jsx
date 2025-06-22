@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
-import { Controller } from 'react-hook-form';
+import { Controller, useController } from 'react-hook-form';
 import FormInput from '../FormInput';
 
 InvoiceItem.propTypes = {
@@ -18,6 +18,24 @@ export default function InvoiceItem({
   position = 0,
   onDelete,
 }) {
+  const {
+    field: { value: quantiry },
+  } = useController({
+    name: `quantity-${position}`,
+    control,
+    defaultValue: 1,
+  });
+
+  const {
+    field: { value: price },
+  } = useController({
+    name: `price-${position}`,
+    control,
+    defaultValue: 1,
+  });
+
+  const totlaItemPrice = +quantiry * +price;
+
   return (
     <>
       <Grid
@@ -64,10 +82,13 @@ export default function InvoiceItem({
         <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
           <Controller
             name={`quantity-${position}`}
-            defaultValue=""
             control={control}
             rules={{
               required: 'Please add a quantity .',
+              min: {
+                value: 1,
+                message: 'Qunatity must be grater than 1',
+              },
             }}
             render={(field) => (
               <FormInput
@@ -83,7 +104,6 @@ export default function InvoiceItem({
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name={`price-${position}`}
-            defaultValue=""
             control={control}
             rules={{
               required: 'Please add a price .',
@@ -92,6 +112,7 @@ export default function InvoiceItem({
               <FormInput
                 label="Price"
                 control={control}
+                type="number"
                 {...field}
               />
             )}
@@ -101,16 +122,21 @@ export default function InvoiceItem({
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name={`total-${position}`}
-            defaultValue=""
+            defaultValue={0}
             control={control}
             rules={{
-              required: 'Please add a name for item .',
+              required: 'Please add a total price for item .',
             }}
             render={(field) => (
               <FormInput
                 label="Total"
                 readOnly={true}
                 control={control}
+                value={
+                  totlaItemPrice > 0
+                    ? `$ ${totlaItemPrice.toFixed(2)}`
+                    : `$ 1:00`
+                }
                 {...field}
               />
             )}

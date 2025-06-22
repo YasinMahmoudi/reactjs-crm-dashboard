@@ -6,6 +6,7 @@ FormInput.propTypes = {
   label: PropTypes.string,
   readOnly: PropTypes.bool,
   type: PropTypes.string,
+  value: PropTypes.string,
   control: PropTypes.object,
   fields: PropTypes.shape({
     name: PropTypes.string,
@@ -16,6 +17,7 @@ export default function FormInput({
   label = 'from input',
   readOnly = false,
   type = 'text',
+  value = '',
   control,
   ...fields
 }) {
@@ -34,7 +36,7 @@ export default function FormInput({
       label={label}
       variant="outlined"
       fullWidth
-      value={field.value}
+      value={field.value || value}
       onChange={field.onChange}
       onBlur={field.onBlur}
       name={field.name}

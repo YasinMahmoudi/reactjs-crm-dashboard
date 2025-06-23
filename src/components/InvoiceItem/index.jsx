@@ -4,12 +4,15 @@ import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
 import { Controller, useController } from 'react-hook-form';
 import FormInput from '../FormInput';
+import { useRef } from 'react';
 
 InvoiceItem.propTypes = {
   control: PropTypes.object,
   initial: PropTypes.bool,
   position: PropTypes.string,
   onDelete: PropTypes.func,
+  items: PropTypes.array,
+  onSetItems: PropTypes.func,
 };
 
 export default function InvoiceItem({
@@ -17,9 +20,13 @@ export default function InvoiceItem({
   initial = false,
   position = 0,
   onDelete,
+  items,
+  onSetItems,
 }) {
+  const deleteButtonRef = useRef();
+
   const {
-    field: { value: quantiry },
+    field: { value: quantity },
   } = useController({
     name: `quantity-${position}`,
     control,
@@ -34,7 +41,52 @@ export default function InvoiceItem({
     defaultValue: 1,
   });
 
-  const totlaItemPrice = +quantiry * +price;
+  const {
+    field: { value: name },
+  } = useController({
+    name: `item-${position}`,
+    control,
+    defaultValue: '',
+  });
+
+  const totlaItemPrice = +quantity * +price;
+
+  function handleChange(changedId) {
+    const activeEl = document.activeElement;
+    const deleteButton = deleteButtonRef.current;
+
+    if (activeEl === deleteButton) return;
+
+    const newItem = {
+      id: position,
+      name,
+      description: '',
+      qty: +quantity,
+      price: +price,
+      totlaItemPrice,
+    };
+
+    if (!items.length) {
+      items.push(newItem);
+      return;
+    }
+
+    onSetItems((items) => {
+      const remainingItems = items.filter((item) => item.id !== changedId);
+
+      return [
+        ...remainingItems,
+        {
+          id: position,
+          name,
+          description: '',
+          qty: +quantity,
+          price: +price,
+          totlaItemPrice,
+        },
+      ];
+    });
+  }
 
   return (
     <>
@@ -42,7 +94,8 @@ export default function InvoiceItem({
         container
         spacing={{ md: 2 }}
         columns={{ md: 6 }}
-        sx={{ width: '100%' }}>
+        sx={{ width: '100%' }}
+        onClick={() => handleChange(position)}>
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name={`item-${position}`}
@@ -148,9 +201,15 @@ export default function InvoiceItem({
             size={{ xs: 2, sm: 2, md: 0.5 }}
             alignSelf="center">
             <Button
+              ref={deleteButtonRef}
               color="error"
               data-id={position}
-              onClick={onDelete}>
+              onClick={() => {
+                onDelete();
+                onSetItems((items) =>
+                  items.filter((item) => item.id !== position)
+                );
+              }}>
               <DeleteIcon />
             </Button>
           </Grid>

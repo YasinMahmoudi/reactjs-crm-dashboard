@@ -17,13 +17,20 @@ import PlusIcon from '@mui/icons-material/Add';
 import { FormHelperText } from '@mui/material';
 import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
+import { useState } from 'react';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
 
+  const [items, setItems] = useState([]);
+
   function onSubmit(data) {
     console.log(data);
   }
+
+  const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
+
+  console.log(items);
 
   return (
     <>
@@ -211,6 +218,8 @@ export default function InvoiceCreate() {
             <InvoiceItem
               control={control}
               initial={true}
+              items={items}
+              onSetItems={setItems}
             />
           </InvoiceItemContainer>
 
@@ -281,12 +290,18 @@ export default function InvoiceCreate() {
                 <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                   <Controller
                     name="total"
-                    defaultValue=""
+                    defaultValue={0}
                     control={control}
                     render={(field) => (
                       <FormInput
                         label="Total"
+                        readOnly
                         control={control}
+                        value={
+                          totalPrice > 0
+                            ? `$ ${totalPrice.toFixed(2)}`
+                            : `$ 1:00`
+                        }
                         {...field}
                       />
                     )}

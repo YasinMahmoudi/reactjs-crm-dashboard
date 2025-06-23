@@ -1,4 +1,5 @@
 import PlusIcon from '@mui/icons-material/Add';
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
@@ -38,7 +39,12 @@ function InvoiceItemContainer({ children }) {
 
       {addintionalItemElements.length > 0 &&
         addintionalItemElements.map((itemElement, i) => (
-          <div key={i}> {itemElement} </div>
+          <Box
+            sx={{ width: '100%' }}
+            key={i}>
+            {' '}
+            {itemElement}{' '}
+          </Box>
         ))}
 
       <Grid

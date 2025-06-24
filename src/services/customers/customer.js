@@ -141,3 +141,43 @@ export async function deleteManyCustomersService(ids = []) {
     return error;
   }
 }
+
+export async function searchCustomersService({ query = '', signal }) {
+  // await new Promise((resolve) =>
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 2000)
+  // );
+
+  const searchableFields = ['name'];
+
+  let fetchUrl;
+
+  if (query) {
+    fetchUrl = `${API_URL}/client/search?q=${query}&fields=${[
+      ...searchableFields,
+    ]}`;
+  }
+
+  if (!query) {
+    fetchUrl = `${API_URL}/client/search`;
+  }
+
+  try {
+    const res = await fetch(fetchUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      signal,
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

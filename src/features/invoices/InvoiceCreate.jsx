@@ -1,9 +1,7 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import Button from '@mui/material/Button';
@@ -15,9 +13,10 @@ import InvoiceCreateToolbar from './InvoiceCreateToolbar';
 
 import PlusIcon from '@mui/icons-material/Add';
 import { FormHelperText } from '@mui/material';
+import { useState } from 'react';
 import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
-import { useState } from 'react';
+import SearchableSelect from '../../components/SearchableClients';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
@@ -29,8 +28,6 @@ export default function InvoiceCreate() {
   }
 
   const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
-
-  console.log(items);
 
   return (
     <>
@@ -50,33 +47,7 @@ export default function InvoiceCreate() {
               rules={{
                 required: 'Please add a client .',
               }}
-              render={(field) => (
-                <Autocomplete
-                  id="client"
-                  disablePortal
-                  options={['Test 1', 'Test 2', 'Test 3', 'Test 4']}
-                  getOptionLabel={(option) => option}
-                  fullWidth
-                  onChange={(_event, data) => field.field.onChange(data)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Client"
-                      slotProps={{
-                        htmlInput: {
-                          ...params.inputProps,
-                          autoComplete: 'new-password', // disable autocomplete and autofill
-                        },
-                      }}
-                      onBlur={field.field.onBlur}
-                      name={field.field.name}
-                      inputRef={field.field.ref}
-                      error={field.fieldState.error}
-                      helperText={field.fieldState.error?.message}
-                    />
-                  )}
-                />
-              )}
+              render={(field) => <SearchableSelect field={field} />}
             />
           </Grid>
 

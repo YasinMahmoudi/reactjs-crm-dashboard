@@ -154,7 +154,7 @@ export default function InvoiceCreate() {
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 3 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 1 }}>
             <Controller
               name="date"
               defaultValue=""
@@ -190,7 +190,7 @@ export default function InvoiceCreate() {
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 2 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 4 }}>
             <Controller
               name="note"
               defaultValue=""
@@ -260,12 +260,18 @@ export default function InvoiceCreate() {
                 <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                   <Controller
                     name="subTotal"
-                    defaultValue=""
+                    defaultValue={0}
                     control={control}
                     render={(field) => (
                       <FormInput
                         label="Sub Total"
                         control={control}
+                        readOnly
+                        value={
+                          totalPrice > 0
+                            ? `$ ${totalPrice.toFixed(2)}`
+                            : `$ 1:00`
+                        }
                         {...field}
                       />
                     )}
@@ -274,12 +280,13 @@ export default function InvoiceCreate() {
 
                 <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                   <Controller
-                    name="subTotal"
-                    defaultValue=""
+                    name="tax"
+                    defaultValue={0}
                     control={control}
                     render={(field) => (
                       <FormInput
-                        label="Sub Total"
+                        label="Tax"
+                        readOnly
                         control={control}
                         {...field}
                       />

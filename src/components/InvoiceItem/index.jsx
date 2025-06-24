@@ -101,6 +101,7 @@ export default function InvoiceItem({
             name={`item-${position}`}
             defaultValue=""
             control={control}
+            shouldUnregister={true}
             rules={{
               required: 'Please add a name for item .',
             }}
@@ -119,9 +120,7 @@ export default function InvoiceItem({
             name={`description-${position}`}
             defaultValue=""
             control={control}
-            rules={{
-              required: 'Please add a description .',
-            }}
+            shouldUnregister={true}
             render={(field) => (
               <FormInput
                 label="Description"
@@ -136,6 +135,7 @@ export default function InvoiceItem({
           <Controller
             name={`quantity-${position}`}
             control={control}
+            shouldUnregister={true}
             rules={{
               required: 'Please add a quantity .',
               min: {
@@ -158,6 +158,7 @@ export default function InvoiceItem({
           <Controller
             name={`price-${position}`}
             control={control}
+            shouldUnregister={true}
             rules={{
               required: 'Please add a price .',
             }}
@@ -177,6 +178,7 @@ export default function InvoiceItem({
             name={`total-${position}`}
             defaultValue={0}
             control={control}
+            shouldUnregister={true}
             rules={{
               required: 'Please add a total price for item .',
             }}

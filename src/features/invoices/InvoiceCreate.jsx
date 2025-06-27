@@ -4,6 +4,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
@@ -125,7 +130,7 @@ export default function InvoiceCreate() {
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
             <Controller
               name="date"
               defaultValue=""
@@ -134,16 +139,21 @@ export default function InvoiceCreate() {
                 required: 'Please select a date .',
               }}
               render={(field) => (
-                <FormInput
-                  label="Date"
-                  control={control}
-                  {...field}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      sx={{ width: '100%', paddingTop: '0' }}
+                      label="Date"
+                      control={control}
+                      {...field}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
               )}
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 1 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
             <Controller
               name="expireDate"
               defaultValue=""
@@ -152,16 +162,21 @@ export default function InvoiceCreate() {
                 required: 'Please select an expire date .',
               }}
               render={(field) => (
-                <FormInput
-                  label="Expire Date"
-                  control={control}
-                  {...field}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker']}>
+                    <DatePicker
+                      sx={{ width: '100%' }}
+                      label="Expire Date"
+                      control={control}
+                      {...field}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
               )}
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 4 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 3 }} pt="8px">
             <Controller
               name="note"
               defaultValue=""

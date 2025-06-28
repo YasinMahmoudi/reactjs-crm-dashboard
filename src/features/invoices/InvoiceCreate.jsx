@@ -83,12 +83,29 @@ export default function InvoiceCreate() {
                 required: 'Please select a year .',
               }}
               render={(field) => (
-                <FormInput
-                  label="Year"
-                  control={control}
-                  type="number"
-                  {...field}
-                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer
+                    components={['DatePicker']}
+                    sx={{ paddingTop: 0, overflow: 'visible' }}>
+                    <DatePicker
+                      sx={{ minWidth: '1rem !important', width: '100%' }}
+                      label="Year"
+                      openTo="year"
+                      view="year"
+                      views={['year']}
+                      onChange={field.field.onChange}
+                      onBlur={field.field.onBlur}
+                      inputRef={field.field.ref}
+                      slotProps={{
+                        textField: {
+                          error: field.fieldState.error,
+                          helperText: field.fieldState.error?.message,
+                        },
+                      }}
+                      control={control}
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
               )}
             />
           </Grid>
@@ -140,12 +157,22 @@ export default function InvoiceCreate() {
               }}
               render={(field) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['DatePicker']}>
+                  <DemoContainer
+                    components={['DatePicker']}
+                    sx={{ paddingTop: 0, overflow: 'visible' }}>
                     <DatePicker
-                      sx={{ width: '100%', paddingTop: '0' }}
+                      sx={{ minWidth: '1rem !important', width: '100%' }}
                       label="Date"
                       control={control}
-                      {...field}
+                      onChange={field.field.onChange}
+                      onBlur={field.field.onBlur}
+                      inputRef={field.field.ref}
+                      slotProps={{
+                        textField: {
+                          error: field.fieldState.error,
+                          helperText: field.fieldState.error?.message,
+                        },
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -163,12 +190,22 @@ export default function InvoiceCreate() {
               }}
               render={(field) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['DatePicker']}>
+                  <DemoContainer
+                    components={['DatePicker']}
+                    sx={{ paddingTop: 0, overflow: 'visible' }}>
                     <DatePicker
-                      sx={{ width: '100%' }}
+                      sx={{ minWidth: '1rem !important', width: '100%' }}
                       label="Expire Date"
                       control={control}
-                      {...field}
+                      onChange={field.field.onChange}
+                      onBlur={field.field.onBlur}
+                      inputRef={field.field.ref}
+                      slotProps={{
+                        textField: {
+                          error: field.fieldState.error,
+                          helperText: field.fieldState.error?.message,
+                        },
+                      }}
                     />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -176,7 +213,7 @@ export default function InvoiceCreate() {
             />
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 3 }} pt="8px">
+          <Grid size={{ xs: 2, sm: 2, md: 3 }}>
             <Controller
               name="note"
               defaultValue=""

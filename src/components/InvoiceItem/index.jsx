@@ -179,9 +179,6 @@ export default function InvoiceItem({
             defaultValue={0}
             control={control}
             shouldUnregister={true}
-            rules={{
-              required: 'Please add a total price for item .',
-            }}
             render={(field) => (
               <FormInput
                 label="Total"

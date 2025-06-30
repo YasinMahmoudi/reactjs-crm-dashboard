@@ -24,14 +24,11 @@ export default function FormInput({
   const {
     field,
     fieldState: { error },
-    formState: { errors },
   } = useController({
     name: fields.field.name,
     control,
     ...fields,
   });
-
-  console.log(errors);
 
   return (
     <TextField

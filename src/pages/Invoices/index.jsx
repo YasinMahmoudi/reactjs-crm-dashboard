@@ -1,5 +1,10 @@
 import InvoicesFeature from '../../features/invoices';
+import BorderBox from '../../components/BorderBox';
 
 export default function Invoices() {
-  return <InvoicesFeature />;
+  return (
+    <BorderBox>
+      <InvoicesFeature />;
+    </BorderBox>
+  );
 }

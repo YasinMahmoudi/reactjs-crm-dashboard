@@ -79,8 +79,6 @@ export default function InvoicesTable() {
       />
     );
 
-    console.log(invoices)
-
   return (
     <>
       <DataTable

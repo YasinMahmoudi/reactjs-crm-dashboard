@@ -14,7 +14,7 @@ export default function InvoiceActions({ id }) {
   const navigate = useNavigate();
 
   function handleEdit() {
-    navigate(`/customers/create?edit=true&id=${id}`);
+    navigate(`/invoices/edit/${id}`);
   }
 
   return (

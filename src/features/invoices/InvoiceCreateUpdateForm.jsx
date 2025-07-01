@@ -16,6 +16,7 @@ import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
+import { useIsEditing } from '../../hooks/useIsEditing';
 
 const statusItems = [
   {
@@ -36,8 +37,9 @@ export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
 
   const [items, setItems] = useState([]);
-
   const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+
+  const { isEditing } = useIsEditing();
 
   function onSubmit(data) {
     createInvoice({
@@ -225,7 +227,9 @@ export default function InvoiceCreateUpdateForm() {
               disabled={isCreatingInvoice}
               loadingPosition="start">
               <PlusIcon />
-              <Typography variant="h6">Save</Typography>
+              <Typography variant="h6">
+                {isEditing ? 'Update' : 'Save'}
+              </Typography>
             </Button>
           </Grid>
 

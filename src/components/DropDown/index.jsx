@@ -12,6 +12,7 @@ DropDown.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   control: PropTypes.object,
+  defaultValue:PropTypes.string,
   items: PropTypes.array,
   fields: PropTypes.shape({
     name: PropTypes.string,
@@ -23,6 +24,7 @@ export default function DropDown({
   id,
   items,
   control,
+  defaultValue,
   ...fields
 }) {
   const {
@@ -42,7 +44,7 @@ export default function DropDown({
       error={error}>
       <InputLabel id={id}> {label} </InputLabel>
       <Select
-        defaultValue=""
+        defaultValue={defaultValue}
         aria-describedby={`${label.toLocaleLowerCase()}Error`}
         labelId={id}
         id={id}

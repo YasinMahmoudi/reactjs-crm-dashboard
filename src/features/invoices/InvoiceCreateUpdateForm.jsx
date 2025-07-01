@@ -17,6 +17,9 @@ import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
+import { useGetInvoice } from './useGetInvoice';
+import { CircularProgress } from '@mui/material';
+import dayjs from 'dayjs';
 
 const statusItems = [
   {
@@ -35,11 +38,12 @@ const statusItems = [
 
 export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
-
   const [items, setItems] = useState([]);
-  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
 
   const { isEditing } = useIsEditing();
+
+  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+  const { invoice = {}, isLoadingInvoice } = useGetInvoice();
 
   function onSubmit(data) {
     createInvoice({
@@ -55,6 +59,8 @@ export default function InvoiceCreateUpdateForm() {
 
   const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 
+  if (isLoadingInvoice) return <CircularProgress />;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -65,19 +71,23 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 3 }}>
           <Controller
             name="client"
-            defaultValue=""
             control={control}
             rules={{
               required: 'Please add a client .',
             }}
-            render={(field) => <SearchableSelect field={field} />}
+            render={(field) => (
+              <SearchableSelect
+                field={field}
+                defaultValue={invoice?.client?.name || null}
+              />
+            )}
           />
         </Grid>
 
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name="number"
-            defaultValue=""
+            defaultValue={invoice.number}
             control={control}
             rules={{
               required: 'Please add a number .',
@@ -106,6 +116,7 @@ export default function InvoiceCreateUpdateForm() {
                 view="year"
                 views={['year']}
                 openTo="year"
+                defaultValue={dayjs(invoice.year) || ''}
                 control={control}
                 {...field}
               />
@@ -116,7 +127,6 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name="status"
-            defaultValue=""
             control={control}
             rules={{
               required: 'Please select a status',
@@ -127,6 +137,7 @@ export default function InvoiceCreateUpdateForm() {
                 id="status"
                 items={statusItems}
                 control={control}
+                defaultValue={invoice.status || ''}
                 {...field}
               />
             )}
@@ -144,6 +155,7 @@ export default function InvoiceCreateUpdateForm() {
             render={(field) => (
               <EnhancedDatePicker
                 label="Date"
+                defaultValue={dayjs(invoice.date) || ''}
                 control={control}
                 {...field}
               />
@@ -162,6 +174,7 @@ export default function InvoiceCreateUpdateForm() {
             render={(field) => (
               <EnhancedDatePicker
                 label="Expire Date"
+                defaultValue={dayjs(invoice.expiredDate) || ''}
                 control={control}
                 {...field}
               />
@@ -172,7 +185,7 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 3 }}>
           <Controller
             name="note"
-            defaultValue=""
+            defaultValue={invoice.notes || ''}
             control={control}
             rules={{
               required: 'Please add a note .',
@@ -241,7 +254,7 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="subTotal"
-                  defaultValue={0}
+                  defaultValue={invoice.subTotal || 0}
                   control={control}
                   render={(field) => (
                     <FormInput
@@ -276,7 +289,7 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="total"
-                  defaultValue={0}
+                  defaultValue={invoice.total || 0}
                   control={control}
                   render={(field) => (
                     <FormInput

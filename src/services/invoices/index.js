@@ -90,9 +90,9 @@ export async function createInvoiceService(newInvoice) {
   }
 }
 
-export async function getCustomerService(id) {
+export async function getInvoiceService(id) {
   try {
-    const res = await fetch(`${API_URL}/client/read/${id}`, {
+    const res = await fetch(`${API_URL}/invoice/read/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

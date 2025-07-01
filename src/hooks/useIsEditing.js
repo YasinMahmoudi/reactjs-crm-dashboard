@@ -4,5 +4,5 @@ export function useIsEditing() {
   const { editId } = useParams();
   const isEditing = !!editId;
 
-  return { isEditing };
+  return { editId , isEditing };
 }

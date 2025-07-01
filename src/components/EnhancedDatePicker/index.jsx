@@ -12,6 +12,7 @@ EnhancedDatePicker.propTypes = {
   views: PropTypes.array,
   openTo: PropTypes.string,
   control: PropTypes.object,
+  defaultValue:PropTypes.string,
   fields: PropTypes.shape({
     name: PropTypes.string,
   }),
@@ -23,6 +24,7 @@ export default function EnhancedDatePicker({
   views = ['month' , 'day' , 'year'],
   openTo = '',
   control,
+  defaultValue,
   ...fields
 }) {
   const {
@@ -45,6 +47,7 @@ export default function EnhancedDatePicker({
           openTo={openTo}
           view={view}
           views={views}
+          defaultValue={defaultValue}
           onChange={field.onChange}
           onBlur={field.onBlur}
           inputRef={field.ref}

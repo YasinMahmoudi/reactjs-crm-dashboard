@@ -2,21 +2,32 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 import { useSearchCustomers } from '../../features/customers/useSearchCustomers';
+import { useIsEditing } from '../../hooks/useIsEditing';
 
 SearchableClients.propTypes = {
   field: PropTypes.object,
+  defaultValue: PropTypes.string,
 };
 
-export default function SearchableClients({ field }) {
+export default function SearchableClients({ field, defaultValue }) {
   const { searchCustomers = [], isSearchingCustomers } = useSearchCustomers({
     searchQuery: field.field.value,
   });
+
+  const { isEditing } = useIsEditing();
 
   return (
     <Autocomplete
       loading={isSearchingCustomers}
       id="client"
       disablePortal
+      defaultValue={
+        isEditing
+          ? {
+              name: defaultValue,
+            }
+          : null
+      }
       options={searchCustomers}
       getOptionLabel={(option) => option.name}
       fullWidth

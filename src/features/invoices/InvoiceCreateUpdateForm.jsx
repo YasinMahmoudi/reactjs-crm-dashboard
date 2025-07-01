@@ -3,24 +3,34 @@ import { useForm } from 'react-hook-form';
 import { useCreateInvoice } from './useCreateInvoice';
 
 import Divider from '@mui/material/Divider';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Select from '@mui/material/Select';
 import { Controller } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 
 import PlusIcon from '@mui/icons-material/Add';
-import { FormHelperText } from '@mui/material';
+import DropDown from '../../components/DropDown';
 import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
+
+const statusItems = [
+  {
+    label: 'Draft',
+    value: 'draft',
+  },
+  {
+    label: 'Pending',
+    value: 'pending',
+  },
+  {
+    label: 'Sent',
+    value: 'sent',
+  },
+];
 
 export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
@@ -110,28 +120,13 @@ export default function InvoiceCreateUpdateForm() {
               required: 'Please select a status',
             }}
             render={(field) => (
-              <FormControl
-                fullWidth
-                onBlur={field.field.onBlur}
-                name={field.field.name}
-                error={field.fieldState.error}>
-                <InputLabel id="status">Status</InputLabel>
-                <Select
-                  aria-describedby="statusError"
-                  labelId="status"
-                  id="status"
-                  label="Status"
-                  onChange={(event) => field.field.onChange(event.target.value)}
-                  inputRef={field.field.ref}
-                  defaultValue="">
-                  <MenuItem value="draft"> Draft </MenuItem>
-                  <MenuItem value="pending"> Pending </MenuItem>
-                  <MenuItem value="sent"> Sent </MenuItem>
-                </Select>
-                <FormHelperText id="statusError">
-                  {field.fieldState.error?.message}
-                </FormHelperText>
-              </FormControl>
+              <DropDown
+                label="Status"
+                id="status"
+                items={statusItems}
+                control={control}
+                {...field}
+              />
             )}
           />
         </Grid>

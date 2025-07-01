@@ -22,14 +22,25 @@ import { useState } from 'react';
 import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
+import { useCreateInvoice } from './useCreateInvoice';
 
 export default function InvoiceCreate() {
   const { control, handleSubmit } = useForm();
 
   const [items, setItems] = useState([]);
 
+  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+
   function onSubmit(data) {
-    console.log(data);
+    createInvoice({
+      data: {
+        ...data,
+        date: new Date(data.date.$d).toISOString(),
+        expireDate: new Date(data.date.$d).toISOString(),
+        year: data.year.$y,
+      },
+      items,
+    });
   }
 
   const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
@@ -267,8 +278,8 @@ export default function InvoiceCreate() {
                   gap: '10px',
                 }}
                 type="submit"
-                loading={false}
-                disabled={false}
+                loading={isCreatingInvoice}
+                disabled={isCreatingInvoice}
                 loadingPosition="start">
                 <PlusIcon />
                 <Typography variant="h6">Save</Typography>

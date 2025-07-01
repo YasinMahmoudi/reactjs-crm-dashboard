@@ -20,7 +20,7 @@ export default function SearchableClients({ field }) {
       options={searchCustomers}
       getOptionLabel={(option) => option.name}
       fullWidth
-      onChange={(_event, data) => field.field.onChange(data?.name)}
+      onChange={(_event, data) => field.field.onChange(data?._id)}
       renderInput={(params) => (
         <TextField
           {...params}

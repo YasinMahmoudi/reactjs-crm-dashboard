@@ -36,19 +36,53 @@ export async function getInvoicesService({ page = 1, query = '', signal }) {
   }
 }
 
-export async function createCustomerService(newCustomer) {
+export async function createInvoiceService(newInvoice) {
+  // Extract necessary data from given invoice
+  const {
+    data: { client, date, expireDate, note, number, status, tax, year },
+    items,
+  } = newInvoice;
+
+  // Change items structure
+  const modifiedItems = items.map((item) => ({
+    itemName: item.name,
+    price: item.price,
+    quantity: item.qty,
+    total: item.totlaItemPrice,
+    description: item.description,
+  }));
+
+  // Create a brand new invoice object
+  const invoiceData = {
+    client,
+    date,
+    expiredDate: expireDate,
+    notes: note,
+    number: +number,
+    status,
+    taxRate: tax,
+    year,
+    items: modifiedItems,
+  };
+
   try {
-    const res = await fetch(`${API_URL}/client/create`, {
+    const res = await fetch(`${API_URL}/invoice/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newCustomer),
+      body: JSON.stringify(invoiceData),
       credentials: 'include',
     });
+
+    if (!res.ok)
+      throw new Error(
+        'Something happened on the server ! please try again later'
+      );
+
     const data = await res.json();
 
-    if (!res.ok) throw new Error(data.message);
+    if (!data.success) throw new Error(data.message);
 
     return data;
   } catch (error) {

@@ -2,54 +2,62 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
 import { Controller, useController } from 'react-hook-form';
 import FormInput from '../FormInput';
-import { useRef } from 'react';
 
 InvoiceItem.propTypes = {
   control: PropTypes.object,
   initial: PropTypes.bool,
   position: PropTypes.string,
-  onDelete: PropTypes.func,
-  items: PropTypes.array,
+  item: PropTypes.object,
   onSetItems: PropTypes.func,
 };
 
 export default function InvoiceItem({
   control,
   initial = false,
-  position = 0,
-  onDelete,
-  items,
+  item,
   onSetItems,
 }) {
   const deleteButtonRef = useRef();
 
+  // const {
+  //   field: { value: name },
+  // } = useController({
+  //   name: `item-${position}`,
+  //   control,
+  // });
+
+  // const {
+  //   field: { value: description },
+  // } = useController({
+  //   name: `description-${position}`,
+  //   control,
+  // });
+
   const {
-    field: { value: quantity },
+    field: { value: qty },
   } = useController({
-    name: `quantity-${position}`,
+    name: `quantity-${item.id}`,
     control,
-    defaultValue: 1,
+    defaultValue: item.qty || 1,
   });
 
   const {
     field: { value: price },
   } = useController({
-    name: `price-${position}`,
+    name: `price-${item.id}`,
     control,
-    defaultValue: 1,
+    defaultValue: item.price || 1,
   });
 
-  const {
-    field: { value: name },
-  } = useController({
-    name: `item-${position}`,
-    control,
-    defaultValue: '',
-  });
-
-  const totlaItemPrice = +quantity * +price;
+  // const {
+  //   field: { value: totalItemPrice },
+  // } = useController({
+  //   name: `total-${position}`,
+  //   control,
+  // });
 
   function handleChange(changedId) {
     const activeEl = document.activeElement;
@@ -57,36 +65,28 @@ export default function InvoiceItem({
 
     if (activeEl === deleteButton) return;
 
-    const newItem = {
-      id: position,
-      name,
-      description: '',
-      qty: +quantity,
-      price: +price,
-      totlaItemPrice,
-    };
-
-    if (!items.length) {
-      items.push(newItem);
-      return;
-    }
-
     onSetItems((items) => {
-      const remainingItems = items.filter((item) => item.id !== changedId);
+      const modifiedItems = items.map((item) =>
+        item.id === changedId
+          ? {
+              ...item,
 
-      return [
-        ...remainingItems,
-        {
-          id: position,
-          name,
-          description: '',
-          qty: +quantity,
-          price: +price,
-          totlaItemPrice,
-        },
-      ];
+              qty: +qty,
+              price: +price,
+              totlaItemPrice: +totlaItemPrice,
+            }
+          : item
+      );
+
+      return modifiedItems;
     });
   }
+
+  function handleDelete(id) {
+    onSetItems((items) => items.filter((item) => item.id !== id));
+  }
+
+  const totlaItemPrice = +qty * +price;
 
   return (
     <>
@@ -95,13 +95,12 @@ export default function InvoiceItem({
         spacing={{ md: 2 }}
         columns={{ md: 6 }}
         sx={{ width: '100%' }}
-        onClick={() => handleChange(position)}>
+        onClick={() => handleChange(item.id)}>
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
-            name={`item-${position}`}
-            defaultValue=""
+            name={`item-${item.id}`}
+            defaultValue={item.name}
             control={control}
-            shouldUnregister={true}
             rules={{
               required: 'Please add a name for item .',
             }}
@@ -117,10 +116,9 @@ export default function InvoiceItem({
 
         <Grid size={{ xs: 2, sm: 2, md: 2 }}>
           <Controller
-            name={`description-${position}`}
-            defaultValue=""
+            name={`description-${item.id}`}
+            defaultValue={item.description}
             control={control}
-            shouldUnregister={true}
             render={(field) => (
               <FormInput
                 label="Description"
@@ -133,9 +131,8 @@ export default function InvoiceItem({
 
         <Grid size={{ xs: 2, sm: 2, md: 0.5 }}>
           <Controller
-            name={`quantity-${position}`}
+            name={`quantity-${item.id}`}
             control={control}
-            shouldUnregister={true}
             rules={{
               required: 'Please add a quantity .',
               min: {
@@ -156,9 +153,8 @@ export default function InvoiceItem({
 
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
-            name={`price-${position}`}
+            name={`price-${item.id}`}
             control={control}
-            shouldUnregister={true}
             rules={{
               required: 'Please add a price .',
             }}
@@ -175,10 +171,9 @@ export default function InvoiceItem({
 
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
-            name={`total-${position}`}
+            name={`total-${item.id}`}
             defaultValue={0}
             control={control}
-            shouldUnregister={true}
             render={(field) => (
               <FormInput
                 label="Total"
@@ -187,7 +182,7 @@ export default function InvoiceItem({
                 value={
                   totlaItemPrice > 0
                     ? `$ ${totlaItemPrice.toFixed(2)}`
-                    : `$ 1:00`
+                    : `$ 1.00`
                 }
                 {...field}
               />
@@ -202,13 +197,7 @@ export default function InvoiceItem({
             <Button
               ref={deleteButtonRef}
               color="error"
-              data-id={position}
-              onClick={() => {
-                onDelete();
-                onSetItems((items) =>
-                  items.filter((item) => item.id !== position)
-                );
-              }}>
+              onClick={() => handleDelete(item.id)}>
               <DeleteIcon />
             </Button>
           </Grid>

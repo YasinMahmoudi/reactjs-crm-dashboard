@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateInvoice } from './useCreateInvoice';
 
@@ -11,6 +11,8 @@ import { Controller } from 'react-hook-form';
 import FormInput from '../../components/FormInput';
 
 import PlusIcon from '@mui/icons-material/Add';
+import { CircularProgress } from '@mui/material';
+import dayjs from 'dayjs';
 import DropDown from '../../components/DropDown';
 import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import InvoiceItem from '../../components/InvoiceItem';
@@ -18,8 +20,6 @@ import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
 import { useGetInvoice } from './useGetInvoice';
-import { CircularProgress } from '@mui/material';
-import dayjs from 'dayjs';
 
 const statusItems = [
   {
@@ -40,10 +40,28 @@ export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
   const [items, setItems] = useState([]);
 
+  const { invoice, isLoadingInvoice } = useGetInvoice();
+  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+
   const { isEditing } = useIsEditing();
 
-  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
-  const { invoice = {}, isLoadingInvoice } = useGetInvoice();
+  useEffect(
+    function () {
+      if (isLoadingInvoice) return;
+
+      const fetchItems = invoice.items?.map((item, index) => ({
+        id: index,
+        name: item.itemName,
+        qty: item.quantity,
+        price: item.price,
+        totlaItemPrice: item.total,
+        description: item.description,
+      }));
+
+      fetchItems ? setItems(fetchItems) : setItems([]);
+    },
+    [invoice.items, isLoadingInvoice]
+  );
 
   function onSubmit(data) {
     createInvoice({
@@ -60,6 +78,10 @@ export default function InvoiceCreateUpdateForm() {
   const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 
   if (isLoadingInvoice) return <CircularProgress />;
+
+
+  console.log(items)
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -206,13 +228,17 @@ export default function InvoiceCreateUpdateForm() {
           <Divider sx={{ borderStyle: 'dashed' }} />
         </Grid>
 
-        <InvoiceItemContainer>
-          <InvoiceItem
-            control={control}
-            initial={true}
-            items={items}
-            onSetItems={setItems}
-          />
+        <InvoiceItemContainer onAddItems={setItems}>
+          {items.map((item, i) => (
+            <InvoiceItem
+              key={item.id}
+              item={item}
+              control={control}
+              initial={i === 0}
+              items={items}
+              onSetItems={setItems}
+            />
+          ))}
         </InvoiceItemContainer>
 
         <Grid
@@ -254,7 +280,7 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="subTotal"
-                  defaultValue={invoice.subTotal || 0}
+                  defaultValue={totalPrice || 0}
                   control={control}
                   render={(field) => (
                     <FormInput
@@ -289,7 +315,7 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="total"
-                  defaultValue={invoice.total || 0}
+                  defaultValue={totalPrice || 0}
                   control={control}
                   render={(field) => (
                     <FormInput

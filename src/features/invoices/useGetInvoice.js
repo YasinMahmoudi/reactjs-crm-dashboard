@@ -6,7 +6,7 @@ import { getInvoiceService } from '../../services/invoices';
 function useGetInvoice() {
   const { editId } = useIsEditing();
 
-  const { data: invoice, isLoading: isLoadingInvoice } = useQuery({
+  const { data: invoice = {}, isLoading: isLoadingInvoice } = useQuery({
     queryKey: ['invoice', editId],
     queryFn: () => getInvoiceService(editId),
     enabled: editId !== null && editId !== undefined,

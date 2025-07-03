@@ -2,44 +2,29 @@ import PlusIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
-import { cloneElement, createElement, useState } from 'react';
 
 InvoiceItemContainer.propTypes = {
   children: PropTypes.element,
+  onAddItems: PropTypes.func,
 };
 
-function InvoiceItemContainer({ children }) {
-  const [addintionalItemElements, setAddintionalItemElements] = useState([]);
-
+function InvoiceItemContainer({ onAddItems, children }) {
   function InsertItemHandler() {
-    const position = addintionalItemElements.length + 1;
+    const newItem = {
+      id: crypto.randomUUID(),
+      name: '',
+      description: '',
+      qty: 1,
+      price: 1,
+      totlaItemPrice: 1,
+    };
 
-    const newItem = createElement(children.type, {
-      ...children.props,
-      initial: false,
-      position,
-      onDelete: () => handleDelete(position),
-    });
-    setAddintionalItemElements((addintionalItemElements) => [
-      ...addintionalItemElements,
-      newItem,
-    ]);
-  }
-
-  function handleDelete(id) {
-    setAddintionalItemElements((addintionalItemElements) =>
-      addintionalItemElements.filter((item) => item.props.position !== id)
-    );
+    onAddItems((items) => [...items, newItem]);
   }
 
   return (
     <>
       {children}
-
-      {addintionalItemElements.length > 0 &&
-        addintionalItemElements.map((itemElement, i) =>
-          cloneElement(itemElement, { key: i + 1 })
-        )}
 
       <Grid
         container

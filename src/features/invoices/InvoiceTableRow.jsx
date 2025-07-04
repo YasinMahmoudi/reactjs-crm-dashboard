@@ -2,6 +2,7 @@ import TableCell from '@mui/material/TableCell';
 import DataTable from '../../components/Table';
 import PropTypes from 'prop-types';
 import InvoiceActions from './InvoiceActions';
+import dayjs from 'dayjs';
 
 InvoiceTableRow.propTypes = {
   row: PropTypes.object,
@@ -9,6 +10,7 @@ InvoiceTableRow.propTypes = {
 
 export default function InvoiceTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;
+
 
   return (
     <DataTable.Row
@@ -24,8 +26,8 @@ export default function InvoiceTableRow({ row }) {
       </TableCell>
 
       <TableCell>{row?.client?.name}</TableCell>
-      <TableCell>{row?.date}</TableCell>
-      <TableCell>{row?.expiredDate}</TableCell>
+      <TableCell>{dayjs(row?.date).format('DD/MM/YYYY')}</TableCell>
+      <TableCell>{dayjs(row?.expiredDate).format('DD/MM/YYYY')}</TableCell>
       <TableCell>
         {row?.total} <span>{row?.currency}</span>
       </TableCell>

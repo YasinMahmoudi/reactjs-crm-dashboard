@@ -178,7 +178,6 @@ export default function InvoiceCreateUpdateForm() {
                 id="status"
                 items={statusItems}
                 control={control}
-                defaultValue={invoice.status || ''}
                 {...field}
               />
             )}

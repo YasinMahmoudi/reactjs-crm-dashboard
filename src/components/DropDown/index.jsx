@@ -12,7 +12,6 @@ DropDown.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   control: PropTypes.object,
-  defaultValue:PropTypes.string,
   items: PropTypes.array,
   fields: PropTypes.shape({
     name: PropTypes.string,
@@ -24,7 +23,6 @@ export default function DropDown({
   id,
   items,
   control,
-  defaultValue,
   ...fields
 }) {
   const {
@@ -39,18 +37,18 @@ export default function DropDown({
   return (
     <FormControl
       fullWidth
-      onBlur={field.onBlur}
-      name={field.name}
       error={error}>
       <InputLabel id={id}> {label} </InputLabel>
       <Select
-        defaultValue={defaultValue}
         aria-describedby={`${label.toLocaleLowerCase()}Error`}
         labelId={id}
         id={id}
         label={label}
         onChange={(event) => field.onChange(event.target.value)}
         inputRef={field.ref}
+        onBlur={field.onBlur}
+        name={field.name}
+        value={field.value}
         disabled={fields.field.disabled}>
         {items.map((item, i) => (
           <MenuItem

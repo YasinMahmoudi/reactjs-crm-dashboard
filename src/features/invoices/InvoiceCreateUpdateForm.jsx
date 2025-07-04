@@ -20,6 +20,7 @@ import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
 import { useGetInvoice } from './useGetInvoice';
+import { useUpdateInvoice } from './useUpdateInvoice';
 
 const statusItems = [
   {
@@ -51,6 +52,7 @@ export default function InvoiceCreateUpdateForm() {
 
   const { invoice, isLoadingInvoice } = useGetInvoice();
   const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+  const { updateInvoice, isUpdatingInvoice } = useUpdateInvoice();
 
   const { isEditing } = useIsEditing();
 
@@ -73,15 +75,25 @@ export default function InvoiceCreateUpdateForm() {
   );
 
   function onSubmit(data) {
-    createInvoice({
-      data: {
-        ...data,
-        date: new Date(data.date.$d).toISOString(),
-        expireDate: new Date(data.date.$d).toISOString(),
-        year: data.year.$y,
-      },
-      items,
-    });
+    isEditing
+      ? updateInvoice({
+          data: {
+            ...data,
+            date: new Date(data.date.$d).toISOString(),
+            expireDate: new Date(data.date.$d).toISOString(),
+            year: data.year.$y,
+          },
+          items,
+        })
+      : createInvoice({
+          data: {
+            ...data,
+            date: new Date(data.date.$d).toISOString(),
+            expireDate: new Date(data.date.$d).toISOString(),
+            year: data.year.$y,
+          },
+          items,
+        });
   }
 
   const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
@@ -266,8 +278,8 @@ export default function InvoiceCreateUpdateForm() {
                 gap: '10px',
               }}
               type="submit"
-              loading={isCreatingInvoice}
-              disabled={isCreatingInvoice}
+              loading={isCreatingInvoice || isUpdatingInvoice}
+              disabled={isCreatingInvoice || isUpdatingInvoice}
               loadingPosition="start">
               <PlusIcon />
               <Typography variant="h6">

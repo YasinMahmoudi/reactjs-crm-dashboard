@@ -110,14 +110,42 @@ export async function getInvoiceService(id) {
   }
 }
 
-export async function updateCustomerService({ id, updatedData }) {
+export async function updateInvoiceService({ id, updatedData }) {
+  // Extract necessary data from given invoice
+  const {
+    data: { client, date, expireDate, note, number, status, tax, year },
+    items,
+  } = updatedData;
+
+  // Change items structure
+  const modifiedItems = items.map((item) => ({
+    itemName: item.name,
+    price: item.price,
+    quantity: item.qty,
+    total: item.totlaItemPrice,
+    description: item.description,
+  }));
+
+  // Create a brand new invoice object
+  const invoiceData = {
+    client,
+    date,
+    expiredDate: expireDate,
+    notes: note,
+    number: +number,
+    status,
+    taxRate: tax,
+    year,
+    items: modifiedItems,
+  };
+
   try {
-    const res = await fetch(`${API_URL}/client/update/${id}`, {
+    const res = await fetch(`${API_URL}/invoice/update/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedData),
+      body: JSON.stringify(invoiceData),
       credentials: 'include',
     });
 

@@ -22,20 +22,6 @@ export default function InvoiceItem({
 }) {
   const deleteButtonRef = useRef();
 
-  // const {
-  //   field: { value: name },
-  // } = useController({
-  //   name: `item-${position}`,
-  //   control,
-  // });
-
-  // const {
-  //   field: { value: description },
-  // } = useController({
-  //   name: `description-${position}`,
-  //   control,
-  // });
-
   const {
     field: { value: qty },
   } = useController({
@@ -51,13 +37,6 @@ export default function InvoiceItem({
     control,
     defaultValue: item.price || 1,
   });
-
-  // const {
-  //   field: { value: totalItemPrice },
-  // } = useController({
-  //   name: `total-${position}`,
-  //   control,
-  // });
 
   function handleChange(changedId) {
     const activeEl = document.activeElement;

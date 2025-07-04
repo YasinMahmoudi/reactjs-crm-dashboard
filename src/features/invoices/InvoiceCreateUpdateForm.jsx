@@ -36,6 +36,15 @@ const statusItems = [
   },
 ];
 
+const initialItems = {
+  id: crypto.randomUUID(),
+  name: '',
+  description: '',
+  qty: 1,
+  price: 1,
+  totlaItemPrice: 1,
+};
+
 export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
   const [items, setItems] = useState([]);
@@ -58,7 +67,7 @@ export default function InvoiceCreateUpdateForm() {
         description: item.description,
       }));
 
-      fetchItems ? setItems(fetchItems) : setItems([]);
+      fetchItems ? setItems(fetchItems) : setItems([initialItems]);
     },
     [invoice.items, isLoadingInvoice]
   );
@@ -79,10 +88,6 @@ export default function InvoiceCreateUpdateForm() {
 
   if (isLoadingInvoice) return <CircularProgress />;
 
-
-  console.log(items)
-
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -94,6 +99,7 @@ export default function InvoiceCreateUpdateForm() {
           <Controller
             name="client"
             control={control}
+            defaultValue={invoice?.client?._id || null}
             rules={{
               required: 'Please add a client .',
             }}
@@ -127,7 +133,7 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name="year"
-            defaultValue=""
+            defaultValue={dayjs().year(invoice.year) || dayjs().year()}
             control={control}
             rules={{
               required: 'Please select a year .',
@@ -138,7 +144,7 @@ export default function InvoiceCreateUpdateForm() {
                 view="year"
                 views={['year']}
                 openTo="year"
-                defaultValue={dayjs(invoice.year) || ''}
+                defaultValue={dayjs().year(invoice?.year || dayjs().year())}
                 control={control}
                 {...field}
               />
@@ -150,6 +156,7 @@ export default function InvoiceCreateUpdateForm() {
           <Controller
             name="status"
             control={control}
+            defaultValue={invoice.status || ''}
             rules={{
               required: 'Please select a status',
             }}
@@ -169,7 +176,7 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
           <Controller
             name="date"
-            defaultValue=""
+            defaultValue={dayjs(invoice.date) || dayjs()}
             control={control}
             rules={{
               required: 'Please select a date .',
@@ -177,7 +184,7 @@ export default function InvoiceCreateUpdateForm() {
             render={(field) => (
               <EnhancedDatePicker
                 label="Date"
-                defaultValue={dayjs(invoice.date) || ''}
+                defaultValue={dayjs(invoice.date) || dayjs()}
                 control={control}
                 {...field}
               />
@@ -188,7 +195,7 @@ export default function InvoiceCreateUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
           <Controller
             name="expireDate"
-            defaultValue=""
+            defaultValue={dayjs(invoice.expiredDate) || dayjs()}
             control={control}
             rules={{
               required: 'Please select an expire date .',
@@ -196,7 +203,7 @@ export default function InvoiceCreateUpdateForm() {
             render={(field) => (
               <EnhancedDatePicker
                 label="Expire Date"
-                defaultValue={dayjs(invoice.expiredDate) || ''}
+                defaultValue={dayjs(invoice.expiredDate) || dayjs()}
                 control={control}
                 {...field}
               />
@@ -209,9 +216,6 @@ export default function InvoiceCreateUpdateForm() {
             name="note"
             defaultValue={invoice.notes || ''}
             control={control}
-            rules={{
-              required: 'Please add a note .',
-            }}
             render={(field) => (
               <FormInput
                 label="Note"

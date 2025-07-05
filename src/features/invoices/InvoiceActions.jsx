@@ -23,6 +23,7 @@ export default function InvoiceActions({ id }) {
         {
           name: 'Show',
           icon: <EyeIcon fontSize="10px" />,
+          onClick: () => navigate(`/invoices/read/${id}`),
         },
         {
           name: 'Edit',

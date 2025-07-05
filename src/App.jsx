@@ -25,6 +25,7 @@ const UpdatePasswordPage = lazy(() =>
 const Invoices = lazy(() => import('./pages/Invoices'));
 const InvoiceCreate = lazy(() => import('./pages/Invoices/Create'));
 const InvoiceEdit = lazy(() => import('./pages/Invoices/Edit'));
+const InvoiceRead = lazy(() => import('./pages/Invoices/Read'));
 
 export default function App() {
   return (
@@ -100,6 +101,17 @@ export default function App() {
                     fallback={<PageLoader size={60} />}
                     key="invoiceCreate">
                     <InvoiceCreate />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="read/:readId"
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="invoiceRead">
+                    <InvoiceRead />
                   </Suspense>
                 }
               />

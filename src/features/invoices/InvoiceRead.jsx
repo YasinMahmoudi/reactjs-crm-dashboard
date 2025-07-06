@@ -3,6 +3,7 @@ import {
   Divider,
   Grid,
   Paper,
+  Skeleton,
   Stack,
   styled,
   Table,
@@ -14,7 +15,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { useParams } from 'react-router';
+import { useGetInvoice } from './useGetInvoice';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -47,20 +48,40 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 export default function InvoiceRead() {
-  const { readId } = useParams();
+  const { invoice, isLoadingInvoice } = useGetInvoice();
+
+  const products = invoice?.items;
+  const client = invoice?.client;
+
+  if (isLoadingInvoice)
+    return (
+      <Stack
+        spacing={{ xs: 1, sm: 2 }}
+        direction="row"
+        useFlexGap
+        sx={{ flexWrap: 'wrap' }}>
+        <Skeleton
+          variant="rounded"
+          height={200}
+          sx={{ flex: 1 }}
+          animation="wave"
+        />
+
+        <Skeleton
+          variant="rounded"
+          height={200}
+          sx={{ flex: 1 }}
+          animation="wave"
+        />
+        <Skeleton
+          variant="rounded"
+          height={200}
+          sx={{ flex: '100%' }}
+          animation="wave"
+        />
+      </Stack>
+    );
 
   return (
     <Stack
@@ -89,7 +110,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                pending
+                {invoice.status}
               </Typography>
             </Grid>
           </Grid>
@@ -110,7 +131,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                $ 4,473.00
+                $ {new Intl.NumberFormat().format(invoice.subTotal)}
               </Typography>
             </Grid>
           </Grid>
@@ -131,7 +152,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                $ 4,473.00
+                $ {new Intl.NumberFormat().format(invoice.total)}
               </Typography>
             </Grid>
           </Grid>
@@ -152,7 +173,10 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                $ 1,312.00
+                ${' '}
+                {new Intl.NumberFormat('en-US', {
+                  minimumSignificantDigits: 3,
+                }).format(invoice.credit)}
               </Typography>
             </Grid>
           </Grid>
@@ -179,7 +203,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                Stephanie Wilkinson
+                {client.name}
               </Typography>
             </Grid>
           </Grid>
@@ -200,7 +224,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                Similique dolore und
+                {client.address}
               </Typography>
             </Grid>
           </Grid>
@@ -221,7 +245,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                cyxacaguz@mailinator.com
+                {client.email}
               </Typography>
             </Grid>
           </Grid>
@@ -242,7 +266,7 @@ export default function InvoiceRead() {
                 variant="h6"
                 color="textPrimary"
                 fontWeight="600">
-                +1 (466) 891-4684
+                {client.phone}
               </Typography>
             </Grid>
           </Grid>
@@ -265,24 +289,43 @@ export default function InvoiceRead() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Product</StyledTableCell>
-                <StyledTableCell align="right">Price</StyledTableCell>
-                <StyledTableCell align="right">Quantity</StyledTableCell>
-                <StyledTableCell align="right">Total</StyledTableCell>
+                <StyledTableCell>Description</StyledTableCell>
+                <StyledTableCell align="center">Price</StyledTableCell>
+                <StyledTableCell align="center">Quantity</StyledTableCell>
+                <StyledTableCell align="center">Total</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
+              {products.map((product) => (
+                <StyledTableRow key={product._id}>
                   <StyledTableCell
                     component="th"
                     scope="row">
-                    {row.name}
+                    {product.itemName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.calories}
+
+                  <StyledTableCell>
+                    {product.description ? (
+                      product.description
+                    ) : (
+                      <span>&mdash;</span>
+                    )}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                  <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    ${' '}
+                    {new Intl.NumberFormat('en-US', {
+                      minimumSignificantDigits: 3,
+                    }).format(product.price)}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {product.quantity}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    ${' '}
+                    {new Intl.NumberFormat('en-US', {
+                      minimumSignificantDigits: 3,
+                    }).format(product.total)}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

@@ -1,8 +1,9 @@
 import { useParams } from 'react-router';
 
 export function useIsEditing() {
-  const { editId } = useParams();
+  const { editId, readId } = useParams();
+
   const isEditing = !!editId;
 
-  return { editId , isEditing };
+  return { editId, readId, isEditing };
 }

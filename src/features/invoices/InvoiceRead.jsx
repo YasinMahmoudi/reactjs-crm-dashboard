@@ -26,6 +26,12 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.applyStyles('dark', {
     backgroundColor: '#1A2027',
   }),
+  flex:'100%',
+
+  [`@media screen and (min-width: ${theme.breakpoints.values.md}px)`]: {
+    flex : 1
+    
+  },
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -89,7 +95,7 @@ export default function InvoiceRead() {
       direction="row"
       useFlexGap
       sx={{ flexWrap: 'wrap' }}>
-      <Item sx={{ flex: 1 }}>
+      <Item>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -97,92 +103,68 @@ export default function InvoiceRead() {
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Status</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Status</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                {invoice.status}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              {invoice.status}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>SubTotal</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>SubTotal</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                $ {new Intl.NumberFormat().format(invoice.subTotal)}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              $ {new Intl.NumberFormat().format(invoice.subTotal)}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Total</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Total</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                $ {new Intl.NumberFormat().format(invoice.total)}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              $ {new Intl.NumberFormat().format(invoice.total)}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Paid</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Paid</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                ${' '}
-                {new Intl.NumberFormat('en-US', {
-                  minimumSignificantDigits: 3,
-                }).format(invoice.credit)}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              ${' '}
+              {new Intl.NumberFormat('en-US', {
+                minimumSignificantDigits: 3,
+              }).format(invoice.credit)}
+            </Typography>
           </Grid>
         </Grid>
       </Item>
-      <Item sx={{ flex: 1 }}>
+      <Item>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -190,89 +172,64 @@ export default function InvoiceRead() {
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Client </Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Client </Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                {client.name}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              {client.name}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Address</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Address</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                {client.address}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              {client.address}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Email</Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Email</Typography>
 
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                {client.email}
-              </Typography>
-            </Grid>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              {client.email}
+            </Typography>
           </Grid>
 
           <Grid
             container
             size={12}
-            alignItems="center">
-            <Grid size={{ xs: 2, sm: 4, md: 4 }}>
-              <Typography>Phone</Typography>
-            </Grid>
-
-            <Grid
-              size={{ xs: 2, sm: 4, md: 8 }}
-              display="flex"
-              justifyContent="flex-end">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                fontWeight="600">
-                {client.phone}
-              </Typography>
-            </Grid>
+            alignItems="center"
+            justifyContent="space-between">
+            <Typography>Phone</Typography>
+            <Typography
+              variant="subtitle1"
+              color="textPrimary"
+              fontWeight="600">
+              {client.phone}
+            </Typography>
           </Grid>
         </Grid>
       </Item>
-      <Item sx={{ flex: '100%' }}>
+      <Item sx={{ flex: '100% !important' }}>
         <Divider
           textAlign="left"
           sx={{ mb: 3 }}>

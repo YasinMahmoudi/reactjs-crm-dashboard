@@ -1,58 +1,9 @@
-import {
-  Chip,
-  Divider,
-  Grid,
-  Paper,
-  Skeleton,
-  Stack,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  tableCellClasses,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@mui/material';
+import { Chip, Divider, Grid, Stack } from '@mui/material';
+import { BoxItem } from '../../components/BoxItem';
+import InvoiceReadProducsSkeleton from '../../components/InvoiceReadProductsSkeleton';
+import KeyValueRow from '../../components/KeyValueRow';
+import InvoiceReadProductsTable from './invoiceReadProductsTable';
 import { useGetInvoice } from './useGetInvoice';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(4),
-  maxWidth: '100%',
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-  flex:'100%',
-
-  [`@media screen and (min-width: ${theme.breakpoints.values.md}px)`]: {
-    flex : 1
-    
-  },
-}));
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
 
 export default function InvoiceRead() {
   const { invoice, isLoadingInvoice } = useGetInvoice();
@@ -60,34 +11,7 @@ export default function InvoiceRead() {
   const products = invoice?.items;
   const client = invoice?.client;
 
-  if (isLoadingInvoice)
-    return (
-      <Stack
-        spacing={{ xs: 1, sm: 2 }}
-        direction="row"
-        useFlexGap
-        sx={{ flexWrap: 'wrap' }}>
-        <Skeleton
-          variant="rounded"
-          height={200}
-          sx={{ flex: 1 }}
-          animation="wave"
-        />
-
-        <Skeleton
-          variant="rounded"
-          height={200}
-          sx={{ flex: 1 }}
-          animation="wave"
-        />
-        <Skeleton
-          variant="rounded"
-          height={200}
-          sx={{ flex: '100%' }}
-          animation="wave"
-        />
-      </Stack>
-    );
+  if (isLoadingInvoice) return <InvoiceReadProducsSkeleton />;
 
   return (
     <Stack
@@ -95,141 +19,63 @@ export default function InvoiceRead() {
       direction="row"
       useFlexGap
       sx={{ flexWrap: 'wrap' }}>
-      <Item>
+      <BoxItem>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
           columns={12}>
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Status</Typography>
+          <KeyValueRow
+            keyName="Status"
+            value={invoice.status}
+          />
 
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              {invoice.status}
-            </Typography>
-          </Grid>
+          <KeyValueRow
+            keyName="SubTotal"
+            value={`$ ${new Intl.NumberFormat().format(invoice.subTotal)}`}
+          />
 
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>SubTotal</Typography>
+          <KeyValueRow
+            keyName="Total"
+            value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
+          />
 
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              $ {new Intl.NumberFormat().format(invoice.subTotal)}
-            </Typography>
-          </Grid>
-
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Total</Typography>
-
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              $ {new Intl.NumberFormat().format(invoice.total)}
-            </Typography>
-          </Grid>
-
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Paid</Typography>
-
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              ${' '}
-              {new Intl.NumberFormat('en-US', {
-                minimumSignificantDigits: 3,
-              }).format(invoice.credit)}
-            </Typography>
-          </Grid>
+          <KeyValueRow
+            keyName="Paid"
+            value={`$ ${new Intl.NumberFormat('en-US', {
+              minimumSignificantDigits: 3,
+            }).format(invoice.credit)}`}
+          />
         </Grid>
-      </Item>
-      <Item>
+      </BoxItem>
+
+      <BoxItem>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
           columns={12}>
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Client </Typography>
+          <KeyValueRow
+            keyName="Client"
+            value={client.name}
+          />
 
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              {client.name}
-            </Typography>
-          </Grid>
+          <KeyValueRow
+            keyName="Address"
+            value={client.address}
+          />
 
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Address</Typography>
+          <KeyValueRow
+            keyName="Email"
+            value={client.email}
+          />
 
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              {client.address}
-            </Typography>
-          </Grid>
-
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Email</Typography>
-
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              {client.email}
-            </Typography>
-          </Grid>
-
-          <Grid
-            container
-            size={12}
-            alignItems="center"
-            justifyContent="space-between">
-            <Typography>Phone</Typography>
-            <Typography
-              variant="subtitle1"
-              color="textPrimary"
-              fontWeight="600">
-              {client.phone}
-            </Typography>
-          </Grid>
+          <KeyValueRow
+            keyName="Phone"
+            value={client.phone}
+          />
         </Grid>
-      </Item>
-      <Item sx={{ flex: '100% !important' }}>
+      </BoxItem>
+
+      <BoxItem sx={{ flex: '100% !important' }}>
         <Divider
           textAlign="left"
           sx={{ mb: 3 }}>
@@ -239,56 +85,10 @@ export default function InvoiceRead() {
           />
         </Divider>
 
-        <TableContainer component={Paper}>
-          <Table
-            sx={{ minWidth: 700 }}
-            aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Product</StyledTableCell>
-                <StyledTableCell>Description</StyledTableCell>
-                <StyledTableCell align="center">Price</StyledTableCell>
-                <StyledTableCell align="center">Quantity</StyledTableCell>
-                <StyledTableCell align="center">Total</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {products.map((product) => (
-                <StyledTableRow key={product._id}>
-                  <StyledTableCell
-                    component="th"
-                    scope="row">
-                    {product.itemName}
-                  </StyledTableCell>
-
-                  <StyledTableCell>
-                    {product.description ? (
-                      product.description
-                    ) : (
-                      <span>&mdash;</span>
-                    )}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    ${' '}
-                    {new Intl.NumberFormat('en-US', {
-                      minimumSignificantDigits: 3,
-                    }).format(product.price)}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {product.quantity}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    ${' '}
-                    {new Intl.NumberFormat('en-US', {
-                      minimumSignificantDigits: 3,
-                    }).format(product.total)}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Item>
+        <InvoiceReadProductsTable products={products} />
+      </BoxItem>
     </Stack>
   );
 }
+
+

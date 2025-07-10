@@ -43,7 +43,7 @@ export default function ContextMenu({ options }) {
         slotProps={{
           paper: {
             style: {
-              width: '15ch',
+              minWidth: '15ch',
             },
           },
 

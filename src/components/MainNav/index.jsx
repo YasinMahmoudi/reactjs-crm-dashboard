@@ -1,7 +1,6 @@
 import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
 import DashboardOutlined from '@mui/icons-material/DashboardOutlined';
 import DescriptionOutlined from '@mui/icons-material/DescriptionOutlined';
-import FormatQuoteOutlined from '@mui/icons-material/FormatQuoteOutlined';
 import HeadphonesOutlined from '@mui/icons-material/HeadphonesOutlined';
 import ListAltOutlined from '@mui/icons-material/ListAltOutlined';
 import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
@@ -10,9 +9,9 @@ import WalletOutlined from '@mui/icons-material/WalletOutlined';
 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemLink from '../ListLinkItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
 
 export default function MainNav() {
   return (
@@ -45,15 +44,6 @@ export default function MainNav() {
       </ListItem>
 
       <ListItem disablePadding>
-        <ListItemLink to="/qoutes">
-          <ListItemIcon>
-            <FormatQuoteOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Qoute" />
-        </ListItemLink>
-      </ListItem>
-
-      <ListItem disablePadding>
         <ListItemLink to="/">
           <ListItemIcon>
             <CreditCardOutlined />
@@ -72,7 +62,7 @@ export default function MainNav() {
       </ListItem>
 
       <ListItem disablePadding>
-        <ListItemLink to="/">
+        <ListItemLink to="/taxes">
           <ListItemIcon>
             <StoreOutlined />
           </ListItemIcon>

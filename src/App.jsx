@@ -8,7 +8,6 @@ const AppLayout = lazy(() => import('./layouts/Applayout'));
 const Login = lazy(() => import('./pages/Auth'));
 const ForgetPassword = lazy(() => import('./features/auth/ForgetPassword'));
 const Dashboard = lazy(() => import('./pages/dashboard'));
-const Qoutes = lazy(() => import('./features/qoutes'));
 const Settings = lazy(() => import('./features/settings'));
 const CustomerCreateModal = lazy(() =>
   import('./features/customers/CustomerCreateModal')
@@ -26,6 +25,8 @@ const Invoices = lazy(() => import('./pages/Invoices'));
 const InvoiceCreate = lazy(() => import('./pages/Invoices/Create'));
 const InvoiceEdit = lazy(() => import('./pages/Invoices/Edit'));
 const InvoiceRead = lazy(() => import('./pages/Invoices/Read'));
+
+const Taxes = lazy(() => import('./pages/Taxes'));
 
 export default function App() {
   return (
@@ -129,12 +130,12 @@ export default function App() {
             </Route>
 
             <Route
-              path="qoutes"
+              path="taxes"
               element={
                 <Suspense
                   fallback={<PageLoader size={60} />}
-                  key="qoutes">
-                  <Qoutes />
+                  key="taxes">
+                  <Taxes />
                 </Suspense>
               }
             />

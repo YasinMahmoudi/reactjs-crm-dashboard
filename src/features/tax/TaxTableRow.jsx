@@ -2,6 +2,7 @@ import TableCell from '@mui/material/TableCell';
 import PropTypes from 'prop-types';
 import DataTable from '../../components/Table';
 import TaxActions from './TaxActions';
+import { Switch } from '@mui/material';
 
 TaxTableRow.propTypes = {
   row: PropTypes.object,
@@ -25,8 +26,12 @@ export default function TaxTableRow({ row }) {
 
       <TableCell>{row?.taxValue} %</TableCell>
 
-      <TableCell>{row?.isDefault}</TableCell>
-      <TableCell>{row?.enabled}</TableCell>
+      <TableCell>
+        <Switch checked={row?.isDefault} />
+      </TableCell>
+      <TableCell>
+        <Switch checked={row?.enabled} />
+      </TableCell>
     </DataTable.Row>
   );
 }

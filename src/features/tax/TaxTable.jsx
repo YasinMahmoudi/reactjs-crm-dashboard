@@ -1,8 +1,6 @@
 import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
-import { useDeleteCustomer } from '../customers/useDeleteCustomer';
-import { useDeleteManyCustomers } from '../customers/useDeleteMany';
 import TaxTableBody from './TaxTableBody';
 import { useGetTaxes } from './useGetTaxes';
 
@@ -39,16 +37,12 @@ const headCells = [
 export default function TaxTable() {
   const { taxes, isLoadingTaxes, pagination } = useGetTaxes();
 
-  const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
 
-  const { deleteManyCustomers, isDeletingManyCustomers } =
-    useDeleteManyCustomers();
 
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('query');
 
-  const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
   if (taxes?.length === 0)
     return (
@@ -65,12 +59,7 @@ export default function TaxTable() {
         data={taxes}
         pagination={pagination}
         hasToolbar={true}
-        isDeletingMultipleRecords={
-          isDeleteMultiple ? isDeletingManyCustomers : isDeletingCustomer
-        }
-        onDeleteMultipleRecords={
-          isDeleteMultiple ? deleteManyCustomers : deleteCustomer
-        }
+        hasChechBox={false}
         title="Taxes">
         <DataTable.Head headCells={headCells} />
 

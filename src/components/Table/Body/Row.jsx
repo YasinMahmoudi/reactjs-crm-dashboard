@@ -11,13 +11,9 @@ Row.propTypes = {
   hasChechBox: PropTypes.bool,
   children: PropTypes.object,
 };
-function Row({
-  rowId,
-  ActionsComponent = <></>,
-  hasChechBox = true,
-  children,
-}) {
-  const { selected, setSelected, isDeletingMultipleRecords } = useTable();
+function Row({ rowId, ActionsComponent = <></>, children }) {
+  const { selected, setSelected, isDeletingMultipleRecords, hasChechBox } =
+    useTable();
 
   const handleClick = (event, id) => {
     const selectedIndex = selected.indexOf(id);

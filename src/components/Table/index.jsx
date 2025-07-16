@@ -20,6 +20,7 @@ Table.propTypes = {
   state: PropTypes.bool,
   isDeletingMultipleRecords: PropTypes.bool,
   onDeleteMultipleRecords: PropTypes.func,
+  hasChechBox:PropTypes.bool
 };
 
 export default function Table({
@@ -31,6 +32,7 @@ export default function Table({
   title = 'Provide your table name here ...',
   isDeletingMultipleRecords,
   onDeleteMultipleRecords,
+  hasChechBox = true,
 }) {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -51,6 +53,7 @@ export default function Table({
         state,
         isDeletingMultipleRecords,
         onDeleteMultipleRecords,
+        hasChechBox
       }}>
       <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' }}>
         {state ? (

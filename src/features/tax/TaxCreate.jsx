@@ -51,11 +51,20 @@ export default function TaxCreate() {
               control={control}
               rules={{
                 required: 'Tax need a value.',
+                min: {
+                  value: 1,
+                  message: 'Value must be greater htan one ( 1 )',
+                },
+                max: {
+                  value: 100,
+                  message: 'Value must be less htan one hundred ( 100 )',
+                },
               }}
               render={(field) => (
                 <FormInput
                   label="Value"
                   control={control}
+                  type="number"
                   {...field}
                 />
               )}

@@ -27,6 +27,7 @@ const InvoiceEdit = lazy(() => import('./pages/Invoices/Edit'));
 const InvoiceRead = lazy(() => import('./pages/Invoices/Read'));
 
 const Taxes = lazy(() => import('./pages/Taxes'));
+const TaxCreate = lazy(() => import('./features/tax/TaxCreate'));
 
 export default function App() {
   return (
@@ -137,8 +138,12 @@ export default function App() {
                   key="taxes">
                   <Taxes />
                 </Suspense>
-              }
-            />
+              }>
+              <Route
+                path="create"
+                element={<TaxCreate />}
+              />
+            </Route>
 
             <Route
               path="settings"

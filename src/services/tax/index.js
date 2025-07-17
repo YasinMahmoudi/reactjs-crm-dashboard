@@ -36,53 +36,19 @@ export async function getTaxesService({ page = 1, query = '', signal }) {
   }
 }
 
-export async function createInvoiceService(newInvoice) {
-  // Extract necessary data from given invoice
-  const {
-    data: { client, date, expireDate, note, number, status, tax, year },
-    items,
-  } = newInvoice;
-
-  // Change items structure
-  const modifiedItems = items.map((item) => ({
-    itemName: item.name,
-    price: item.price,
-    quantity: item.qty,
-    total: item.totlaItemPrice,
-    description: item.description,
-  }));
-
-  // Create a brand new invoice object
-  const invoiceData = {
-    client,
-    date,
-    expiredDate: expireDate,
-    notes: note,
-    number: +number,
-    status,
-    taxRate: tax,
-    year,
-    items: modifiedItems,
-  };
-
+export async function createTaxService(newTax) {
   try {
-    const res = await fetch(`${API_URL}/invoice/create`, {
+    const res = await fetch(`${API_URL}/taxes/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(invoiceData),
+      body: JSON.stringify(newTax),
       credentials: 'include',
     });
-
-    if (!res.ok)
-      throw new Error(
-        'Something happened on the server ! please try again later'
-      );
-
     const data = await res.json();
 
-    if (!data.success) throw new Error(data.message);
+    if (!res.ok) throw new Error(data.message);
 
     return data;
   } catch (error) {
@@ -90,9 +56,9 @@ export async function createInvoiceService(newInvoice) {
   }
 }
 
-export async function getInvoiceService(id) {
+export async function getTaxService(id) {
   try {
-    const res = await fetch(`${API_URL}/invoice/read/${id}`, {
+    const res = await fetch(`${API_URL}/taxes/read/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -110,42 +76,14 @@ export async function getInvoiceService(id) {
   }
 }
 
-export async function updateInvoiceService({ id, updatedData }) {
-  // Extract necessary data from given invoice
-  const {
-    data: { client, date, expireDate, note, number, status, tax, year },
-    items,
-  } = updatedData;
-
-  // Change items structure
-  const modifiedItems = items.map((item) => ({
-    itemName: item.name,
-    price: item.price,
-    quantity: item.qty,
-    total: item.totlaItemPrice,
-    description: item.description,
-  }));
-
-  // Create a brand new invoice object
-  const invoiceData = {
-    client,
-    date,
-    expiredDate: expireDate,
-    notes: note,
-    number: +number,
-    status,
-    taxRate: tax,
-    year,
-    items: modifiedItems,
-  };
-
+export async function updateTaxService({ id, updatedData }) {
   try {
-    const res = await fetch(`${API_URL}/invoice/update/${id}`, {
+    const res = await fetch(`${API_URL}/taxes/update/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(invoiceData),
+      body: JSON.stringify(updatedData),
       credentials: 'include',
     });
 

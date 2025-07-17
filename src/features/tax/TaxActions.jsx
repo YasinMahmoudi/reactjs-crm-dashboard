@@ -13,7 +13,7 @@ export default function TaxActions({ id }) {
   const navigate = useNavigate();
 
   function handleEdit() {
-    navigate(`/tax/edit/${id}`);
+    navigate(`/taxes/create?edit=true&id=${id}`);
   }
 
   return (

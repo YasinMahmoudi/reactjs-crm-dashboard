@@ -29,7 +29,7 @@ export default function TaxCreate() {
           <Grid size={{ xs: 2, sm: 2, md: 2 }}>
             <Controller
               name="taxName"
-              defaultValue={tax.taxName}
+              defaultValue={tax?.taxName}
               control={control}
               rules={{
                 required: 'Please add a name .',
@@ -47,7 +47,7 @@ export default function TaxCreate() {
           <Grid size={{ xs: 2, sm: 2, md: 2 }}>
             <Controller
               name="taxValue"
-              defaultValue={tax.taxValue}
+              defaultValue={tax?.taxValue}
               control={control}
               rules={{
                 required: 'Tax need a value.',
@@ -65,7 +65,7 @@ export default function TaxCreate() {
           <Grid size={{ xs: 2, sm: 2, md: 2 }}>
             <Controller
               name="enabled"
-              defaultValue={tax.enabled}
+              defaultValue={tax?.enabled ?? true}
               control={control}
               render={({ field }) => (
                 <FormControlLabel
@@ -85,7 +85,7 @@ export default function TaxCreate() {
           <Grid size={{ xs: 2, sm: 2, md: 2 }}>
             <Controller
               name="isDefault"
-              defaultValue={tax.isDefault}
+              defaultValue={tax?.isDefault}
               control={control}
               render={({ field }) => (
                 <FormControlLabel

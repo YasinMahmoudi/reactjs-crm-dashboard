@@ -3,7 +3,7 @@ import { API_URL } from '../../utils/constants';
 export const LIMIT_ITEMS = 5;
 
 export async function getTaxesService({ page = 1, query = '', signal }) {
-  const searchableFields = ['name'];
+  const searchableFields = ['taxName'];
 
   let fetchUrl;
 

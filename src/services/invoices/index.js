@@ -178,9 +178,9 @@ export async function deleteInvoiceService(id) {
   }
 }
 
-export async function deleteManyCustomersService(ids = []) {
+export async function deleteManyInvoicesService(ids = []) {
   try {
-    const res = await fetch(`${API_URL}/client/delete-many`, {
+    const res = await fetch(`${API_URL}/invoice/delete-many`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

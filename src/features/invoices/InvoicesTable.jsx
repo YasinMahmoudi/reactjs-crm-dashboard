@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
-import { useDeleteCustomer } from '../customers/useDeleteCustomer';
 import { useDeleteManyCustomers } from '../customers/useDeleteMany';
 import InvoiceTableBody from './InvoiceTableBody';
+import { useDeleteInvoice } from './useDeleteInvoice';
 import { useGetInvoices } from './useGetInvoices';
 
 const headCells = [
@@ -60,7 +60,7 @@ const headCells = [
 export default function InvoicesTable() {
   const { invoices, pagination, isLoadingInvoices } = useGetInvoices();
 
-  const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
+  const { deleteInvoice, isDeletingInvoice } = useDeleteInvoice();
 
   const { deleteManyCustomers, isDeletingManyCustomers } =
     useDeleteManyCustomers();
@@ -87,10 +87,10 @@ export default function InvoicesTable() {
         pagination={pagination}
         hasToolbar={true}
         isDeletingMultipleRecords={
-          isDeleteMultiple ? isDeletingManyCustomers : isDeletingCustomer
+          isDeleteMultiple ? isDeletingManyCustomers : isDeletingInvoice
         }
         onDeleteMultipleRecords={
-          isDeleteMultiple ? deleteManyCustomers : deleteCustomer
+          isDeleteMultiple ? deleteManyCustomers : deleteInvoice
         }
         title="Invoices">
         <DataTable.Head headCells={headCells} />

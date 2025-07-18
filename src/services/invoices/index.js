@@ -159,9 +159,9 @@ export async function updateInvoiceService({ id, updatedData }) {
   }
 }
 
-export async function deleteCustomerService(id) {
+export async function deleteInvoiceService(id) {
   try {
-    const res = await fetch(`${API_URL}/client/delete/${id}`, {
+    const res = await fetch(`${API_URL}/invoice/delete/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

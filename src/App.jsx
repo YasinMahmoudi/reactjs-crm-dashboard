@@ -146,7 +146,7 @@ export default function App() {
                 element={
                   <Suspense
                     fallback={<PageLoader size={60} />}
-                    key="customers">
+                    key="paymentMode">
                     <PaymentModes />
                   </Suspense>
                 }>

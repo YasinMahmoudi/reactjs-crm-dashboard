@@ -44,7 +44,7 @@ export default function MainNav() {
       </ListItem>
 
       <ListItem disablePadding>
-        <ListItemLink to="/payments">
+        <ListItemLink to="/payment">
           <ListItemIcon>
             <CreditCardOutlined />
           </ListItemIcon>

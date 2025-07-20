@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 
 import ListItemButton from '@mui/material/ListItemButton';
 import styled from 'styled-components';
+import { forwardRef } from 'react';
 
 ListItemLink.propTypes = {
   to: PropTypes.string.isRequired,
@@ -23,10 +24,19 @@ const StyledListItemLink = styled(ListItemButton)`
   }
 `;
 
+// eslint-disable-next-line react/display-name
+const CustomNavLink = forwardRef((props, ref) => (
+  <NavLink
+    end
+    ref={ref}
+    {...props}
+  />
+));
+
 export default function ListItemLink({ to, children }) {
   return (
     <StyledListItemLink
-      component={NavLink}
+      component={CustomNavLink}
       to={to}>
       {children}
     </StyledListItemLink>

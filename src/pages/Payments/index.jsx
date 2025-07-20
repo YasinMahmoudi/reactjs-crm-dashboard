@@ -1,6 +1,5 @@
+import Payment from '../../features/payments';
 
 export default function Payments() {
-  return (
-    <div>Payments</div>
-  )
+  return <Payment />;
 }

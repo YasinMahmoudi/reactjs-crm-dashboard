@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-export default function PaymentModeSearch() {
+export default function PaymentSearch() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [query, setQuery] = useState(function () {
@@ -27,7 +27,7 @@ export default function PaymentModeSearch() {
 
   return (
     <TextField
-      id="paymentModeSearch"
+      id="paymentSearch"
       label="Search"
       type="search"
       variant="outlined"

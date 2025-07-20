@@ -34,6 +34,8 @@ const PaymentModeCreate = lazy(() =>
   import('./features/payment-mode/PaymentModeCreate')
 );
 
+const Payments = lazy(() => import('./pages/Payments'));
+
 export default function App() {
   return (
     <>
@@ -138,7 +140,13 @@ export default function App() {
             <Route path="payment">
               <Route
                 index
-                element={<h1> Payments </h1>}
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="payments">
+                    <Payments />
+                  </Suspense>
+                }
               />
 
               <Route

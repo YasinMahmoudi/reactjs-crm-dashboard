@@ -2,6 +2,8 @@ import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import PaymentTableBody from './PaymentTableBody';
+import { useDeleteManyPayments } from './useDeleteMany';
+import { useDeletePayment } from './useDeletePayment';
 import { useGetPayments } from './useGetPayments';
 
 const headCells = [
@@ -47,10 +49,16 @@ const headCells = [
 export default function InvoicesTable() {
   const { payments, pagination, isLoadingPayments } = useGetPayments();
 
+  const { deletePayment, isDeletingPayment } = useDeletePayment();
+
+  const { deleteManyPayments, isDeletingManyPayments } =
+    useDeleteManyPayments();
+
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get('query');
 
+  const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
   if (payments?.length === 0)
     return (
@@ -67,6 +75,12 @@ export default function InvoicesTable() {
         data={payments}
         pagination={pagination}
         hasToolbar={true}
+        isDeletingMultipleRecords={
+          isDeleteMultiple ? isDeletingManyPayments : isDeletingPayment
+        }
+        onDeleteMultipleRecords={
+          isDeleteMultiple ? deleteManyPayments : deletePayment
+        }
         title="payments">
         <DataTable.Head headCells={headCells} />
 

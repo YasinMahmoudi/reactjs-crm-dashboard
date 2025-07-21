@@ -27,7 +27,7 @@ export default function PaymentTableRow({ row }) {
       <TableCell>{dayjs(row?.date).format('DD/MM/YYYY')}</TableCell>
       <TableCell>{row?.amount}</TableCell>
       <TableCell>
-        {row?.total} <span>{row?.year}</span>
+        {row?.total} <span>{row?.invoice?.year}</span>
       </TableCell>
       <TableCell>
         {row?.credit} <span>{row?.paymentMode?.name}</span>

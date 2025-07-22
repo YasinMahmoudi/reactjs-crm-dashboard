@@ -8,6 +8,7 @@ export default function PaymentRead() {
 
   if (isLoadingPayment) return <h1>Loading ...</h1>;
 
+  console.log(payment);
   const { invoice, client } = payment;
 
   return (
@@ -78,10 +79,37 @@ export default function PaymentRead() {
             textAlign="left"
             sx={{ mb: 3 }}>
             <Chip
-              label="Products"
+              label="payment Information"
               size="small"
             />
           </Divider>
+
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={12}>
+            <KeyValueRow
+              keyName="Paid"
+              value={`$ ${new Intl.NumberFormat().format(payment.amount)}`}
+            />
+
+            <KeyValueRow
+              keyName="Total"
+              value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
+            />
+
+            <KeyValueRow
+              keyName="Total Paid"
+              value={`$ ${new Intl.NumberFormat().format(invoice.credit)}`}
+            />
+
+            <KeyValueRow
+              keyName="Total Remaining"
+              value={`$ ${new Intl.NumberFormat().format(
+                invoice.total - invoice.credit
+              )}`}
+            />
+          </Grid>
         </BoxItem>
       </Stack>
     </>

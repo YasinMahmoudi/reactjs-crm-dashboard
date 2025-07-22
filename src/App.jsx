@@ -35,6 +35,7 @@ const PaymentModeCreate = lazy(() =>
 );
 
 const Payments = lazy(() => import('./pages/Payments'));
+const PaymentRead = lazy(() => import('./pages/Payments/read'));
 
 export default function App() {
   return (
@@ -145,6 +146,17 @@ export default function App() {
                     fallback={<PageLoader size={60} />}
                     key="payments">
                     <Payments />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="read/:readId"
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="paymentRead">
+                    <PaymentRead />
                   </Suspense>
                 }
               />

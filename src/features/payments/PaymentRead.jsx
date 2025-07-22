@@ -1,8 +1,15 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
+import { useGetPayment } from './useGetPayment';
 
 export default function PaymentRead() {
+  const { payment, isLoadingPayment } = useGetPayment();
+
+  if (isLoadingPayment) return <h1>Loading ...</h1>;
+
+  const { invoice, client } = payment;
+
   return (
     <>
       <Stack
@@ -17,24 +24,24 @@ export default function PaymentRead() {
             columns={12}>
             <KeyValueRow
               keyName="Status"
-              value={'pending'}
+              value={invoice.status}
             />
 
             <KeyValueRow
               keyName="SubTotal"
-              value={`$ ${new Intl.NumberFormat().format(1000)}`}
+              value={`$ ${new Intl.NumberFormat().format(invoice.subTotal)}`}
             />
 
             <KeyValueRow
               keyName="Total"
-              value={`$ ${new Intl.NumberFormat().format(12000)}`}
+              value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
             />
 
             <KeyValueRow
               keyName="Paid"
               value={`$ ${new Intl.NumberFormat('en-US', {
                 minimumSignificantDigits: 3,
-              }).format(40000)}`}
+              }).format(invoice.credit)}`}
             />
           </Grid>
         </BoxItem>
@@ -46,22 +53,22 @@ export default function PaymentRead() {
             columns={12}>
             <KeyValueRow
               keyName="Client"
-              value={"John"}
+              value={client.name}
             />
 
             <KeyValueRow
               keyName="Address"
-              value={'Address'}
+              value={client.address}
             />
 
             <KeyValueRow
               keyName="Email"
-              value={'email'}
+              value={client.email}
             />
 
             <KeyValueRow
               keyName="Phone"
-              value={'phone'}
+              value={client.phone}
             />
           </Grid>
         </BoxItem>

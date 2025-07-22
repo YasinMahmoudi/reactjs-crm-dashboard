@@ -1,6 +1,6 @@
 import { Skeleton, Stack } from '@mui/material';
 
-export default function InvoiceReadProducsSkeleton() {
+export default function ReadPageSkeleton() {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2 }}

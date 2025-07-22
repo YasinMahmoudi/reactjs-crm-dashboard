@@ -1,10 +1,10 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
-import InvoiceReadProducsSkeleton from '../../components/InvoiceReadProductsSkeleton';
 import KeyValueRow from '../../components/KeyValueRow';
+import ReadPageSkeleton from '../../components/ReadPageSkeleton';
 import InvoiceReadProductsTable from './invoiceReadProductsTable';
-import { useGetInvoice } from './useGetInvoice';
 import InvoiceReadToolbar from './invoicesReadToolbar';
+import { useGetInvoice } from './useGetInvoice';
 
 export default function InvoiceRead() {
   const { invoice, isLoadingInvoice } = useGetInvoice();
@@ -12,7 +12,7 @@ export default function InvoiceRead() {
   const products = invoice?.items;
   const client = invoice?.client;
 
-  if (isLoadingInvoice) return <InvoiceReadProducsSkeleton />;
+  if (isLoadingInvoice) return <ReadPageSkeleton />;
 
   return (
     <>

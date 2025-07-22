@@ -1,14 +1,14 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
+import ReadPageSkeleton from '../../components/ReadPageSkeleton';
 import { useGetPayment } from './useGetPayment';
 
 export default function PaymentRead() {
   const { payment, isLoadingPayment } = useGetPayment();
 
-  if (isLoadingPayment) return <h1>Loading ...</h1>;
+  if (isLoadingPayment) return <ReadPageSkeleton />;
 
-  console.log(payment);
   const { invoice, client } = payment;
 
   return (

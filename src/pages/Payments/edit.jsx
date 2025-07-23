@@ -15,9 +15,7 @@ export default function PaymentEdit() {
         <PaymentUpdateForm />
       </Grid>
 
-      <Grid
-        size={{ xs: 2, sm: 2, md: 3 }}
-        bgcolor={'cornflowerblue'}>
+      <Grid size={{ xs: 2, sm: 2, md: 3 }}>
         <PaymentClientInfo />
       </Grid>
     </Grid>

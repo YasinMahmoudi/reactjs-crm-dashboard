@@ -35,8 +35,8 @@ const PaymentModeCreate = lazy(() =>
 );
 
 const Payments = lazy(() => import('./pages/Payments'));
-const PaymentRead = lazy(() => import('./pages/Payments/read'));
-const PaymentEdit = lazy(() => import('./pages/Payments/edit'));
+const PaymentRead = lazy(() => import('./pages/Payments/Read'));
+const PaymentEdit = lazy(() => import('./pages/Payments/Edit'));
 
 export default function App() {
   return (

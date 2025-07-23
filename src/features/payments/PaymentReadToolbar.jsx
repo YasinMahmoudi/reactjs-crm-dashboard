@@ -1,0 +1,92 @@
+import Typography from '@mui/material/Typography';
+import MoveBackButton from '../../components/MoveBackButton';
+import { Row } from '../../components/Row';
+
+import { useNavigate } from 'react-router';
+import ContextMenu from '../../components/ContextMenu';
+
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
+import EditIcon from '@mui/icons-material/EditOutlined';
+import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
+import { DOWNLOAD_BASE_URL } from '../../utils/constants';
+
+import PropTypes from 'prop-types';
+
+PaymentReadToolbar.propTypes = {
+  payment: PropTypes.object,
+};
+
+const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
+const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
+
+export default function PaymentReadToolbar({ payment }) {
+  const navigate = useNavigate();
+
+  console.log(payment);
+
+  const {
+    number,
+    invoice: { year, paymentStatus },
+  } = payment;
+
+  function handleEdit() {
+    navigate(`/payment/edit/${payment._id}`);
+  }
+
+  function handleDownloadPdf() {
+    window.open(
+      `${DOWNLOAD_BASE_URL}/payment/payment-${payment._id}.pdf`,
+      '_blank'
+    );
+  }
+
+  return (
+    <Row sx={mainRowStyle}>
+      <Row>
+        <MoveBackButton />
+        <Row
+          gap={2}
+          alignItems="center">
+          <Typography
+            variant="caption"
+            fontWeight={600}
+            fontSize="larger">
+            payment # {number}/{year}
+          </Typography>
+
+          <Typography
+            variant="caption"
+            textTransform="capitalize"
+            fontSize="medium"
+            fontWeight={600}>
+            {paymentStatus}
+          </Typography>
+        </Row>
+      </Row>
+
+      <Row sx={actionRowStyle}>
+        <ContextMenu
+          options={[
+            {
+              name: 'Edit',
+              icon: <EditIcon fontSize="10px" />,
+              onClick: handleEdit,
+            },
+
+            {
+              name: 'Download Pdf',
+              icon: <PictureAsPdfOutlined fontSize="10px" />,
+              onClick: handleDownloadPdf,
+            },
+
+            {
+              name: 'Close',
+              icon: <CloseOutlined fontSize="10px" />,
+              onClick: () => navigate('/payment'),
+            },
+          ]}
+        />
+      </Row>
+    </Row>
+  );
+}

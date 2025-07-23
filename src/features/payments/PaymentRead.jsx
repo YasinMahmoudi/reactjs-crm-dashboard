@@ -3,6 +3,7 @@ import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import ReadPageSkeleton from '../../components/ReadPageSkeleton';
 import { useGetPayment } from './useGetPayment';
+import PaymentReadToolbar from './PaymentReadToolbar';
 
 export default function PaymentRead() {
   const { payment, isLoadingPayment } = useGetPayment();
@@ -13,6 +14,8 @@ export default function PaymentRead() {
 
   return (
     <>
+      <PaymentReadToolbar payment={payment}/>
+
       <Stack
         spacing={{ xs: 1, sm: 2 }}
         direction="row"

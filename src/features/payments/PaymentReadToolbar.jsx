@@ -22,8 +22,6 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 export default function PaymentReadToolbar({ payment }) {
   const navigate = useNavigate();
 
-  console.log(payment);
-
   const {
     number,
     invoice: { year, paymentStatus },

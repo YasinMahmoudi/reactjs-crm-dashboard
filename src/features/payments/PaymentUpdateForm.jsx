@@ -1,10 +1,11 @@
-import { Grid } from '@mui/material';
+import { Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import FormInput from '../../components/FormInput';
-import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import DropDown from '../../components/DropDown';
+import EnhancedDatePicker from '../../components/EnhancedDatePicker';
+import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
+import { useGetPayment } from './useGetPayment';
 
 const statusItems = [
   {
@@ -24,9 +25,13 @@ const statusItems = [
 export default function PaymentUpdateForm() {
   const { control, handleSubmit } = useForm();
 
+  const { payment, isLoadingPayment } = useGetPayment();
+
   function onSubmit(data) {
     console.log(data);
   }
+
+  if (isLoadingPayment) return <CircularProgress />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,7 +42,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 3 }}>
           <Controller
             name="number"
-            defaultValue={''}
+            defaultValue={payment?.number}
             control={control}
             rules={{
               required: 'Please add a number .',
@@ -55,8 +60,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 3 }}>
           <Controller
             name="date"
-            // defaultValue={dayjs(invoice.date) || dayjs()}
-            defaultValue={dayjs()}
+            defaultValue={dayjs(payment.date)}
             control={control}
             rules={{
               required: 'Please select a date .',
@@ -64,8 +68,7 @@ export default function PaymentUpdateForm() {
             render={(field) => (
               <EnhancedDatePicker
                 label="Date"
-                // defaultValue={dayjs(invoice.date) || dayjs()}
-                defaultValue={dayjs()}
+                defaultValue={dayjs(payment.date)}
                 control={control}
                 {...field}
               />
@@ -76,7 +79,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
           <Controller
             name="amount"
-            defaultValue={''}
+            defaultValue={payment.amount}
             control={control}
             rules={{
               required: 'Please add a amount .',
@@ -115,7 +118,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
           <Controller
             name="reference"
-            defaultValue={''}
+            defaultValue={payment.ref}
             control={control}
             render={(field) => (
               <FormInput
@@ -130,7 +133,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
           <Controller
             name="description"
-            defaultValue={''}
+            defaultValue={payment.description}
             control={control}
             render={(field) => (
               <FormInput
@@ -140,6 +143,21 @@ export default function PaymentUpdateForm() {
               />
             )}
           />
+        </Grid>
+
+        <Grid size={{ xs: 2, sm: 2, md: 6 }}>
+          <Button
+            variant="contained"
+            color="info"
+            sx={{
+              width: { letterSpacing: 2 },
+            }}
+            type="submit"
+            loading={false}
+            disabled={false}
+            loadingPosition="start">
+            <Typography variant="h6">Update</Typography>
+          </Button>
         </Grid>
       </Grid>
     </form>

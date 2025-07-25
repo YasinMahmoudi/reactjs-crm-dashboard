@@ -25,7 +25,7 @@ function useUpdatePayment() {
 
       toast.success('Payment updated successfuly');
 
-      navigate('/payments');
+      navigate('/payment');
     },
 
     onError: (err) => {

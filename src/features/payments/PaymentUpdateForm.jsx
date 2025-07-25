@@ -112,7 +112,7 @@ export default function PaymentUpdateForm() {
 
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
           <Controller
-            name="reference"
+            name="ref"
             defaultValue={payment.ref}
             control={control}
             render={(field) => (

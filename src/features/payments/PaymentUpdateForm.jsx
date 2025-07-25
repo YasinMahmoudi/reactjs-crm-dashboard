@@ -6,34 +6,27 @@ import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
 import { useGetPayment } from './useGetPayment';
+import { useGetPaymentModes } from '../payment-mode/useGetPaymentModes';
 import { useUpdatePayment } from './useUpdatePayment';
-
-const statusItems = [
-  {
-    label: 'Test',
-    value: 'test',
-  },
-  {
-    label: 'Test 2',
-    value: 'test2',
-  },
-  {
-    label: 'Test 3',
-    value: 'test3',
-  },
-];
 
 export default function PaymentUpdateForm() {
   const { control, handleSubmit } = useForm();
 
   const { payment, isLoadingPayment } = useGetPayment();
-  const {updatePayment , isUpdatingpayment} = useUpdatePayment()
+
+  const { paymentModes, isLoadingPaymentModes } = useGetPaymentModes();
+
+  const { updatePayment, isUpdatingpayment } = useUpdatePayment();
 
   function onSubmit(data) {
-    updatePayment(data)
+    updatePayment(data);
   }
 
-  if (isLoadingPayment) return <CircularProgress />;
+  if (isLoadingPayment || isLoadingPaymentModes) return <CircularProgress />;
+
+  const modifiedPaymentModes = paymentModes.map((mode) => {
+    return { label: mode.name, value: mode._id };
+  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,7 +93,7 @@ export default function PaymentUpdateForm() {
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
           <Controller
             name="paymentMode"
-            defaultValue={''}
+            defaultValue={payment.paymentMode._id}
             control={control}
             rules={{
               required: 'Please slecet a payment mode.',
@@ -109,7 +102,7 @@ export default function PaymentUpdateForm() {
               <DropDown
                 label="Payment Mode"
                 id="paymentMode"
-                items={statusItems}
+                items={modifiedPaymentModes}
                 control={control}
                 {...field}
               />

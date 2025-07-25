@@ -6,6 +6,7 @@ import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
 import { useGetPayment } from './useGetPayment';
+import { useUpdatePayment } from './useUpdatePayment';
 
 const statusItems = [
   {
@@ -26,9 +27,10 @@ export default function PaymentUpdateForm() {
   const { control, handleSubmit } = useForm();
 
   const { payment, isLoadingPayment } = useGetPayment();
+  const {updatePayment , isUpdatingpayment} = useUpdatePayment()
 
   function onSubmit(data) {
-    console.log(data);
+    updatePayment(data)
   }
 
   if (isLoadingPayment) return <CircularProgress />;
@@ -153,8 +155,8 @@ export default function PaymentUpdateForm() {
               width: { letterSpacing: 2 },
             }}
             type="submit"
-            loading={false}
-            disabled={false}
+            loading={isUpdatingpayment}
+            disabled={isUpdatingpayment}
             loadingPosition="start">
             <Typography variant="h6">Update</Typography>
           </Button>

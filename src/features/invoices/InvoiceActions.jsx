@@ -2,6 +2,8 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
+import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
+
 import ContextMenu from '../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
@@ -41,6 +43,12 @@ export default function InvoiceActions({ id }) {
           name: 'Download',
           icon: <PictureAsPdfOutlined fontSize="10px" />,
           onClick: handleDownloadPdf,
+        },
+
+        {
+          name: 'Record Payment',
+          icon: <CreditCardOutlined fontSize="10px" />,
+          onClick: () => navigate(`/invoices/pay/${id}`),
         },
 
         {

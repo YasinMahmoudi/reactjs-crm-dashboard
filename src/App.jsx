@@ -25,6 +25,9 @@ const Invoices = lazy(() => import('./pages/Invoices'));
 const InvoiceCreate = lazy(() => import('./pages/Invoices/Create'));
 const InvoiceEdit = lazy(() => import('./pages/Invoices/Edit'));
 const InvoiceRead = lazy(() => import('./pages/Invoices/Read'));
+const InvoiceRecordPayment = lazy(() =>
+  import('./pages/Invoices/RecordPayment')
+);
 
 const Taxes = lazy(() => import('./pages/Taxes'));
 const TaxCreate = lazy(() => import('./features/tax/TaxCreate'));
@@ -134,6 +137,17 @@ export default function App() {
                     fallback={<PageLoader size={60} />}
                     key="invoiceEdit">
                     <InvoiceEdit />
+                  </Suspense>
+                }
+              />
+
+              <Route
+                path="pay/:readId"
+                element={
+                  <Suspense
+                    fallback={<PageLoader size={60} />}
+                    key="invoicePaymentRecord">
+                    <InvoiceRecordPayment />
                   </Suspense>
                 }
               />

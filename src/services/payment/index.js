@@ -56,6 +56,27 @@ export async function getPaymentService(id) {
   }
 }
 
+export async function createPaymentService(newPayment) {
+  try {
+    const res = await fetch(`${API_URL}/payment/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newPayment),
+      credentials: 'include',
+    });
+
+    if (!res.ok) throw new Error(data.message);
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function updatePaymentService({ id, updatedData }) {
   try {
     const res = await fetch(`${API_URL}/payment/update/${id}`, {

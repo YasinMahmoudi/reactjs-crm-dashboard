@@ -1,6 +1,15 @@
-import InvoiceCreate from '../../features/invoices/InvoiceCreate';
+import { Divider } from '@mui/material';
+import InvoiceCreateUpdateForm from '../../features/invoices/InvoiceCreateUpdateForm';
+import InvoiceCreateUpdateToolbar from '../../features/invoices/InvoiceCreateUpdateToolbar';
 
 export default function Create() {
-  return <InvoiceCreate />;
-}
+  return (
+    <>
+      <InvoiceCreateUpdateToolbar />
 
+      <Divider />
+
+      <InvoiceCreateUpdateForm />
+    </>
+  );
+}

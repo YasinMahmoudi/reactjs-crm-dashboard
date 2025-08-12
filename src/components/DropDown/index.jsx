@@ -13,6 +13,7 @@ DropDown.propTypes = {
   id: PropTypes.string,
   control: PropTypes.object,
   items: PropTypes.array,
+  onChange:PropTypes.func,
   fields: PropTypes.shape({
     name: PropTypes.string,
   }),
@@ -23,6 +24,7 @@ export default function DropDown({
   id,
   items,
   control,
+  onChange,
   ...fields
 }) {
   const {
@@ -44,7 +46,9 @@ export default function DropDown({
         labelId={id}
         id={id}
         label={label}
-        onChange={(event) => field.onChange(event.target.value)}
+        onChange={
+          onChange ? onChange : (event) => field.onChange(event.target.value)
+        }
         inputRef={field.ref}
         onBlur={field.onBlur}
         name={field.name}

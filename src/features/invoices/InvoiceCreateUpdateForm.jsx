@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useCreateInvoice } from './useCreateInvoice';
 
 import Divider from '@mui/material/Divider';
@@ -19,9 +19,9 @@ import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
+import { useGetTaxes } from '../tax/useGetTaxes';
 import { useGetInvoice } from './useGetInvoice';
 import { useUpdateInvoice } from './useUpdateInvoice';
-import { useGetTaxes } from '../tax/useGetTaxes';
 
 const statusItems = [
   {
@@ -50,6 +50,7 @@ const initialItems = {
 export default function InvoiceCreateUpdateForm() {
   const { control, handleSubmit } = useForm();
   const [items, setItems] = useState([]);
+  const [taxRate, setTaxRate] = useState('');
 
   const { invoice, isLoadingInvoice } = useGetInvoice();
   const { taxes, isLoadingTaxes } = useGetTaxes();
@@ -58,17 +59,11 @@ export default function InvoiceCreateUpdateForm() {
 
   const { isEditing } = useIsEditing();
 
-   const {
-    field: { value: tax },
-  } = useController({
-    name: 'taxRate',
-    control,
-    defaultValue: invoice.taxRate || '',
-  });
-
   useEffect(
     function () {
       if (isLoadingInvoice) return;
+
+      setTaxRate(invoice.taxRate);
 
       const fetchItems = invoice.items?.map((item, index) => ({
         id: index,
@@ -81,7 +76,7 @@ export default function InvoiceCreateUpdateForm() {
 
       fetchItems ? setItems(fetchItems) : setItems([initialItems]);
     },
-    [invoice.items, isLoadingInvoice]
+    [invoice.items, invoice.taxRate, isLoadingInvoice]
   );
 
   function onSubmit(data) {
@@ -108,17 +103,15 @@ export default function InvoiceCreateUpdateForm() {
 
   const subTotal = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 
-  if (isLoadingInvoice && isLoadingTaxes) return <CircularProgress />;
-
- 
+  if (isLoadingInvoice || isLoadingTaxes) return <CircularProgress />;
 
   const taxDropdownItems = taxes.map((tax) => ({
     label: `${tax.taxName} (${tax.taxValue}%)`,
     value: tax.taxValue,
   }));
 
-  const taxPrice = subTotal * (tax / 100);
-  const totalPrice = tax ? subTotal + subTotal * (tax / 100) : subTotal;
+  const taxPrice = subTotal * (taxRate / 100);
+  const totalPrice = taxRate ? subTotal + subTotal * (taxRate / 100) : subTotal;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -339,12 +332,17 @@ export default function InvoiceCreateUpdateForm() {
                   <Controller
                     name="taxRate"
                     control={control}
+                    defaultValue={invoice.taxRate || ''}
                     render={(field) => (
                       <DropDown
                         label="Select a tax"
                         id="taxRate"
                         items={taxDropdownItems}
                         control={control}
+                        onChange={(e) => {
+                          setTaxRate(e.target.value);
+                          field.field.onChange(e.target.value);
+                        }}
                         {...field}
                       />
                     )}

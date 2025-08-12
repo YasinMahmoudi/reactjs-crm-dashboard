@@ -39,7 +39,7 @@ export async function getInvoicesService({ page = 1, query = '', signal }) {
 export async function createInvoiceService(newInvoice) {
   // Extract necessary data from given invoice
   const {
-    data: { client, date, expireDate, note, number, status, tax, year },
+    data: { client, date, expireDate, note, number, status, taxRate, year },
     items,
   } = newInvoice;
 
@@ -60,7 +60,7 @@ export async function createInvoiceService(newInvoice) {
     notes: note,
     number: +number,
     status,
-    taxRate: tax,
+    taxRate,
     year,
     items: modifiedItems,
   };
@@ -113,7 +113,7 @@ export async function getInvoiceService(id) {
 export async function updateInvoiceService({ id, updatedData }) {
   // Extract necessary data from given invoice
   const {
-    data: { client, date, expireDate, note, number, status, tax, year },
+    data: { client, date, expireDate, note, number, status, year,taxRate },
     items,
   } = updatedData;
 
@@ -134,7 +134,7 @@ export async function updateInvoiceService({ id, updatedData }) {
     notes: note,
     number: +number,
     status,
-    taxRate: tax,
+    taxRate,
     year,
     items: modifiedItems,
   };

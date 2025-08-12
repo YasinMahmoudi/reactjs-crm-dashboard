@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import { useCreateInvoice } from './useCreateInvoice';
 
 import Divider from '@mui/material/Divider';
@@ -21,6 +21,7 @@ import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
 import { useGetInvoice } from './useGetInvoice';
 import { useUpdateInvoice } from './useUpdateInvoice';
+import { useGetTaxes } from '../tax/useGetTaxes';
 
 const statusItems = [
   {
@@ -51,10 +52,19 @@ export default function InvoiceCreateUpdateForm() {
   const [items, setItems] = useState([]);
 
   const { invoice, isLoadingInvoice } = useGetInvoice();
+  const { taxes, isLoadingTaxes } = useGetTaxes();
   const { createInvoice, isCreatingInvoice } = useCreateInvoice();
   const { updateInvoice, isUpdatingInvoice } = useUpdateInvoice();
 
   const { isEditing } = useIsEditing();
+
+   const {
+    field: { value: tax },
+  } = useController({
+    name: 'taxRate',
+    control,
+    defaultValue: invoice.taxRate || '',
+  });
 
   useEffect(
     function () {
@@ -96,9 +106,19 @@ export default function InvoiceCreateUpdateForm() {
         });
   }
 
-  const totalPrice = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
+  const subTotal = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 
-  if (isLoadingInvoice) return <CircularProgress />;
+  if (isLoadingInvoice && isLoadingTaxes) return <CircularProgress />;
+
+ 
+
+  const taxDropdownItems = taxes.map((tax) => ({
+    label: `${tax.taxName} (${tax.taxValue}%)`,
+    value: tax.taxValue,
+  }));
+
+  const taxPrice = subTotal * (tax / 100);
+  const totalPrice = tax ? subTotal + subTotal * (tax / 100) : subTotal;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -111,7 +131,7 @@ export default function InvoiceCreateUpdateForm() {
           <Controller
             name="client"
             control={control}
-            defaultValue={invoice?.client?._id || null}
+            defaultValue={invoice.client?._id || null}
             rules={{
               required: 'Please add a client .',
             }}
@@ -287,7 +307,7 @@ export default function InvoiceCreateUpdateForm() {
             </Button>
           </Grid>
 
-          <Grid size={{ xs: 2, sm: 2, md: 1.5 }}>
+          <Grid size={{ xs: 2, sm: 2, md: 3 }}>
             <Grid
               container
               spacing={{ xs: 2, md: 2 }}
@@ -295,7 +315,7 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="subTotal"
-                  defaultValue={totalPrice || 0}
+                  defaultValue={subTotal || 0}
                   control={control}
                   render={(field) => (
                     <FormInput
@@ -303,7 +323,7 @@ export default function InvoiceCreateUpdateForm() {
                       control={control}
                       readOnly
                       value={
-                        totalPrice > 0 ? `$ ${totalPrice.toFixed(2)}` : `$ 1:00`
+                        subTotal > 0 ? `$ ${subTotal.toFixed(2)}` : `$ 1:00`
                       }
                       {...field}
                     />
@@ -311,20 +331,44 @@ export default function InvoiceCreateUpdateForm() {
                 />
               </Grid>
 
-              <Grid size={{ xs: 2, sm: 2, md: 2 }}>
-                <Controller
-                  name="tax"
-                  defaultValue={0}
-                  control={control}
-                  render={(field) => (
-                    <FormInput
-                      label="Tax"
-                      readOnly
-                      control={control}
-                      {...field}
-                    />
-                  )}
-                />
+              <Grid
+                size={{ xs: 2, sm: 2, md: 3 }}
+                columns={{ xs: 1, sm: 2, md: 3 }}
+                container>
+                <Grid size={{ xs: 1 }}>
+                  <Controller
+                    name="taxRate"
+                    control={control}
+                    render={(field) => (
+                      <DropDown
+                        label="Select a tax"
+                        id="taxRate"
+                        items={taxDropdownItems}
+                        control={control}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid size={{ xs: 2 }}>
+                  <Controller
+                    name="taxPrice"
+                    control={control}
+                    defaultValue={taxPrice || 0}
+                    render={(field) => (
+                      <FormInput
+                        label="Tax"
+                        readOnly
+                        control={control}
+                        value={
+                          taxPrice > 0 ? `$ ${taxPrice.toFixed(2)}` : `$ 0:00`
+                        }
+                        {...field}
+                      />
+                    )}
+                  />
+                </Grid>
               </Grid>
 
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>

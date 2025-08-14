@@ -71,15 +71,6 @@ export default function MainNav() {
       </ListItem>
 
       <ListItem disablePadding>
-        <ListItemLink to="/settings">
-          <ListItemIcon>
-            <SettingsOutlined />
-          </ListItemIcon>
-          <ListItemText primary="Settings" />
-        </ListItemLink>
-      </ListItem>
-
-      <ListItem disablePadding>
         <ListItemLink to="/about">
           <ListItemIcon>
             <ListAltOutlined />

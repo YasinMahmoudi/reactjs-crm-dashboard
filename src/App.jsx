@@ -8,7 +8,6 @@ const AppLayout = lazy(() => import('./layouts/Applayout'));
 const Login = lazy(() => import('./pages/Auth'));
 const ForgetPassword = lazy(() => import('./features/auth/ForgetPassword'));
 const Dashboard = lazy(() => import('./pages/dashboard'));
-const Settings = lazy(() => import('./features/settings'));
 const CustomerCreateModal = lazy(() =>
   import('./features/customers/CustomerCreateModal')
 );
@@ -217,17 +216,6 @@ export default function App() {
                 element={<TaxCreate />}
               />
             </Route>
-
-            <Route
-              path="settings"
-              element={
-                <Suspense
-                  fallback={<PageLoader size={60} />}
-                  key="settings">
-                  <Settings />
-                </Suspense>
-              }
-            />
 
             <Route
               path="about"

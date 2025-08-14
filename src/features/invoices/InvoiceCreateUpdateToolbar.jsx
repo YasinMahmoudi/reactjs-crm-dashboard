@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import { useGetInvoice } from './useGetInvoice';
 import { useIsEditing } from '../../hooks/useIsEditing';
 
@@ -16,9 +16,11 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 export default function InvoiceCreateUpdateToolbar() {
   const navigate = useNavigate();
 
-  const { invoice } = useGetInvoice();
+  const { invoice , isLoadingInvoice } = useGetInvoice();
 
   const { isEditing } = useIsEditing();
+
+  if (isLoadingInvoice) return <CircularProgress />;
 
   const pageTitle = isEditing
     ? `Update ${invoice.status}${invoice.paymentStatus} `

@@ -1,3 +1,9 @@
+import Summary from '../../features/dashboard/Summary';
+
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <>
+      <Summary />
+    </>
+  );
 }

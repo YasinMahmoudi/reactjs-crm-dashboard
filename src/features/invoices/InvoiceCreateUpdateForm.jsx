@@ -101,16 +101,21 @@ export default function InvoiceCreateUpdateForm() {
         });
   }
 
-  const subTotal = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
-
   if (isLoadingInvoice || isLoadingTaxes) return <CircularProgress />;
+
+  const subTotal = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 
   const taxDropdownItems = taxes.map((tax) => ({
     label: `${tax.taxName} (${tax.taxValue}%)`,
     value: tax.taxValue,
   }));
 
-  const taxPrice = subTotal * (taxRate / 100);
+  let taxPrice = 0;
+
+  if (taxRate) {
+    taxPrice = subTotal * (taxRate / 100);
+  }
+
   const totalPrice = taxRate ? subTotal + subTotal * (taxRate / 100) : subTotal;
 
   return (
@@ -308,7 +313,6 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="subTotal"
-                  defaultValue={subTotal || 0}
                   control={control}
                   render={(field) => (
                     <FormInput
@@ -353,7 +357,6 @@ export default function InvoiceCreateUpdateForm() {
                   <Controller
                     name="taxPrice"
                     control={control}
-                    defaultValue={taxPrice || 0}
                     render={(field) => (
                       <FormInput
                         label="Tax"
@@ -372,7 +375,6 @@ export default function InvoiceCreateUpdateForm() {
               <Grid size={{ xs: 2, sm: 2, md: 2 }}>
                 <Controller
                   name="total"
-                  defaultValue={totalPrice || 0}
                   control={control}
                   render={(field) => (
                     <FormInput

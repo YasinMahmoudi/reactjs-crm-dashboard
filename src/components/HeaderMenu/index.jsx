@@ -9,14 +9,13 @@ import { Row } from '../Row';
 
 import Logout from '@mui/icons-material/Logout';
 import Person from '@mui/icons-material/Person';
-import Settings from '@mui/icons-material/Settings';
 
 import { deepOrange } from '@mui/material/colors';
-import { useLogout } from '../../features/auth/useLogout';
-import { useGetAdmin } from '../../features/admin/useGetAdmin';
-import { extractFirstLetter } from '../../utils/strings';
 import { useNavigate } from 'react-router';
+import { useGetAdmin } from '../../features/admin/useGetAdmin';
+import { useLogout } from '../../features/auth/useLogout';
 import { UPLOAD_URL } from '../../utils/constants';
+import { extractFirstLetter } from '../../utils/strings';
 
 export default function HeaderMenu() {
   const navigate = useNavigate();
@@ -53,7 +52,7 @@ export default function HeaderMenu() {
               src={`${UPLOAD_URL}/${photo}`}>
               {avatarDisplayName}
             </Avatar>
-            
+
             <Row sx={{ flexDirection: 'column', marginLeft: '8px' }}>
               <Typography variant="body2"> {name} </Typography>
               <Typography variant="caption"> {email} </Typography>
@@ -67,12 +66,7 @@ export default function HeaderMenu() {
           </ListItemIcon>
           Profile settings
         </CollapseMenu.MenuItem>
-        <CollapseMenu.MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          App Settings
-        </CollapseMenu.MenuItem>
+
         <CollapseMenu.MenuItem
           onClick={() => {
             logout();

@@ -3,7 +3,6 @@ import DashboardOutlined from '@mui/icons-material/DashboardOutlined';
 import DescriptionOutlined from '@mui/icons-material/DescriptionOutlined';
 import HeadphonesOutlined from '@mui/icons-material/HeadphonesOutlined';
 import ListAltOutlined from '@mui/icons-material/ListAltOutlined';
-import SettingsOutlined from '@mui/icons-material/SettingsOutlined';
 import StoreOutlined from '@mui/icons-material/StoreOutlined';
 import WalletOutlined from '@mui/icons-material/WalletOutlined';
 

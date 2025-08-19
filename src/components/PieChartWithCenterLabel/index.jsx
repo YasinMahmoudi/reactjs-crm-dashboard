@@ -35,9 +35,10 @@ export default function PieChartWithCenterLabel() {
           data,
         },
       ]}
-      height={395}
-      skipAnimation={false}
+      skipAnimation={true}
       hideLegend
+      width={200}
+      height={180}
       >
       <PieCenterLabel>50%</PieCenterLabel>
     </PieChart>

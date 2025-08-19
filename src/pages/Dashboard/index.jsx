@@ -1,6 +1,7 @@
 import Summary from '../../features/dashboard/Summary';
 import InvoiveStatusProgress from '../../features/dashboard/InvoiveStatusProgress';
 import { Grid } from '@mui/material';
+import NewCustomers from '../../features/dashboard/NewCustomers';
 
 export default function Dashboard() {
   return (
@@ -16,7 +17,7 @@ export default function Dashboard() {
         </Grid>
 
         <Grid size={{ xs: 4, md: 4 }}>
-            New Users Chart
+          <NewCustomers />
         </Grid>
       </Grid>
     </>

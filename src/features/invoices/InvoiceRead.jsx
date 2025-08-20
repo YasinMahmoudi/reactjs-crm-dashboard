@@ -2,7 +2,7 @@ import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import ReadPageSkeleton from '../../components/ReadPageSkeleton';
-import InvoiceReadProductsTable from './invoiceReadProductsTable';
+import InvoiceReadProductsTable from './InvoiceReadProductsTable';
 import InvoiceReadToolbar from './invoicesReadToolbar';
 import { useGetInvoice } from './useGetInvoice';
 

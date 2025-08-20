@@ -11,7 +11,9 @@ export default function Dashboard() {
       <Grid
         container
         spacing={2}
-        columns={{ xs: 4, md: 8 }}>
+        columns={{ xs: 4, md: 8 }}
+        mt={10}
+        >
         <Grid size={{ xs: 4, md: 4 }}>
           <InvoiveStatusProgress />
         </Grid>

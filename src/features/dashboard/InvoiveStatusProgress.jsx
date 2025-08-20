@@ -3,7 +3,7 @@ import LinearProgressWithLabel from '../../components/LinearProgressWithLabel';
 
 export default function InvoiveStatusProgress() {
   return (
-    <Paper sx={{ mt: 10, p: 5 }}>
+    <Paper sx={{ p: 5 }}>
       <Typography
         variant="h5"
         mb={4}>

@@ -63,7 +63,7 @@ export default function Summary() {
               </Typography>
               <span>
                 <Chip
-                  label={new Intl.NumberFormat('en-US').format(invoices.total)}
+                  label={`$ ${new Intl.NumberFormat('en-US').format(invoices.total)}`}
                   color="error"
                   variant="filled"
                 />
@@ -99,9 +99,9 @@ export default function Summary() {
               </Typography>
               <span>
                 <Chip
-                  label={new Intl.NumberFormat('en-US').format(
+                  label={`$ ${new Intl.NumberFormat('en-US').format(
                     paymentSummary.total
-                  )}
+                  )}`}
                   color="error"
                   variant="filled"
                 />
@@ -137,9 +137,9 @@ export default function Summary() {
               </Typography>
               <span>
                 <Chip
-                  label={new Intl.NumberFormat('en-US').format(
+                  label={`$ ${new Intl.NumberFormat('en-US').format(
                     invoices.total_undue
-                  )}
+                  )}`}
                   color="error"
                   variant="filled"
                 />

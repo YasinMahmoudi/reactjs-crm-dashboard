@@ -33,7 +33,7 @@ export default function Summary() {
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid size={{ xs: 4, sm: 2, md: 3 }}>
+        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
             <Typography>Invoices</Typography>
             <Divider sx={{ my: 2 }} />
@@ -61,35 +61,7 @@ export default function Summary() {
           </Item>
         </Grid>
 
-        <Grid size={{ xs: 4, sm: 2, md: 3 }}>
-          <Item>
-            <Typography>Invoices</Typography>
-            <Divider sx={{ my: 2 }} />
-
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="center"
-              divider={
-                <Divider
-                  orientation="vertical"
-                  flexItem
-                />
-              }
-              spacing={2}>
-              <span>This Month</span>
-              <span>
-                <Chip
-                  label="$3000"
-                  color="error"
-                  variant="filled"
-                />
-              </span>
-            </Stack>
-          </Item>
-        </Grid>
-
-        <Grid size={{ xs: 4, sm: 2, md: 3 }}>
+        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
             <Typography>Invoices</Typography>
             <Divider sx={{ my: 2 }} />
@@ -117,7 +89,7 @@ export default function Summary() {
           </Item>{' '}
         </Grid>
 
-        <Grid size={{ xs: 4, sm: 2, md: 3 }}>
+        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
             <Typography>Unpaid</Typography>
             <Divider sx={{ my: 2 }} />

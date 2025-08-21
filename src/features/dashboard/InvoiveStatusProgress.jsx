@@ -10,7 +10,7 @@ export default function InvoiveStatusProgress() {
   const { performance } = invoices;
 
   return (
-    <Paper sx={{ p: 5 }}>
+    <Paper sx={{ p: 5, height: '100%' }}>
       <Typography
         variant="h5"
         mb={4}>
@@ -18,7 +18,7 @@ export default function InvoiveStatusProgress() {
       </Typography>
 
       <Stack spacing={3}>
-        {performance.map((item,index) => (
+        {performance.map((item, index) => (
           <LinearProgressWithLabel
             key={index}
             title={item.status}

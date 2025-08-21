@@ -1,7 +1,14 @@
-import { Paper, Stack, Typography } from '@mui/material';
+import { CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel';
+import { useInvoicesSummary } from './useInvoiceSummary';
 
 export default function InvoiveStatusProgress() {
+  const { invoices, isLoadingInvoicesSummary } = useInvoicesSummary();
+
+  if (isLoadingInvoicesSummary) return <CircularProgress />;
+
+  const { performance } = invoices;
+
   return (
     <Paper sx={{ p: 5 }}>
       <Typography
@@ -11,30 +18,13 @@ export default function InvoiveStatusProgress() {
       </Typography>
 
       <Stack spacing={3}>
-        <LinearProgressWithLabel
-          title="Draft"
-          value={60}
-        />
-        <LinearProgressWithLabel
-          title="Pending"
-          value={0}
-        />
-        <LinearProgressWithLabel
-          title="Overdue"
-          value={100}
-        />
-        <LinearProgressWithLabel
-          title="Paid"
-          value={33}
-        />
-        <LinearProgressWithLabel
-          title="Unpaid"
-          value={5}
-        />
-        <LinearProgressWithLabel
-          title="Partially"
-          value={68}
-        />
+        {performance.map((item,index) => (
+          <LinearProgressWithLabel
+            key={index}
+            title={item.status}
+            value={item.percentage}
+          />
+        ))}
       </Stack>
     </Paper>
   );

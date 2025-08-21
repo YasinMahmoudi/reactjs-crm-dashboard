@@ -35,7 +35,11 @@ export default function Summary() {
         columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
-            <Typography>Invoices</Typography>
+            <Typography
+              variant="h6"
+              fontWeight={600}>
+              Invoices
+            </Typography>
             <Divider sx={{ my: 2 }} />
 
             <Stack
@@ -49,7 +53,11 @@ export default function Summary() {
                 />
               }
               spacing={2}>
-              <span>This Month</span>
+              <Typography
+                variant="subtitle1"
+                fontWeight={500}>
+                This Month
+              </Typography>
               <span>
                 <Chip
                   label={new Intl.NumberFormat('en-US').format(invoices.total)}
@@ -63,7 +71,11 @@ export default function Summary() {
 
         <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
-            <Typography>Invoices</Typography>
+            <Typography
+              variant="h6"
+              fontWeight={600}>
+              Invoices
+            </Typography>
             <Divider sx={{ my: 2 }} />
 
             <Stack
@@ -77,7 +89,11 @@ export default function Summary() {
                 />
               }
               spacing={2}>
-              <span>This Month</span>
+              <Typography
+                variant="subtitle1"
+                fontWeight={500}>
+                This Month
+              </Typography>
               <span>
                 <Chip
                   label="$3000"
@@ -91,7 +107,11 @@ export default function Summary() {
 
         <Grid size={{ xs: 4, sm: 2, md: 4 }}>
           <Item>
-            <Typography>Unpaid</Typography>
+            <Typography
+              variant="h6"
+              fontWeight={600}>
+              Unpaid
+            </Typography>
             <Divider sx={{ my: 2 }} />
 
             <Stack
@@ -105,7 +125,11 @@ export default function Summary() {
                 />
               }
               spacing={2}>
-              <span>This Month</span>
+              <Typography
+                variant="subtitle1"
+                fontWeight={500}>
+                This Month
+              </Typography>
               <span>
                 <Chip
                   label={new Intl.NumberFormat('en-US').format(

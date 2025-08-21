@@ -1,8 +1,8 @@
 import { API_URL } from '../../utils/constants';
 
-export async function getInvoiceSummaryService({ signal }) {
+export async function getClientSummaryService({ signal }) {
   try {
-    const res = await fetch(`${API_URL}/invoice/summary?currency=USD`, {
+    const res = await fetch(`${API_URL}/client/summary`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

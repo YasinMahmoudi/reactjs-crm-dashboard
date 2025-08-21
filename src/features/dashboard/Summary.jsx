@@ -1,6 +1,7 @@
 import {
   Box,
   Chip,
+  CircularProgress,
   Divider,
   Grid,
   Paper,
@@ -8,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useInvoicesSummary } from './useInvoiceSummary';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -21,6 +23,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Summary() {
+  const { invoices, isLoadingInvoicesSummary } = useInvoicesSummary();
+
+  if (isLoadingInvoicesSummary) return <CircularProgress />;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -46,7 +52,7 @@ export default function Summary() {
               <span>This Month</span>
               <span>
                 <Chip
-                  label="$3000"
+                  label={new Intl.NumberFormat('en-US').format(invoices.total)}
                   color="error"
                   variant="filled"
                 />
@@ -113,7 +119,7 @@ export default function Summary() {
 
         <Grid size={{ xs: 4, sm: 2, md: 3 }}>
           <Item>
-            <Typography>Invoices</Typography>
+            <Typography>Unpaid</Typography>
             <Divider sx={{ my: 2 }} />
 
             <Stack
@@ -130,7 +136,9 @@ export default function Summary() {
               <span>This Month</span>
               <span>
                 <Chip
-                  label="$3000"
+                  label={new Intl.NumberFormat('en-US').format(
+                    invoices.total_undue
+                  )}
                   color="error"
                   variant="filled"
                 />

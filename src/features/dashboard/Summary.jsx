@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useInvoicesSummary } from './useInvoiceSummary';
+import { usePaymentSummary } from './usePaymentSummary';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -24,8 +25,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Summary() {
   const { invoices, isLoadingInvoicesSummary } = useInvoicesSummary();
+  const { paymentSummary, isLoadingPaymentSummary } = usePaymentSummary();
 
-  if (isLoadingInvoicesSummary) return <CircularProgress />;
+  if (isLoadingInvoicesSummary || isLoadingPaymentSummary)
+    return <CircularProgress />;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -74,7 +77,7 @@ export default function Summary() {
             <Typography
               variant="h6"
               fontWeight={600}>
-              Invoices
+              Paid
             </Typography>
             <Divider sx={{ my: 2 }} />
 
@@ -96,7 +99,9 @@ export default function Summary() {
               </Typography>
               <span>
                 <Chip
-                  label="$3000"
+                  label={new Intl.NumberFormat('en-US').format(
+                    paymentSummary.total
+                  )}
                   color="error"
                   variant="filled"
                 />

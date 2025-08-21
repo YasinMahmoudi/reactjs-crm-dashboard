@@ -22,7 +22,7 @@ function usePaymentSummary() {
     });
 
   return {
-    invoices: result,
+    paymentSummary: result,
     isLoadingPaymentSummary,
   };
 }

@@ -21,7 +21,7 @@ export default function NewCustomers() {
       </Typography>
 
       <Stack alignItems="center">
-        <PieChartWithCenterLabel label={`${clientSummary.new}%`} />
+        <PieChartWithCenterLabel label={`${clientSummary.new}%`} progressPercentage={4} />
 
         <Typography>New Customer This Month</Typography>
 

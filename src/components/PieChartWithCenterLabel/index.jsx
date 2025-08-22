@@ -21,13 +21,16 @@ function PieCenterLabel({ children }) {
   );
 }
 
-export default function PieChartWithCenterLabel({label}) {
+export default function PieChartWithCenterLabel({
+  label,
+  progressPercentage = 1,
+}) {
   return (
     <PieChart
       series={[
         {
           startAngle: -135,
-          endAngle: 135,
+          endAngle: -135 + progressPercentage * 2.7,
           paddingAngle: 5,
           innerRadius: 60,
           outerRadius: 80,
@@ -38,8 +41,7 @@ export default function PieChartWithCenterLabel({label}) {
       skipAnimation={true}
       hideLegend
       width={200}
-      height={180}
-      >
+      height={180}>
       <PieCenterLabel>{label}</PieCenterLabel>
     </PieChart>
   );

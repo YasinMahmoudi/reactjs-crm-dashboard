@@ -1,18 +1,21 @@
-import { CircularProgress, Divider, Paper, Stack, Typography } from '@mui/material';
+import {
+  CircularProgress,
+  Divider,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material';
 import PieChartWithCenterLabel from '../../components/PieChartWithCenterLabel';
 import { ArrowUpwardOutlined } from '@mui/icons-material';
 import { useClientSummary } from './useClientSummary';
 
 export default function NewCustomers() {
+  const { clientSummary, isLoadingClientSummary } = useClientSummary();
 
-  const {clientSummary,isLoadingClientSummary} = useClientSummary()
-
-  if(isLoadingClientSummary) return <CircularProgress/>
-
-  console.log(clientSummary)
+  if (isLoadingClientSummary) return <CircularProgress />;
 
   return (
-    <Paper sx={{  p: 5,height:'100%' }}>
+    <Paper sx={{ p: 5, height: '100%' }}>
       <Typography
         variant="h5"
         mb={4}
@@ -21,7 +24,10 @@ export default function NewCustomers() {
       </Typography>
 
       <Stack alignItems="center">
-        <PieChartWithCenterLabel label={`${clientSummary.new}%`} progressPercentage={4} />
+        <PieChartWithCenterLabel
+          label={`${clientSummary.new}%`}
+          progressPercentage={4}
+        />
 
         <Typography>New Customer This Month</Typography>
 
@@ -37,8 +43,7 @@ export default function NewCustomers() {
           direction="row"
           alignItems="baseline"
           gap={1}
-          mt={2}
-          >
+          mt={2}>
           <ArrowUpwardOutlined sx={{ fontSize: 'xx-large' }} />
 
           <Typography

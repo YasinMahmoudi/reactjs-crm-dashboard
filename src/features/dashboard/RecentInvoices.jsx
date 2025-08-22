@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
 import SimpleTable from '../../components/SimpleTable';
 import { useRecentInvoices } from './useRecentInvoices';
+import InvoiceActions from '../invoices/InvoiceActions';
 
 InvoiceRecentTable.propTypes = {
   invoices: PropTypes.array,
@@ -105,7 +106,9 @@ function InvoiceRecentRow({ invoice }) {
       </StyledTableCell>
       <StyledTableCell>{invoice.status}</StyledTableCell>
 
-      <StyledTableCell></StyledTableCell>
+      <StyledTableCell align='center'>
+        <InvoiceActions id={invoice._id}/>
+      </StyledTableCell>
     </StyledTableRow>
   );
 }

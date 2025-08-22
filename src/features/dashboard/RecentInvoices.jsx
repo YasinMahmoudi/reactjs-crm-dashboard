@@ -36,33 +36,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const heads = [
   {
     label: 'Number',
-    align: '',
   },
   {
     label: 'Client',
-    align: '',
   },
   {
     label: 'Total',
-    align: 'center',
   },
   {
     label: 'Status',
-    align: 'center',
   },
   {
     label: '',
-    align: 'center',
   },
 ];
 
 export default function RecentInvoices() {
+  const { recentInvoices, isLoadingRecentInvoices } = useRecentInvoices();
 
-  const {recentInvoices , isLoadingRecentInvoices} = useRecentInvoices()
-
-  if(isLoadingRecentInvoices) return <CircularProgress/>
-
-  console.log(recentInvoices)
+  if (isLoadingRecentInvoices) return <CircularProgress />;
 
   return (
     <Paper sx={{ p: 5 }}>
@@ -72,7 +64,7 @@ export default function RecentInvoices() {
         Recent Invoices
       </Typography>
 
-      <InvoiceRecentTable invoices={recentInvoices}/>
+      <InvoiceRecentTable invoices={recentInvoices} />
     </Paper>
   );
 }
@@ -104,19 +96,16 @@ function InvoiceRecentRow({ invoice }) {
         {invoice.number}
       </StyledTableCell>
 
+      <StyledTableCell>{invoice.client.name}</StyledTableCell>
       <StyledTableCell>
-        {invoice.client.name}
-      </StyledTableCell>
-      <StyledTableCell align="center">
         ${' '}
         {new Intl.NumberFormat('en-US', {
           minimumSignificantDigits: 3,
         }).format(invoice.total)}
       </StyledTableCell>
-      <StyledTableCell align="center">{invoice.quantity}</StyledTableCell>
-      <StyledTableCell align="center">
-        {invoice.status}
-      </StyledTableCell>
+      <StyledTableCell>{invoice.status}</StyledTableCell>
+
+      <StyledTableCell></StyledTableCell>
     </StyledTableRow>
   );
 }

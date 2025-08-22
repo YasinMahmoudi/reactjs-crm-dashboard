@@ -1,14 +1,15 @@
 import {
   Box,
   Chip,
-  CircularProgress,
   Divider,
   Grid,
   Paper,
+  Skeleton,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Suspense } from 'react';
 import { useInvoicesSummary } from './useInvoiceSummary';
 import { usePaymentSummary } from './usePaymentSummary';
 
@@ -24,12 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Summary() {
-  const { invoices, isLoadingInvoicesSummary } = useInvoicesSummary();
-  const { paymentSummary, isLoadingPaymentSummary } = usePaymentSummary();
-
-  if (isLoadingInvoicesSummary || isLoadingPaymentSummary)
-    return <CircularProgress />;
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -61,13 +56,9 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <span>
-                <Chip
-                  label={`$ ${new Intl.NumberFormat('en-US').format(invoices.total)}`}
-                  color="error"
-                  variant="filled"
-                />
-              </span>
+              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+                <InvoicePrice dataKey={'total'} />
+              </Suspense>
             </Stack>
           </Item>
         </Grid>
@@ -97,15 +88,9 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <span>
-                <Chip
-                  label={`$ ${new Intl.NumberFormat('en-US').format(
-                    paymentSummary.total
-                  )}`}
-                  color="error"
-                  variant="filled"
-                />
-              </span>
+              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+                <PaymentPrice dataKey={'total'} />
+              </Suspense>
             </Stack>
           </Item>{' '}
         </Grid>
@@ -135,19 +120,39 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <span>
-                <Chip
-                  label={`$ ${new Intl.NumberFormat('en-US').format(
-                    invoices.total_undue
-                  )}`}
-                  color="error"
-                  variant="filled"
-                />
-              </span>
+              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+                <InvoicePrice dataKey={'total_undue'} />
+              </Suspense>
             </Stack>
           </Item>{' '}
         </Grid>
       </Grid>
     </Box>
+  );
+}
+
+function InvoicePrice({ dataKey }) {
+  const { invoices } = useInvoicesSummary();
+
+  return (
+    <Chip
+      label={`$ ${new Intl.NumberFormat('en-US').format(invoices[dataKey])}`}
+      color="error"
+      variant="filled"
+    />
+  );
+}
+
+function PaymentPrice({ dataKey }) {
+  const { paymentSummary } = usePaymentSummary();
+
+  return (
+    <Chip
+      label={`$ ${new Intl.NumberFormat('en-US').format(
+        paymentSummary[dataKey]
+      )}`}
+      color="error"
+      variant="filled"
+    />
   );
 }

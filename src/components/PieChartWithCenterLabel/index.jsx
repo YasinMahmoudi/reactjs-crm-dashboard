@@ -21,7 +21,7 @@ function PieCenterLabel({ children }) {
   );
 }
 
-export default function PieChartWithCenterLabel() {
+export default function PieChartWithCenterLabel({label}) {
   return (
     <PieChart
       series={[
@@ -40,7 +40,7 @@ export default function PieChartWithCenterLabel() {
       width={200}
       height={180}
       >
-      <PieCenterLabel>50%</PieCenterLabel>
+      <PieCenterLabel>{label}</PieCenterLabel>
     </PieChart>
   );
 }

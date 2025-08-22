@@ -1,29 +1,29 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { getInvoiceSummaryService } from '../../services/dashboard/invoiceSummary';
 
 function useInvoicesSummary() {
   const abortControllerRef = useRef();
 
-  const { data: { result } = {}, isLoading: isLoadingInvoicesSummary } =
-    useQuery({
-      queryKey: ['invoicesSummary'],
-      queryFn: () => {
-        if (abortControllerRef.current) {
-          abortControllerRef.current.abort();
-        }
+  const {
+    data: { result },
+  } = useSuspenseQuery({
+    queryKey: ['invoicesSummary'],
+    queryFn: () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
 
-        abortControllerRef.current = new AbortController();
+      abortControllerRef.current = new AbortController();
 
-        return getInvoiceSummaryService({
-          signal: abortControllerRef.current.signal,
-        });
-      },
-    });
+      return getInvoiceSummaryService({
+        signal: abortControllerRef.current.signal,
+      });
+    },
+  });
 
   return {
     invoices: result,
-    isLoadingInvoicesSummary,
   };
 }
 

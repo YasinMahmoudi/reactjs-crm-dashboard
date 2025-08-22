@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { getPaymentSummaryService } from '../../services/dashboard/paymentSummary';
 
 function usePaymentSummary() {
   const abortControllerRef = useRef();
 
-  const { data: { result } = {}, isLoading: isLoadingPaymentSummary } =
-    useQuery({
+  const { data: { result }  } =
+    useSuspenseQuery({
       queryKey: ['paymentSummary'],
       queryFn: () => {
         if (abortControllerRef.current) {
@@ -23,8 +23,8 @@ function usePaymentSummary() {
 
   return {
     paymentSummary: result,
-    isLoadingPaymentSummary,
   };
 }
 
 export { usePaymentSummary };
+

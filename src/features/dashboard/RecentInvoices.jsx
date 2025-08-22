@@ -1,8 +1,9 @@
-import { Paper, Typography } from '@mui/material';
+import { CircularProgress, Paper, Typography } from '@mui/material';
 
 import PropTypes from 'prop-types';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
 import SimpleTable from '../../components/SimpleTable';
+import { useRecentInvoices } from './useRecentInvoices';
 
 InvoiceRecentTable.propTypes = {
   invoices: PropTypes.array,
@@ -56,6 +57,13 @@ const heads = [
 ];
 
 export default function RecentInvoices() {
+
+  const {recentInvoices , isLoadingRecentInvoices} = useRecentInvoices()
+
+  if(isLoadingRecentInvoices) return <CircularProgress/>
+
+  console.log(recentInvoices)
+
   return (
     <Paper sx={{ p: 5 }}>
       <Typography
@@ -64,7 +72,7 @@ export default function RecentInvoices() {
         Recent Invoices
       </Typography>
 
-      <InvoiceRecentTable invoices={[]}/>
+      <InvoiceRecentTable invoices={recentInvoices}/>
     </Paper>
   );
 }
@@ -76,10 +84,10 @@ function InvoiceRecentTable({ invoices }) {
 
       <SimpleTable.Body
         items={invoices}
-        render={(product) => (
+        render={(invoice) => (
           <InvoiceRecentRow
-            key={product._id}
-            product={product}
+            key={invoice._id}
+            invoice={invoice}
           />
         )}
       />

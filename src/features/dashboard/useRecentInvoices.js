@@ -22,7 +22,7 @@ function useRecentInvoices() {
     });
 
   return {
-    invoices: result,
+    recentInvoices: result,
     isLoadingRecentInvoices,
   };
 }

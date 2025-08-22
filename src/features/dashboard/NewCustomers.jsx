@@ -1,8 +1,16 @@
-import { Divider, Paper, Stack, Typography } from '@mui/material';
+import { CircularProgress, Divider, Paper, Stack, Typography } from '@mui/material';
 import PieChartWithCenterLabel from '../../components/PieChartWithCenterLabel';
 import { ArrowUpwardOutlined } from '@mui/icons-material';
+import { useClientSummary } from './useClientSummary';
 
 export default function NewCustomers() {
+
+  const {clientSummary,isLoadingClientSummary} = useClientSummary()
+
+  if(isLoadingClientSummary) return <CircularProgress/>
+
+  console.log(clientSummary)
+
   return (
     <Paper sx={{  p: 5,height:'100%' }}>
       <Typography
@@ -36,7 +44,7 @@ export default function NewCustomers() {
           <Typography
             variant="h4"
             color="textPrimary">
-            9.00%
+            {clientSummary.active.toFixed(2)} %
           </Typography>
         </Stack>
       </Stack>

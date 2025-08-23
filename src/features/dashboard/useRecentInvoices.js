@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { getRecentInvoicesService } from '../../services/dashboard/recentInvoices';
 
 function useRecentInvoices() {
   const abortControllerRef = useRef();
 
-  const { data: { result } = {}, isLoading: isLoadingRecentInvoices } =
-    useQuery({
+  const { data: { result }} =
+    useSuspenseQuery({
       queryKey: ['recentInvoices'],
       queryFn: () => {
         if (abortControllerRef.current) {
@@ -23,7 +23,6 @@ function useRecentInvoices() {
 
   return {
     recentInvoices: result,
-    isLoadingRecentInvoices,
   };
 }
 

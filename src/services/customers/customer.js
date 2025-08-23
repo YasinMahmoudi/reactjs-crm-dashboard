@@ -63,14 +63,6 @@ export async function createCustomerService(newCustomer) {
 }
 
 export async function getCustomerService(id) {
-
-  await new Promise((resolve) =>
-    setTimeout(() => {
-      resolve();
-    }, 1000000)
-  );
-
-
   try {
     const res = await fetch(`${API_URL}/client/read/${id}`, {
       method: 'GET',

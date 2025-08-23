@@ -63,6 +63,8 @@ export async function createCustomerService(newCustomer) {
 }
 
 export async function getCustomerService(id) {
+  if (!id) return {};
+
   try {
     const res = await fetch(`${API_URL}/client/read/${id}`, {
       method: 'GET',

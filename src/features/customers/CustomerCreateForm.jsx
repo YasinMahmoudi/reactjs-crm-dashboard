@@ -7,7 +7,6 @@ import { useCreateCustomer } from './useCreateCustomer';
 import { useGetCustomer } from './useGetCustomer';
 import { useUpdateCustomer } from './useUpdateCustomer';
 
-
 function CustomerCreateForm() {
   const { handleSubmit, control } = useForm();
 

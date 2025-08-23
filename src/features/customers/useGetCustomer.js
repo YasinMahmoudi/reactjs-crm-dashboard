@@ -7,15 +7,12 @@ function useGetCustomer() {
 
   const id = searchParams.get('id');
 
-
-  const { data: customer} = useSuspenseQuery({
+  const { data: customer } = useSuspenseQuery({
     queryKey: ['customer', id],
     queryFn: () => getCustomerService(id),
-    enabled: id !== null,
   });
 
   return { customer };
 }
 
 export { useGetCustomer };
-

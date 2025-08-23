@@ -1,13 +1,10 @@
-import { CircularProgress, Paper, Stack, Typography } from '@mui/material';
+import { Paper, Stack, Typography } from '@mui/material';
+import { Suspense } from 'react';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel';
+import InvoiceStatusProgressSkeleton from '../../components/Skeletons/dashboard/InvoiceStatusProgressSkeleton';
 import { useInvoicesSummary } from './useInvoiceSummary';
 
 export default function InvoiveStatusProgress() {
-  const { invoices, isLoadingInvoicesSummary } = useInvoicesSummary();
-
-  if (isLoadingInvoicesSummary) return <CircularProgress />;
-
-  const { performance } = invoices;
 
   return (
     <Paper sx={{ p: 5, height: '100%' }}>
@@ -17,15 +14,27 @@ export default function InvoiveStatusProgress() {
         Invoices
       </Typography>
 
-      <Stack spacing={3}>
-        {performance.map((item, index) => (
-          <LinearProgressWithLabel
-            key={index}
-            title={item.status}
-            value={item.percentage}
-          />
-        ))}
-      </Stack>
+      <Suspense fallback={<InvoiceStatusProgressSkeleton />}>
+        <InvoiceStatusProgressList />
+      </Suspense>
     </Paper>
+  );
+}
+
+function InvoiceStatusProgressList() {
+  const { invoices } = useInvoicesSummary();
+
+  const { performance } = invoices;
+
+  return (
+    <Stack spacing={3}>
+      {performance.map((item, index) => (
+        <LinearProgressWithLabel
+          key={index}
+          title={item.status}
+          value={item.percentage}
+        />
+      ))}
+    </Stack>
   );
 }

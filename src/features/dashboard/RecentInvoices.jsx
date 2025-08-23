@@ -1,10 +1,11 @@
-import { CircularProgress, Paper, Typography } from '@mui/material';
-
-import PropTypes from 'prop-types';
+import { Paper, Typography } from '@mui/material';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
+import PropTypes from 'prop-types';
 import SimpleTable from '../../components/SimpleTable';
-import { useRecentInvoices } from './useRecentInvoices';
 import InvoiceActions from '../invoices/InvoiceActions';
+import { useRecentInvoices } from './useRecentInvoices';
+import { Suspense } from 'react';
+import RecentInvoicesSkeleton from '../../components/Skeletons/dashboard/RecentInvoicesSkeleton';
 
 InvoiceRecentTable.propTypes = {
   invoices: PropTypes.array,
@@ -14,7 +15,7 @@ InvoiceRecentRow.propTypes = {
   invoice: PropTypes.object,
 };
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -24,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
@@ -53,10 +54,6 @@ const heads = [
 ];
 
 export default function RecentInvoices() {
-  const { recentInvoices, isLoadingRecentInvoices } = useRecentInvoices();
-
-  if (isLoadingRecentInvoices) return <CircularProgress />;
-
   return (
     <Paper sx={{ p: 5 }}>
       <Typography
@@ -65,25 +62,19 @@ export default function RecentInvoices() {
         Recent Invoices
       </Typography>
 
-      <InvoiceRecentTable invoices={recentInvoices} />
+      <InvoiceRecentTable />
     </Paper>
   );
 }
 
-function InvoiceRecentTable({ invoices }) {
+function InvoiceRecentTable() {
   return (
     <SimpleTable>
       <SimpleTable.Head heads={heads} />
 
-      <SimpleTable.Body
-        items={invoices}
-        render={(invoice) => (
-          <InvoiceRecentRow
-            key={invoice._id}
-            invoice={invoice}
-          />
-        )}
-      />
+      <Suspense fallback={<RecentInvoicesSkeleton />}>
+        <RecentInvoicesList />
+      </Suspense>
     </SimpleTable>
   );
 }
@@ -106,9 +97,25 @@ function InvoiceRecentRow({ invoice }) {
       </StyledTableCell>
       <StyledTableCell>{invoice.status}</StyledTableCell>
 
-      <StyledTableCell align='center'>
-        <InvoiceActions id={invoice._id}/>
+      <StyledTableCell align="center">
+        <InvoiceActions id={invoice._id} />
       </StyledTableCell>
     </StyledTableRow>
+  );
+}
+
+function RecentInvoicesList() {
+  const { recentInvoices } = useRecentInvoices();
+
+  return (
+    <SimpleTable.Body
+      items={recentInvoices}
+      render={(invoice) => (
+        <InvoiceRecentRow
+          key={invoice._id}
+          invoice={invoice}
+        />
+      )}
+    />
   );
 }

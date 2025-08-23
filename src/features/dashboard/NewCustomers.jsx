@@ -1,18 +1,12 @@
-import {
-  CircularProgress,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
-import PieChartWithCenterLabel from '../../components/PieChartWithCenterLabel';
 import { ArrowUpwardOutlined } from '@mui/icons-material';
+import { Divider, Paper, Stack, Typography } from '@mui/material';
+import PieChartWithCenterLabel from '../../components/PieChartWithCenterLabel';
 import { useClientSummary } from './useClientSummary';
+import { Suspense } from 'react';
+import ActiveCustomersSkeleton from '../../components/Skeletons/dashboard/ActiveCustomersSkeleton';
 
 export default function NewCustomers() {
-  const { clientSummary, isLoadingClientSummary } = useClientSummary();
-
-  if (isLoadingClientSummary) return <CircularProgress />;
+  const { clientSummary } = useClientSummary();
 
   return (
     <Paper sx={{ p: 5, height: '100%' }}>
@@ -39,20 +33,30 @@ export default function NewCustomers() {
           Active Customer
         </Typography>
 
-        <Stack
-          direction="row"
-          alignItems="baseline"
-          gap={1}
-          mt={2}>
-          <ArrowUpwardOutlined sx={{ fontSize: 'xx-large' }} />
-
-          <Typography
-            variant="h4"
-            color="textPrimary">
-            {clientSummary.active.toFixed(2)} %
-          </Typography>
-        </Stack>
+        <Suspense fallback={<ActiveCustomersSkeleton/>}>
+          <ActiveCustomers />
+        </Suspense>
       </Stack>
     </Paper>
+  );
+}
+
+function ActiveCustomers() {
+  const { clientSummary } = useClientSummary();
+
+  return (
+    <Stack
+      direction="row"
+      alignItems="baseline"
+      gap={1}
+      mt={2}>
+      <ArrowUpwardOutlined sx={{ fontSize: 'xx-large' }} />
+
+      <Typography
+        variant="h4"
+        color="textPrimary">
+        {clientSummary.active.toFixed(2)} %
+      </Typography>
+    </Stack>
   );
 }

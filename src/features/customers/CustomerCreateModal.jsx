@@ -10,15 +10,9 @@ export default function CustomerCreateModal() {
 
   return (
     <EnhancedModal title={isEditing ? `Edit customer` : 'Add new customer'}>
-      {isEditing ? <EditForm /> : <CustomerCreateForm />}
+      <Suspense fallback={<CusyomerCreateFormSkeleton />}>
+        <CustomerCreateForm />
+      </Suspense>
     </EnhancedModal>
-  );
-}
-
-function EditForm() {
-  return (
-    <Suspense fallback={<CusyomerCreateFormSkeleton />}>
-      <CustomerCreateForm />
-    </Suspense>
   );
 }

@@ -4,10 +4,9 @@ import PieChartWithCenterLabel from '../../components/PieChartWithCenterLabel';
 import { useClientSummary } from './useClientSummary';
 import { Suspense } from 'react';
 import ActiveCustomersSkeleton from '../../components/Skeletons/dashboard/ActiveCustomersSkeleton';
+import CustomersPieChartSkeleton from '../../components/Skeletons/dashboard/CustomersPieChartSkeleton';
 
 export default function NewCustomers() {
-  const { clientSummary } = useClientSummary();
-
   return (
     <Paper sx={{ p: 5, height: '100%' }}>
       <Typography
@@ -18,10 +17,9 @@ export default function NewCustomers() {
       </Typography>
 
       <Stack alignItems="center">
-        <PieChartWithCenterLabel
-          label={`${clientSummary.new}%`}
-          progressPercentage={4}
-        />
+        <Suspense fallback={<CustomersPieChartSkeleton />}>
+          <NewMonthyCustomers />
+        </Suspense>
 
         <Typography>New Customer This Month</Typography>
 
@@ -33,11 +31,22 @@ export default function NewCustomers() {
           Active Customer
         </Typography>
 
-        <Suspense fallback={<ActiveCustomersSkeleton/>}>
+        <Suspense fallback={<ActiveCustomersSkeleton />}>
           <ActiveCustomers />
         </Suspense>
       </Stack>
     </Paper>
+  );
+}
+
+function NewMonthyCustomers() {
+  const { clientSummary } = useClientSummary();
+
+  return (
+    <PieChartWithCenterLabel
+      label={`${clientSummary.new}%`}
+      progressPercentage={4}
+    />
   );
 }
 

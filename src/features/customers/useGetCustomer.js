@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { getCustomerService } from '../../services/customers/customer';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router';
+import { getCustomerService } from '../../services/customers/customer';
 
 function useGetCustomer() {
   const [searchParams] = useSearchParams();
@@ -8,13 +8,14 @@ function useGetCustomer() {
   const id = searchParams.get('id');
 
 
-  const { data: customer, isLoading: isLoadingCustomer } = useQuery({
+  const { data: customer} = useSuspenseQuery({
     queryKey: ['customer', id],
     queryFn: () => getCustomerService(id),
     enabled: id !== null,
   });
 
-  return { customer, isLoadingCustomer };
+  return { customer };
 }
 
 export { useGetCustomer };
+

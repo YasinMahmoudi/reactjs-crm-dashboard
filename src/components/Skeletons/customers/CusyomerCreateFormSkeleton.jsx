@@ -1,6 +1,10 @@
 import { Button, Grid, Skeleton } from '@mui/material';
+import { useSearchParams } from 'react-router';
 
 export default function CusyomerCreateFormSkeleton() {
+  const [searchParams] = useSearchParams();
+  const isEditing = searchParams.get('edit') === 'true';
+
   return (
     <Grid
       container
@@ -46,7 +50,7 @@ export default function CusyomerCreateFormSkeleton() {
           variant="contained"
           color="info"
           sx={{ width: { xs: '100%', sm: 'auto', letterSpacing: 2 } }}>
-          Update user
+          {isEditing ? 'Update user' : 'Add User'}
         </Button>
       </Grid>
     </Grid>

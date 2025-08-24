@@ -26,6 +26,17 @@ export default function CustomerActions({ id }) {
     });
   }
 
+  function handleDelete() {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    newSearchParams.set('delete-id', id);
+
+    navigate({
+      pathname: '/customers',
+      search: newSearchParams.toString(),
+    });
+  }
+
   return (
     <ContextMenu
       options={[
@@ -37,7 +48,7 @@ export default function CustomerActions({ id }) {
         {
           name: 'Delete',
           icon: <DeleteIcon fontSize="10px" />,
-          onClick: () => navigate(`?delete-id=${id}`),
+          onClick: handleDelete,
         },
       ]}
     />

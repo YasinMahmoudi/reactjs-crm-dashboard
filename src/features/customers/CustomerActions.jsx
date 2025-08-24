@@ -1,6 +1,5 @@
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ContextMenu from '../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
@@ -20,10 +19,6 @@ export default function CustomerActions({ id }) {
   return (
     <ContextMenu
       options={[
-        {
-          name: 'Show',
-          icon: <EyeIcon fontSize="10px" />,
-        },
         {
           name: 'Edit',
           icon: <EditIcon fontSize="10px" />,

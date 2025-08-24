@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/EditOutlined';
 import ContextMenu from '../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 CustomerActions.propTypes = {
   id: PropTypes.string,
@@ -12,8 +12,18 @@ CustomerActions.propTypes = {
 export default function CustomerActions({ id }) {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   function handleEdit() {
-    navigate(`/customers/create?edit=true&id=${id}`);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    newSearchParams.set('edit', true);
+    newSearchParams.set('id', id);
+
+    navigate({
+      pathname: '/customers/create',
+      search: newSearchParams.toString(),
+    });
   }
 
   return (

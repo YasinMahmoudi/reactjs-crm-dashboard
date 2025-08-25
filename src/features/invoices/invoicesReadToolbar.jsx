@@ -10,19 +10,18 @@ import EditIcon from '@mui/icons-material/EditOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 
-import PropTypes from 'prop-types';
-
-InvoiceReadToolbar.propTypes = {
-  invoice: PropTypes.object,
-};
+import { Suspense } from 'react';
+import PublishedDateSkeleton from '../../components/Skeletons/customers/PublishedDateSkeleton';
+import { useGetInvoice } from './useGetInvoice';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
-export default function InvoiceReadToolbar({ invoice }) {
+export default function InvoiceReadToolbar() {
   const navigate = useNavigate();
+  const { invoice } = useGetInvoice();
 
-  const {number , year , status , paymentStatus} = invoice
+  const { status, paymentStatus } = invoice;
 
   function handleEdit() {
     navigate(`/invoices/edit/${invoice._id}`);
@@ -45,13 +44,18 @@ export default function InvoiceReadToolbar({ invoice }) {
           <Typography
             variant="caption"
             fontWeight={600}
-            fontSize="larger">
-            Invoice # {number}/{year}
+            fontSize="larger"
+            display="flex"
+            gap={1}>
+            Invoice #{' '}
+            <Suspense fallback={<PublishedDateSkeleton />}>
+              <PublishedDate />
+            </Suspense>
           </Typography>
 
           <Typography
             variant="caption"
-            textTransform='capitalize'
+            textTransform="capitalize"
             fontSize="medium"
             fontWeight={600}>
             {status} {paymentStatus}
@@ -83,5 +87,17 @@ export default function InvoiceReadToolbar({ invoice }) {
         />
       </Row>
     </Row>
+  );
+}
+
+function PublishedDate() {
+  const { invoice } = useGetInvoice();
+
+  const { number, year } = invoice;
+
+  return (
+    <>
+      {number} / {year}
+    </>
   );
 }

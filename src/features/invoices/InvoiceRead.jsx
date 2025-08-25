@@ -1,22 +1,19 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
-import ReadPageSkeleton from '../../components/ReadPageSkeleton';
 import InvoiceReadProductsTable from './InvoiceReadProductsTable';
 import InvoiceReadToolbar from './invoicesReadToolbar';
 import { useGetInvoice } from './useGetInvoice';
 
 export default function InvoiceRead() {
-  const { invoice, isLoadingInvoice } = useGetInvoice();
+  const { invoice } = useGetInvoice();
 
   const products = invoice?.items;
   const client = invoice?.client;
 
-  if (isLoadingInvoice) return <ReadPageSkeleton />;
-
   return (
     <>
-      <InvoiceReadToolbar invoice={invoice} />
+      <InvoiceReadToolbar />
 
       <Stack
         spacing={{ xs: 1, sm: 2 }}

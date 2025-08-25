@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import SimpleTable from '../../components/SimpleTable';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
 import { useGetInvoice } from './useGetInvoice';
+import InvoiceProductTableSkeleton from '../../components/Skeletons/invoices/InvoiceProductTableSkeleton';
+import { Suspense } from 'react';
 
 InvoiceReadProductRow.propTypes = {
   product: PropTypes.object,
@@ -29,7 +31,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const heads = [
   {
-    label: 'Products',
+    label: 'Product',
     align: '',
   },
   {
@@ -38,36 +40,23 @@ const heads = [
   },
   {
     label: 'Price',
-    align: 'center',
   },
   {
     label: 'Quantity',
-    align: 'center',
   },
   {
     label: 'Total',
-    align: 'center',
   },
 ];
 
 export default function InvoiceReadProductsTable() {
-  const { invoice } = useGetInvoice();
-
-  const products = invoice?.items;
-
   return (
     <SimpleTable>
       <SimpleTable.Head heads={heads} />
 
-      <SimpleTable.Body
-        items={products}
-        render={(product) => (
-          <InvoiceReadProductRow
-            key={product._id}
-            product={product}
-          />
-        )}
-      />
+      <Suspense fallback={<InvoiceProductTableSkeleton />}>
+        <ProductRows />
+      </Suspense>
     </SimpleTable>
   );
 }
@@ -84,19 +73,37 @@ function InvoiceReadProductRow({ product }) {
       <StyledTableCell>
         {product.description ? product.description : <span>&mdash;</span>}
       </StyledTableCell>
-      <StyledTableCell align="center">
+      <StyledTableCell>
         ${' '}
         {new Intl.NumberFormat('en-US', {
           minimumSignificantDigits: 3,
         }).format(product.price)}
       </StyledTableCell>
-      <StyledTableCell align="center">{product.quantity}</StyledTableCell>
-      <StyledTableCell align="center">
+      <StyledTableCell>{product.quantity}</StyledTableCell>
+      <StyledTableCell>
         ${' '}
         {new Intl.NumberFormat('en-US', {
           minimumSignificantDigits: 3,
         }).format(product.total)}
       </StyledTableCell>
     </StyledTableRow>
+  );
+}
+
+function ProductRows() {
+  const { invoice } = useGetInvoice();
+
+  const products = invoice?.items;
+
+  return (
+    <SimpleTable.Body
+      items={products}
+      render={(product) => (
+        <InvoiceReadProductRow
+          key={product._id}
+          product={product}
+        />
+      )}
+    />
   );
 }

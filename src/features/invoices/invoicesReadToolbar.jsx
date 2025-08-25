@@ -13,6 +13,7 @@ import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 import { Suspense } from 'react';
 import PublishedDateSkeleton from '../../components/Skeletons/invoices/PublishedDateSkeleton';
 import { useGetInvoice } from './useGetInvoice';
+import { Skeleton } from '@mui/material';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
@@ -20,8 +21,6 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 export default function InvoiceReadToolbar() {
   const navigate = useNavigate();
   const { invoice } = useGetInvoice();
-
-  const { status, paymentStatus } = invoice;
 
   function handleEdit() {
     navigate(`/invoices/edit/${invoice._id}`);
@@ -58,7 +57,9 @@ export default function InvoiceReadToolbar() {
             textTransform="capitalize"
             fontSize="medium"
             fontWeight={600}>
-            {status} {paymentStatus}
+            <Suspense fallback={<Skeleton variant='text' width={80}/>}>
+              <Status />
+            </Suspense>
           </Typography>
         </Row>
       </Row>
@@ -98,6 +99,18 @@ function PublishedDate() {
   return (
     <>
       {number} / {year}
+    </>
+  );
+}
+
+function Status() {
+  const { invoice } = useGetInvoice();
+
+  const { status, paymentStatus } = invoice;
+
+  return (
+    <>
+      {status} {paymentStatus}
     </>
   );
 }

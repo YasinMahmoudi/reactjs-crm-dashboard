@@ -11,7 +11,7 @@ import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 
 import { Suspense } from 'react';
-import PublishedDateSkeleton from '../../components/Skeletons/customers/PublishedDateSkeleton';
+import PublishedDateSkeleton from '../../components/Skeletons/invoices/PublishedDateSkeleton';
 import { useGetInvoice } from './useGetInvoice';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };

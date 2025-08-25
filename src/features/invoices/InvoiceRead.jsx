@@ -1,15 +1,21 @@
-import { Chip, Divider, Grid, Stack } from '@mui/material';
+import {
+  Chip,
+  Divider,
+  Grid,
+  Skeleton,
+  Stack,
+} from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import InvoiceReadProductsTable from './InvoiceReadProductsTable';
 import InvoiceReadToolbar from './invoicesReadToolbar';
 import { useGetInvoice } from './useGetInvoice';
+import { Suspense } from 'react';
 
 export default function InvoiceRead() {
   const { invoice } = useGetInvoice();
 
   const products = invoice?.items;
-  const client = invoice?.client;
 
   return (
     <>
@@ -20,61 +26,7 @@ export default function InvoiceRead() {
         direction="row"
         useFlexGap
         sx={{ flexWrap: 'wrap' }}>
-        <BoxItem>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={12}>
-            <KeyValueRow
-              keyName="Status"
-              value={invoice.status}
-            />
-
-            <KeyValueRow
-              keyName="SubTotal"
-              value={`$ ${new Intl.NumberFormat().format(invoice.subTotal)}`}
-            />
-
-            <KeyValueRow
-              keyName="Total"
-              value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
-            />
-
-            <KeyValueRow
-              keyName="Paid"
-              value={`$ ${new Intl.NumberFormat('en-US', {
-                minimumSignificantDigits: 3,
-              }).format(invoice.credit)}`}
-            />
-          </Grid>
-        </BoxItem>
-
-        <BoxItem>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={12}>
-            <KeyValueRow
-              keyName="Client"
-              value={client.name}
-            />
-
-            <KeyValueRow
-              keyName="Address"
-              value={client.address}
-            />
-
-            <KeyValueRow
-              keyName="Email"
-              value={client.email}
-            />
-
-            <KeyValueRow
-              keyName="Phone"
-              value={client.phone}
-            />
-          </Grid>
-        </BoxItem>
+        <InvoiceGeneralInformations />
 
         <BoxItem sx={{ flex: '100% !important' }}>
           <Divider
@@ -91,4 +43,114 @@ export default function InvoiceRead() {
       </Stack>
     </>
   );
+}
+
+function InvoiceGeneralInformations() {
+  return (
+    <>
+      <BoxItem>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={12}>
+          <KeyValueRow keyName="Status">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue keyValue={'status'} />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="SubTotal">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue
+                keyValue={'subTotal'}
+                formater={(value) =>
+                  `$ ${new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2,
+                  }).format(value)}`
+                }
+              />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="Total">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue
+                keyValue={'total'}
+                formater={(value) =>
+                  `$ ${new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2,
+                  }).format(value)}`
+                }
+              />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="Paid">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue
+                keyValue={'credit'}
+                formater={(value) =>
+                  `$ ${new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2,
+                  }).format(value)}`
+                }
+              />
+            </Suspense>
+          </KeyValueRow>
+        </Grid>
+      </BoxItem>
+
+      <BoxItem>
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={12}>
+          <KeyValueRow keyName="Client">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue keyValue={'client.name'} />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="Address">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue keyValue={'client.address'} />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="Email">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue keyValue={'client.email'} />
+            </Suspense>
+          </KeyValueRow>
+
+          <KeyValueRow keyName="Phone">
+            <Suspense fallback={<TextSkeleton />}>
+              <InvoiceInfoValue keyValue={'client.phone'} />
+            </Suspense>
+          </KeyValueRow>
+        </Grid>
+      </BoxItem>
+    </>
+  );
+}
+
+function TextSkeleton() {
+  return (
+    <Skeleton
+      variant="text"
+      width={100}
+    />
+  );
+}
+
+function InvoiceInfoValue({ keyValue, formater }) {
+  const { invoice } = useGetInvoice();
+
+  const modifiedKey = keyValue.split('.').map((val) => val);
+
+  const value = modifiedKey.reduce((acc, key) => acc[key], invoice);
+
+  if (formater) return formater(value);
+
+  return value;
 }

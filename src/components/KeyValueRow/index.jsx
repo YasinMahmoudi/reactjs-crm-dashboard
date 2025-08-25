@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 KeyValueRow.propTypes = {
   keyName: PropTypes.string,
-  value: PropTypes.string,
+  children: PropTypes.object,
 };
 
-export default function KeyValueRow({ keyName = 'Key', value = 'Value' }) {
+export default function KeyValueRow({ keyName = 'Key', children = <></> }) {
   return (
     <Grid
       container
@@ -20,7 +20,7 @@ export default function KeyValueRow({ keyName = 'Key', value = 'Value' }) {
         variant="subtitle1"
         color="textPrimary"
         fontWeight="600">
-        {value}
+        {children}
       </Typography>
     </Grid>
   );

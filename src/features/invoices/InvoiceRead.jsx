@@ -8,10 +8,6 @@ import InvoiceReadToolbar from './invoicesReadToolbar';
 import { useGetInvoice } from './useGetInvoice';
 
 export default function InvoiceRead() {
-  const { invoice } = useGetInvoice();
-
-  const products = invoice?.items;
-
   return (
     <>
       <InvoiceReadToolbar />
@@ -33,7 +29,7 @@ export default function InvoiceRead() {
             />
           </Divider>
 
-          <InvoiceReadProductsTable products={products} />
+          <InvoiceReadProductsTable />
         </BoxItem>
       </Stack>
     </>

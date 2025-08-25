@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import SimpleTable from '../../components/SimpleTable';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
-
-InvoiceReadProductsTable.propTypes = {
-  products: PropTypes.array,
-};
+import { useGetInvoice } from './useGetInvoice';
 
 InvoiceReadProductRow.propTypes = {
   product: PropTypes.object,
@@ -53,7 +50,11 @@ const heads = [
   },
 ];
 
-export default function InvoiceReadProductsTable({ products }) {
+export default function InvoiceReadProductsTable() {
+  const { invoice } = useGetInvoice();
+
+  const products = invoice?.items;
+
   return (
     <SimpleTable>
       <SimpleTable.Head heads={heads} />

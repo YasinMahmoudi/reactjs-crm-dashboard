@@ -10,29 +10,17 @@ import EditIcon from '@mui/icons-material/EditOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 
+import { IconButton, Skeleton } from '@mui/material';
 import { Suspense } from 'react';
 import PublishedDateSkeleton from '../../components/Skeletons/invoices/PublishedDateSkeleton';
 import { useGetInvoice } from './useGetInvoice';
-import { Skeleton } from '@mui/material';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
 export default function InvoiceReadToolbar() {
-  const navigate = useNavigate();
-  const { invoice } = useGetInvoice();
-
-  function handleEdit() {
-    navigate(`/invoices/edit/${invoice._id}`);
-  }
-
-  function handleDownloadPdf() {
-    window.open(
-      `${DOWNLOAD_BASE_URL}/invoice/invoice-${invoice._id}.pdf`,
-      '_blank'
-    );
-  }
-
   return (
     <Row sx={mainRowStyle}>
       <Row>
@@ -57,36 +45,27 @@ export default function InvoiceReadToolbar() {
             textTransform="capitalize"
             fontSize="medium"
             fontWeight={600}>
-            <Suspense fallback={<Skeleton variant='text' width={80}/>}>
+            <Suspense
+              fallback={
+                <Skeleton
+                  variant="text"
+                  width={80}
+                />
+              }>
               <Status />
             </Suspense>
           </Typography>
         </Row>
       </Row>
 
-      <Row sx={actionRowStyle}>
-        <ContextMenu
-          options={[
-            {
-              name: 'Edit',
-              icon: <EditIcon fontSize="10px" />,
-              onClick: handleEdit,
-            },
-
-            {
-              name: 'Download Pdf',
-              icon: <PictureAsPdfOutlined fontSize="10px" />,
-              onClick: handleDownloadPdf,
-            },
-
-            {
-              name: 'Close',
-              icon: <CloseOutlined fontSize="10px" />,
-              onClick: () => navigate('/invoices'),
-            },
-          ]}
-        />
-      </Row>
+      <Suspense
+        fallback={
+          <IconButton>
+            <MoreVertIcon />
+          </IconButton>
+        }>
+        <ToolbarAction />
+      </Suspense>
     </Row>
   );
 }
@@ -112,5 +91,47 @@ function Status() {
     <>
       {status} {paymentStatus}
     </>
+  );
+}
+
+function ToolbarAction() {
+  const navigate = useNavigate();
+  const { invoice } = useGetInvoice();
+
+  function handleEdit() {
+    navigate(`/invoices/edit/${invoice._id}`);
+  }
+
+  function handleDownloadPdf() {
+    window.open(
+      `${DOWNLOAD_BASE_URL}/invoice/invoice-${invoice._id}.pdf`,
+      '_blank'
+    );
+  }
+
+  return (
+    <Row sx={actionRowStyle}>
+      <ContextMenu
+        options={[
+          {
+            name: 'Edit',
+            icon: <EditIcon fontSize="10px" />,
+            onClick: handleEdit,
+          },
+
+          {
+            name: 'Download Pdf',
+            icon: <PictureAsPdfOutlined fontSize="10px" />,
+            onClick: handleDownloadPdf,
+          },
+
+          {
+            name: 'Close',
+            icon: <CloseOutlined fontSize="10px" />,
+            onClick: () => navigate('/invoices'),
+          },
+        ]}
+      />
+    </Row>
   );
 }

@@ -1,16 +1,11 @@
-import {
-  Chip,
-  Divider,
-  Grid,
-  Skeleton,
-  Stack,
-} from '@mui/material';
+import { Chip, Divider, Grid, Stack } from '@mui/material';
+import { Suspense } from 'react';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
+import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 import InvoiceReadProductsTable from './InvoiceReadProductsTable';
 import InvoiceReadToolbar from './invoicesReadToolbar';
 import { useGetInvoice } from './useGetInvoice';
-import { Suspense } from 'react';
 
 export default function InvoiceRead() {
   const { invoice } = useGetInvoice();
@@ -131,15 +126,6 @@ function InvoiceGeneralInformations() {
         </Grid>
       </BoxItem>
     </>
-  );
-}
-
-function TextSkeleton() {
-  return (
-    <Skeleton
-      variant="text"
-      width={100}
-    />
   );
 }
 

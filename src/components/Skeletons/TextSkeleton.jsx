@@ -1,0 +1,10 @@
+import { Skeleton } from '@mui/material';
+
+export default function TextSkeleton() {
+  return (
+    <Skeleton
+      variant="text"
+      width={100}
+    />
+  );
+}

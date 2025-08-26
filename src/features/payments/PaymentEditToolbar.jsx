@@ -30,7 +30,7 @@ export default function PaymentEditToolbar() {
 
 
   function handleShowInvoice() {
-    navigate(`invoices/read/${invoiceId}`);
+    navigate(`/invoices/read/${invoiceId}`);
   }
 
   return (

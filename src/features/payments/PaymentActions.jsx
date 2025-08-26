@@ -5,7 +5,7 @@ import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import ContextMenu from '../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 
 PaymentActions.propTypes = {
@@ -15,12 +15,25 @@ PaymentActions.propTypes = {
 export default function PaymentActions({ id }) {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   function handleEdit() {
     navigate(`/payment/edit/${id}`);
   }
 
   function handleDownloadPdf() {
     window.open(`${DOWNLOAD_BASE_URL}/payment/payment-${id}.pdf`, '_blank');
+  }
+
+  function handleDelete() {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    newSearchParams.set('delete-id', id);
+
+    navigate({
+      pathname: '/payment',
+      search: newSearchParams.toString(),
+    });
   }
 
   return (
@@ -46,7 +59,7 @@ export default function PaymentActions({ id }) {
         {
           name: 'Delete',
           icon: <DeleteIcon fontSize="10px" />,
-          onClick: () => navigate(`?delete-id=${id}`),
+          onClick: handleDelete,
         },
       ]}
     />

@@ -3,15 +3,13 @@ import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import PaymentReadToolbar from './PaymentReadToolbar';
 import { useGetPayment } from './useGetPayment';
+import { Suspense } from 'react';
+import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 
 export default function PaymentRead() {
-  const { payment } = useGetPayment();
-
-  const { invoice, client } = payment;
-
   return (
     <>
-      <PaymentReadToolbar payment={payment} />
+      <PaymentReadToolbar />
 
       <Stack
         spacing={{ xs: 1, sm: 2 }}
@@ -23,27 +21,50 @@ export default function PaymentRead() {
             container
             spacing={{ xs: 2, md: 3 }}
             columns={12}>
-            <KeyValueRow
-              keyName="Status"
-              value={invoice.status}
-            />
+            <KeyValueRow keyName="Status">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue keyValue={'invoice.status'} />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="SubTotal"
-              value={`$ ${new Intl.NumberFormat().format(invoice.subTotal)}`}
-            />
+            <KeyValueRow keyName="SubTotal">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.subTotal'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Total"
-              value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
-            />
+            <KeyValueRow keyName="Total">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.total'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Paid"
-              value={`$ ${new Intl.NumberFormat('en-US', {
-                minimumSignificantDigits: 3,
-              }).format(invoice.credit)}`}
-            />
+            <KeyValueRow keyName="Paid">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.credit'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
           </Grid>
         </BoxItem>
 
@@ -52,25 +73,29 @@ export default function PaymentRead() {
             container
             spacing={{ xs: 2, md: 3 }}
             columns={12}>
-            <KeyValueRow
-              keyName="Client"
-              value={client.name}
-            />
+            <KeyValueRow keyName="Client">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue keyValue={'client.name'} />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Address"
-              value={client.address}
-            />
+            <KeyValueRow keyName="Address">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue keyValue={'client.address'} />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Email"
-              value={client.email}
-            />
+            <KeyValueRow keyName="Email">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue keyValue={'client.email'} />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Phone"
-              value={client.phone}
-            />
+            <KeyValueRow keyName="Phone">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue keyValue={'client.phone'} />
+              </Suspense>
+            </KeyValueRow>
           </Grid>
         </BoxItem>
 
@@ -88,30 +113,87 @@ export default function PaymentRead() {
             container
             spacing={{ xs: 2, md: 3 }}
             columns={12}>
-            <KeyValueRow
-              keyName="Paid"
-              value={`$ ${new Intl.NumberFormat().format(payment.amount)}`}
-            />
+            <KeyValueRow keyName="Paid">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'amount'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Total"
-              value={`$ ${new Intl.NumberFormat().format(invoice.total)}`}
-            />
+            <KeyValueRow keyName="Total">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.total'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Total Paid"
-              value={`$ ${new Intl.NumberFormat().format(invoice.credit)}`}
-            />
+            <KeyValueRow keyName="Total Paid">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.credit'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
 
-            <KeyValueRow
-              keyName="Total Remaining"
-              value={`$ ${new Intl.NumberFormat().format(
-                invoice.total - invoice.credit
-              )}`}
-            />
+            <KeyValueRow keyName="Total Remaining">
+              <Suspense fallback={<TextSkeleton />}>
+                <PaymentInfoValue
+                  keyValue={'invoice.total - invoice.credit'}
+                  formater={(value) =>
+                    `$ ${new Intl.NumberFormat('en-US', {
+                      minimumFractionDigits: 2,
+                    }).format(value)}`
+                  }
+                />
+              </Suspense>
+            </KeyValueRow>
           </Grid>
         </BoxItem>
       </Stack>
     </>
   );
+}
+
+function PaymentInfoValue({ keyValue, formater }) {
+  const { payment } = useGetPayment();
+
+  let modifiedKey, value;
+
+  if (keyValue.includes('-')) {
+    modifiedKey = keyValue.split('-').map((val) => val.trim());
+
+    const [firstValue, secondValue] = modifiedKey;
+
+    const first = firstValue.split('.').map((val) => val);
+    const second = secondValue.split('.').map((val) => val);
+
+    value =
+      first.reduce((acc, key) => acc[key], payment) -
+      second.reduce((acc, key) => acc[key], payment);
+  } else {
+    modifiedKey = keyValue.split('.').map((val) => val);
+
+    value = modifiedKey.reduce((acc, key) => acc[key], payment);
+  }
+
+  if (formater) return formater(value);
+
+  return value;
 }

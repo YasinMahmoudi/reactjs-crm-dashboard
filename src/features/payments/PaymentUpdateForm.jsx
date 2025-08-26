@@ -12,7 +12,7 @@ import { useUpdatePayment } from './useUpdatePayment';
 export default function PaymentUpdateForm() {
   const { control, handleSubmit } = useForm();
 
-  const { payment, isLoadingPayment } = useGetPayment();
+  const { payment } = useGetPayment();
 
   const { paymentModes, isLoadingPaymentModes } = useGetPaymentModes();
 
@@ -22,7 +22,7 @@ export default function PaymentUpdateForm() {
     updatePayment(data);
   }
 
-  if (isLoadingPayment || isLoadingPaymentModes) return <CircularProgress />;
+  if ( isLoadingPaymentModes) return <CircularProgress />;
 
   const modifiedPaymentModes = paymentModes.map((mode) => {
     return { label: mode.name, value: mode._id };

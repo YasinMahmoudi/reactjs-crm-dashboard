@@ -2,16 +2,11 @@ import { Grid } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import { useGetPayment } from './useGetPayment';
-import ReadPageSkeleton from '../../components/ReadPageSkeleton';
 
 export default function PaymentClientInfo() {
-  const { payment, isLoadingPayment } = useGetPayment();
-
-  if (isLoadingPayment) return <ReadPageSkeleton />;
+  const { payment } = useGetPayment();
 
   const { invoice, client } = payment;
-
-  console.log(payment);
 
   return (
     <>

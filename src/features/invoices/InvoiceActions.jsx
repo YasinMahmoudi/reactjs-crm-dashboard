@@ -7,7 +7,7 @@ import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
 import ContextMenu from '../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { DOWNLOAD_BASE_URL } from '../../utils/constants';
 
 InvoiceActions.propTypes = {
@@ -17,12 +17,25 @@ InvoiceActions.propTypes = {
 export default function InvoiceActions({ id }) {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   function handleEdit() {
     navigate(`/invoices/edit/${id}`);
   }
 
   function handleDownloadPdf() {
     window.open(`${DOWNLOAD_BASE_URL}/invoice/invoice-${id}.pdf`, '_blank');
+  }
+
+  function handleDelete() {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    newSearchParams.set('delete-id', id);
+
+    navigate({
+      pathname: '/invoices',
+      search: newSearchParams.toString(),
+    });
   }
 
   return (
@@ -54,7 +67,7 @@ export default function InvoiceActions({ id }) {
         {
           name: 'Delete',
           icon: <DeleteIcon fontSize="10px" />,
-          onClick: () => navigate(`?delete-id=${id}`),
+          onClick: handleDelete,
         },
       ]}
     />

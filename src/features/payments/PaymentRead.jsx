@@ -1,20 +1,17 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
-import ReadPageSkeleton from '../../components/ReadPageSkeleton';
-import { useGetPayment } from './useGetPayment';
 import PaymentReadToolbar from './PaymentReadToolbar';
+import { useGetPayment } from './useGetPayment';
 
 export default function PaymentRead() {
-  const { payment, isLoadingPayment } = useGetPayment();
-
-  if (isLoadingPayment) return <ReadPageSkeleton />;
+  const { payment } = useGetPayment();
 
   const { invoice, client } = payment;
 
   return (
     <>
-      <PaymentReadToolbar payment={payment}/>
+      <PaymentReadToolbar payment={payment} />
 
       <Stack
         spacing={{ xs: 1, sm: 2 }}

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { useIsEditing } from '../../hooks/useIsEditing';
 import { getPaymentService } from '../../services/payment';
@@ -8,13 +8,13 @@ function useGetPayment() {
 
   const selectedId = isEditing ? editId : readId;
 
-  const { data: payment = {}, isLoading: isLoadingPayment } = useQuery({
+  const { data: payment } = useSuspenseQuery({
     queryKey: ['payment', selectedId],
     queryFn: () => getPaymentService(selectedId),
     enabled: selectedId !== null && selectedId !== undefined,
   });
 
-  return { payment, isLoadingPayment };
+  return { payment };
 }
 
 export { useGetPayment };

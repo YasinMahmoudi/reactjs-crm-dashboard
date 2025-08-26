@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router';
 
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
-import { Button, CircularProgress } from '@mui/material';
-import { useGetInvoice } from './useGetInvoice';
+import { Button } from '@mui/material';
+import { Suspense } from 'react';
+import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 import { useIsEditing } from '../../hooks/useIsEditing';
+import { useGetInvoice } from './useGetInvoice';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
@@ -16,20 +18,23 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 export default function InvoiceCreateUpdateToolbar() {
   const navigate = useNavigate();
 
-  const { invoice , isLoadingInvoice } = useGetInvoice();
-
   const { isEditing } = useIsEditing();
 
-  if (isLoadingInvoice) return <CircularProgress />;
+  let pageTitle = 'New';
 
-  const pageTitle = isEditing
-    ? `Update ${invoice.status}${invoice.paymentStatus} `
-    : `New `;
+  if (isEditing) {
+    pageTitle = (
+      <Suspense fallback={<TextSkeleton />}>
+        <InvoiceUpdateTitle />
+      </Suspense>
+    );
+  }
 
   return (
     <Row sx={mainRowStyle}>
       <Row>
         <MoveBackButton />
+
         <Row
           gap={2}
           alignItems="center">
@@ -52,5 +57,15 @@ export default function InvoiceCreateUpdateToolbar() {
         </Button>
       </Row>
     </Row>
+  );
+}
+
+function InvoiceUpdateTitle() {
+  const { invoice } = useGetInvoice();
+
+  return (
+    <>
+      Update {invoice.status} {invoice.paymentStatus}
+    </>
   );
 }

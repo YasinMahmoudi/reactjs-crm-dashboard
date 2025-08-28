@@ -171,7 +171,7 @@ export default function PaymentRead() {
   );
 }
 
-function PaymentInfoValue({ keyValue, formater }) {
+export function PaymentInfoValue({ keyValue, formater }) {
   const { payment } = useGetPayment();
 
   let modifiedKey, value;

@@ -36,6 +36,26 @@ export async function getPaymentModesService({ page = 1, query = '', signal }) {
   }
 }
 
+export async function getAllPaymentModesService({ signal }) {
+  try {
+    const res = await fetch(`${API_URL}/paymentMode/list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      signal,
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function createPaymentModeService(newPaymentMode) {
   try {
     const res = await fetch(`${API_URL}/paymentMode/create`, {

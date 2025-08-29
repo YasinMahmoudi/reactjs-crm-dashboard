@@ -125,7 +125,7 @@ function InvoiceGeneralInformations() {
   );
 }
 
-function InvoiceInfoValue({ keyValue, formater }) {
+export function InvoiceInfoValue({ keyValue, formater }) {
   const { invoice } = useGetInvoice();
 
   const modifiedKey = keyValue.split('.').map((val) => val);

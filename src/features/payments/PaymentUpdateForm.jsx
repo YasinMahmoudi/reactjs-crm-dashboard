@@ -1,32 +1,25 @@
-import { Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Skeleton, Typography } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import DropDown from '../../components/DropDown';
 import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
+import { Suspense } from 'react';
 import { useGetPayment } from './useGetPayment';
-import { useGetPaymentModes } from '../payment-mode/useGetPaymentModes';
 import { useUpdatePayment } from './useUpdatePayment';
+import { useGetAllPaymentModes } from '../payment-mode/useGetAllPaymentModes';
 
 export default function PaymentUpdateForm() {
   const { control, handleSubmit } = useForm();
 
   const { payment } = useGetPayment();
 
-  const { paymentModes, isLoadingPaymentModes } = useGetPaymentModes();
-
   const { updatePayment, isUpdatingpayment } = useUpdatePayment();
 
   function onSubmit(data) {
     updatePayment(data);
   }
-
-  if ( isLoadingPaymentModes) return <CircularProgress />;
-
-  const modifiedPaymentModes = paymentModes.map((mode) => {
-    return { label: mode.name, value: mode._id };
-  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -91,23 +84,12 @@ export default function PaymentUpdateForm() {
         </Grid>
 
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
-          <Controller
-            name="paymentMode"
-            defaultValue={payment.paymentMode._id}
-            control={control}
-            rules={{
-              required: 'Please slecet a payment mode.',
-            }}
-            render={(field) => (
-              <DropDown
-                label="Payment Mode"
-                id="paymentMode"
-                items={modifiedPaymentModes}
-                control={control}
-                {...field}
-              />
-            )}
-          />
+          <Suspense fallback={<Skeleton variant='rounded' height={50}/>}>
+            <PaymentModesDropDown
+              control={control}
+              defaultValue={payment.paymentMode._id}
+            />
+          </Suspense>
         </Grid>
 
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
@@ -156,5 +138,33 @@ export default function PaymentUpdateForm() {
         </Grid>
       </Grid>
     </form>
+  );
+}
+
+function PaymentModesDropDown({ control, defaultValue }) {
+  const { allPaymentModes } = useGetAllPaymentModes();
+
+  const modifiedPaymentModes = allPaymentModes.map((mode) => {
+    return { label: mode.name, value: mode._id };
+  });
+
+  return (
+    <Controller
+      name="paymentMode"
+      defaultValue={defaultValue}
+      control={control}
+      rules={{
+        required: 'Please slecet a payment mode.',
+      }}
+      render={(field) => (
+        <DropDown
+          label="Payment Mode"
+          id="paymentMode"
+          items={modifiedPaymentModes}
+          control={control}
+          {...field}
+        />
+      )}
+    />
   );
 }

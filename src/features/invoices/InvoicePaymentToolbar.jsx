@@ -8,12 +8,91 @@ import ContextMenu from '../../components/ContextMenu';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { IconButton } from '@mui/material';
+import { Suspense } from 'react';
 import { useGetInvoice } from './useGetInvoice';
+import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
 export default function InvoicePaymentToolbar() {
+  return (
+    <Row sx={mainRowStyle}>
+      <Row>
+        <MoveBackButton />
+
+        <Suspense fallback={<InvociePaymentToolbarStatusSkeleton />}>
+          <Row
+            gap={2}
+            alignItems="center">
+            <InvoicePaymentToolbarStatus />
+          </Row>
+        </Suspense>
+      </Row>
+
+      <Row sx={actionRowStyle}>
+        <Suspense
+          fallback={
+            <IconButton>
+              <MoreVertIcon />
+            </IconButton>
+          }>
+          <InvoiceActions />
+        </Suspense>
+      </Row>
+    </Row>
+  );
+}
+
+function InvociePaymentToolbarStatusSkeleton() {
+  return (
+    <>
+      <Typography
+        variant="caption"
+        fontWeight={600}
+        fontSize="larger"
+        display="flex"
+        gap={2}>
+        Record Payment for Invoice # <TextSkeleton />
+      </Typography>
+      <Typography
+        variant="caption"
+        textTransform="capitalize"
+        fontSize="medium"
+        fontWeight={600}
+        ml={2}>
+        <TextSkeleton />
+      </Typography>
+    </>
+  );
+}
+
+function InvoicePaymentToolbarStatus() {
+  const { invoice } = useGetInvoice();
+
+  return (
+    <>
+      <Typography
+        variant="caption"
+        fontWeight={600}
+        fontSize="larger">
+        Record Payment for Invoice # {invoice.number}/{invoice.year}
+      </Typography>
+
+      <Typography
+        variant="caption"
+        textTransform="capitalize"
+        fontSize="medium"
+        fontWeight={600}>
+        {invoice.paymentStatus}
+      </Typography>
+    </>
+  );
+}
+
+function InvoiceActions() {
   const navigate = useNavigate();
 
   const { invoice } = useGetInvoice();
@@ -23,46 +102,20 @@ export default function InvoicePaymentToolbar() {
   }
 
   return (
-    <Row sx={mainRowStyle}>
-      <Row>
-        <MoveBackButton />
-        <Row
-          gap={2}
-          alignItems="center">
-          <Typography
-            variant="caption"
-            fontWeight={600}
-            fontSize="larger">
-            Record Payment for Invoice # {invoice.number}/{invoice.year}
-          </Typography>
+    <ContextMenu
+      options={[
+        {
+          name: 'Show Invoice',
+          icon: <DescriptionOutlinedIcon fontSize="10px" />,
+          onClick: handleShow,
+        },
 
-          <Typography
-            variant="caption"
-            textTransform="capitalize"
-            fontSize="medium"
-            fontWeight={600}>
-            {invoice.paymentStatus}
-          </Typography>
-        </Row>
-      </Row>
-
-      <Row sx={actionRowStyle}>
-        <ContextMenu
-          options={[
-            {
-              name: 'Show Invoice',
-              icon: <DescriptionOutlinedIcon fontSize="10px" />,
-              onClick: handleShow,
-            },
-
-            {
-              name: 'Close',
-              icon: <CloseOutlined fontSize="10px" />,
-              onClick: () => navigate('/invoices'),
-            },
-          ]}
-        />
-      </Row>
-    </Row>
+        {
+          name: 'Close',
+          icon: <CloseOutlined fontSize="10px" />,
+          onClick: () => navigate('/invoices'),
+        },
+      ]}
+    />
   );
 }

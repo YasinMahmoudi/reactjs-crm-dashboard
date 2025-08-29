@@ -2,7 +2,8 @@ import { Grid } from '@mui/material';
 import InvoicePaymentCreateForm from '../../features/invoices/InvoicePaymentCreateForm';
 import InvoicePaymentClientInfo from '../../features/invoices/InvoicePaymentClientInfo';
 import InvoicePaymentToolbar from '../../features/invoices/InvoicePaymentToolbar';
-
+import { Suspense } from 'react';
+import PaymentUpdateFormSkeleton from '../../components/Skeletons/payments/PaymentUpdateFormSkeleton';
 export default function PaymentRecord() {
   return (
     <Grid
@@ -15,7 +16,9 @@ export default function PaymentRecord() {
       </Grid>
 
       <Grid size={{ xs: 2, sm: 2, md: 3 }}>
-        <InvoicePaymentCreateForm />
+        <Suspense fallback={<PaymentUpdateFormSkeleton />}>
+          <InvoicePaymentCreateForm />
+        </Suspense>
       </Grid>
 
       <Grid size={{ xs: 2, sm: 2, md: 3 }}>

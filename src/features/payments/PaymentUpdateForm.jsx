@@ -141,7 +141,7 @@ export default function PaymentUpdateForm() {
   );
 }
 
-function PaymentModesDropDown({ control, defaultValue }) {
+export function PaymentModesDropDown({ control, defaultValue }) {
   const { allPaymentModes } = useGetAllPaymentModes();
 
   const modifiedPaymentModes = allPaymentModes.map((mode) => {

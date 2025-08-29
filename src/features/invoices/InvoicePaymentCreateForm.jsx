@@ -1,12 +1,11 @@
-import { Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import DropDown from '../../components/DropDown';
 import EnhancedDatePicker from '../../components/EnhancedDatePicker';
 import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
 import { useIsEditing } from '../../hooks/useIsEditing';
-import { useGetPaymentModes } from '../payment-mode/useGetPaymentModes';
+import { PaymentModesDropDown } from '../payments/PaymentUpdateForm';
 import { useCreateInvoicepayment } from './useCreateInvoicePayment';
 import { useGetInvoice } from './useGetInvoice';
 
@@ -19,8 +18,6 @@ export default function InvoicePaymentUpdateForm() {
 
   const { readId } = useIsEditing();
 
-  const { paymentModes, isLoadingPaymentModes } = useGetPaymentModes();
-
   const { createInvoicePayment, isCreatingInvoicePayment } =
     useCreateInvoicepayment();
 
@@ -29,12 +26,6 @@ export default function InvoicePaymentUpdateForm() {
 
     createInvoicePayment(newData);
   }
-
-  if (isLoadingPaymentModes) return <CircularProgress />;
-
-  const modifiedPaymentModes = paymentModes.map((mode) => {
-    return { label: mode.name, value: mode._id };
-  });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -99,22 +90,9 @@ export default function InvoicePaymentUpdateForm() {
         </Grid>
 
         <Grid size={{ xs: 2, sm: 2, md: 6 }}>
-          <Controller
-            name="paymentMode"
+          <PaymentModesDropDown
             defaultValue={''}
             control={control}
-            rules={{
-              required: 'Please slecet a payment mode.',
-            }}
-            render={(field) => (
-              <DropDown
-                label="Payment Mode"
-                id="paymentMode"
-                items={modifiedPaymentModes}
-                control={control}
-                {...field}
-              />
-            )}
           />
         </Grid>
 

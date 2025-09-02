@@ -42,6 +42,32 @@ export async function getCustomersService({ page = 1, query = '', signal }) {
   }
 }
 
+export async function getAllCustomersService({ signal }) {
+  // await new Promise((resolve) =>
+  //   setTimeout(() => {
+  //     resolve();
+  //   }, 2000)
+  // );
+
+  try {
+    const res = await fetch(`${API_URL}/client/list`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      signal,
+    });
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.message);
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function createCustomerService(newCustomer) {
   try {
     const res = await fetch(`${API_URL}/client/create`, {

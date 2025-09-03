@@ -18,7 +18,7 @@ export default function SearchableClients({ field, defaultValue }) {
 
   return (
     <Autocomplete
-      sx={{ width: 235 }}
+      sx={{ width: { xs: '100%', sm: 235 } }}
       loading={isSearchingCustomers}
       id="client"
       disablePortal
@@ -41,6 +41,10 @@ export default function SearchableClients({ field, defaultValue }) {
             htmlInput: {
               ...params.inputProps,
               autoComplete: 'off', // disable autocomplete and autofill
+              style: {
+                paddingBlock: '.2rem',
+                lineHeight: '1',
+              },
             },
           }}
           onChange={(event) => field.field.onChange(event.target.value)}

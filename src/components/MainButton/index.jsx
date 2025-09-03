@@ -23,7 +23,7 @@ function MainButton({
         variant={variant}
         size={size}
         color={color}
-        sx={{ paddingBlock: '7px' }}
+        sx={{ paddingBlock: '.6rem' }}
         LinkComponent={Link}
         to={to}>
         {children}
@@ -36,7 +36,7 @@ function MainButton({
       variant={variant}
       size={size}
       color={color}
-      sx={{ paddingBlock: '7px' }}>
+      sx={{ paddingBlock: '.6rem' }}>
       {children}
     </Button>
   );

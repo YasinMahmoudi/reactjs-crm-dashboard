@@ -10,7 +10,7 @@ const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
 export default function InvoiceToolbar() {
   return (
-    <Row sx={mainRowStyle}>
+    <Row sx={{ ...mainRowStyle, alignItems: { xs: 'stretch !important' } }}>
       <MoveBackButton />
 
       <Row sx={actionRowStyle}>

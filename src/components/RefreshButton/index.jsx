@@ -2,7 +2,7 @@ import Refresh from '@mui/icons-material/Refresh';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-const style = { display: 'flex', gap: '5px', paddingBlock: '7px' };
+const style = { display: 'flex', gap: '5px', paddingBlock: '.6rem' };
 
 function RefreshButton() {
   return (

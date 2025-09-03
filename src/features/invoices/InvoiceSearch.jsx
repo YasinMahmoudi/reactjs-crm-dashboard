@@ -1,45 +1,24 @@
-import { TextField } from '@mui/material';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { Box } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import SearchableClients from '../../components/SearchableClients';
 
 export default function InvoiceSearch() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [query, setQuery] = useState(function () {
-    return searchParams.get('query') || '';
-  });
-
-  function handleQueyParam(e) {
-    setQuery(e.target.value);
-
-    if (searchParams.has('query') && e.target.value.length === 0) {
-      searchParams.delete('query');
-      setSearchParams(searchParams);
-
-      return;
-    }
-
-    searchParams.set('page', '1');
-    searchParams.set('query', e.target.value);
-
-    setSearchParams(searchParams);
-  }
+  const { control } = useForm();
 
   return (
-    <TextField
-      id="invoiceSearch"
-      label="Search"
-      type="search"
-      variant="outlined"
-      size="small"
+    <Box
+      component="form"
       sx={{
         order: { xs: '3', sm: '0' },
         flexGrow: { xs: '1', sm: 'initial' },
         marginTop: { xs: '8px', sm: '0' },
         width: { xs: '100%', sm: 'auto' },
-      }}
-      value={query}
-      onChange={handleQueyParam}
-    />
+      }}>
+      <Controller
+        name="client"
+        control={control}
+        render={(field) => <SearchableClients field={field} />}
+      />
+    </Box>
   );
 }

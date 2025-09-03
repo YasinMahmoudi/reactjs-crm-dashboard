@@ -12,13 +12,17 @@ function useGetInvoices() {
 
   const query = searchParams.get('query') || null;
 
+  const clientId = searchParams.get('client-id') || null;
+
+  const clientQuery = clientId ? `equal=${clientId}&filter=client` : null;
+
   const page = !searchParams.has('page') ? 1 : Number(searchParams.get('page'));
 
   const {
     data: { result, pagination, pagination: { pages } = {} } = {},
     isLoading: isLoadingInvoices,
   } = useQuery({
-    queryKey: ['invoices', page, query],
+    queryKey: ['invoices', page, query , clientQuery],
     queryFn: () => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
@@ -29,6 +33,7 @@ function useGetInvoices() {
       return getInvoicesService({
         page,
         query,
+        clientQuery,
         signal: abortControllerRef.current.signal,
       });
     },

@@ -18,6 +18,7 @@ export default function SearchableClients({ field, defaultValue }) {
 
   return (
     <Autocomplete
+      sx={{ width: 235 }}
       loading={isSearchingCustomers}
       id="client"
       disablePortal

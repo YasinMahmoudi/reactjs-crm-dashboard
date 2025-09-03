@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 import { useSearchCustomers } from '../../features/customers/useSearchCustomers';
 import { useIsEditing } from '../../hooks/useIsEditing';
+import { useSearchParams } from 'react-router';
 
 SearchableClients.propTypes = {
   field: PropTypes.object,
@@ -14,7 +15,23 @@ export default function SearchableClients({ field, defaultValue }) {
     searchQuery: field.field.value,
   });
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { isEditing } = useIsEditing();
+
+  function handleChange(_event, data) {
+    field.field.onChange(data?._id);
+    searchParams.set('client-id', data?._id);
+
+    if (searchParams.has('client-id') && !data) {
+      searchParams.delete('client-id');
+      setSearchParams(searchParams);
+
+      return;
+    }
+
+    setSearchParams(searchParams);
+  }
 
   return (
     <Autocomplete
@@ -32,7 +49,7 @@ export default function SearchableClients({ field, defaultValue }) {
       options={searchCustomers}
       getOptionLabel={(option) => option.name}
       fullWidth
-      onChange={(_event, data) => field.field.onChange(data?._id)}
+      onChange={handleChange}
       renderInput={(params) => (
         <TextField
           {...params}

@@ -2,7 +2,14 @@ import { API_URL } from '../../utils/constants';
 
 export const LIMIT_ITEMS = 5;
 
-export async function getInvoicesService({ page = 1, query = '', signal }) {
+// /api/invoice/list?equal=68330570227a0709cc7bd769&filter=client
+
+export async function getInvoicesService({
+  page = 1,
+  query = '',
+  clientQuery = '',
+  signal,
+}) {
   let fetchUrl;
 
   if (query) {
@@ -11,6 +18,10 @@ export async function getInvoicesService({ page = 1, query = '', signal }) {
 
   if (!query) {
     fetchUrl = `${API_URL}/invoice/list?page=${page}&items=${LIMIT_ITEMS}`;
+  }
+
+  if(clientQuery) {
+    fetchUrl = `${API_URL}/invoice/list?${clientQuery}`
   }
 
   try {

@@ -2,19 +2,24 @@ import { API_URL } from '../../utils/constants';
 
 export const LIMIT_ITEMS = 5;
 
-export async function getPaymentsService({ page = 1, query = '', signal }) {
-  const searchableFields = ['name'];
-
+export async function getPaymentsService({
+  page = 1,
+  query = '',
+  clientQuery = '',
+  signal,
+}) {
   let fetchUrl;
 
   if (query) {
-    fetchUrl = `${API_URL}/payment/list?page=${page}&items=${LIMIT_ITEMS}&q=${query}&fields=${[
-      ...searchableFields,
-    ]}`;
+    fetchUrl = `${API_URL}/payment/list?page=${page}&items=${LIMIT_ITEMS}&q=${query}}`;
   }
 
   if (!query) {
     fetchUrl = `${API_URL}/payment/list?page=${page}&items=${LIMIT_ITEMS}`;
+  }
+
+  if (clientQuery) {
+    fetchUrl = `${API_URL}/payment/list?${clientQuery}`;
   }
 
   try {

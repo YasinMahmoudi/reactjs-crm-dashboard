@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import {
@@ -59,15 +58,12 @@ export default function CustomersTable() {
     deleteService: deleteCustomerService,
   });
 
-  const { deleteManyData, isDeletingManyData } = useDeleteManyData({
-    resourceName: 'Customer',
-    invalidateQueryKeys: ['customers'],
-    apiService: deleteManyCustomersService,
-  });
-
-  const [searchParams] = useSearchParams();
-
-  const isDeleteMultiple = !!searchParams.get('delete-multiple');
+  const { deleteManyData, isDeletingManyData, isDeleteMultiple } =
+    useDeleteManyData({
+      resourceName: 'Customer',
+      invalidateQueryKeys: ['customers'],
+      apiService: deleteManyCustomersService,
+    });
 
   if (paginateData?.length === 0)
     return <EmptyResource resourceName="Customer" />;
@@ -82,9 +78,7 @@ export default function CustomersTable() {
         isDeletingMultipleRecords={
           isDeleteMultiple ? isDeletingManyData : isDeletingData
         }
-        onDeleteMultipleRecords={
-          isDeleteMultiple ? deleteManyData : deleteData
-        }
+        onDeleteMultipleRecords={isDeleteMultiple ? deleteManyData : deleteData}
         title="Customers">
         <DataTable.Head headCells={headCells} />
 

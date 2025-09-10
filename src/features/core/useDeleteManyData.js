@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { useSearchParams } from 'react-router';
 
 function useDeleteManyData({
   resourceName = '',
@@ -7,6 +8,10 @@ function useDeleteManyData({
   apiService,
 }) {
   const queryClient = useQueryClient();
+
+  const [searchParams] = useSearchParams();
+
+  const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
   const { mutate: deleteManyData, isPending: isDeletingManyData } = useMutation(
     {
@@ -32,8 +37,7 @@ function useDeleteManyData({
     }
   );
 
-  return { deleteManyData, isDeletingManyData };
+  return { deleteManyData, isDeletingManyData , isDeleteMultiple };
 }
 
 export { useDeleteManyData };
-

@@ -1,7 +1,7 @@
 import DataTable from "../../../components/Table";
 import { deleteCustomerService, deleteManyCustomersService, getCustomersService } from "../../../services/customers/customer";
 import Table from "../../core/Table";
-import CustomerTableBody from "../CustomerTableBody";
+import CustomerTableBody from "./Body";
 
 
 const headCells = [

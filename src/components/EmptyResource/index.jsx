@@ -1,17 +1,13 @@
-import Typography from '@mui/material/Typography';
-import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 import PropTypes from 'prop-types';
 
 EmptyResource.propTypes = {
-  keyWord: PropTypes.string,
   resourceName: PropTypes.string,
 };
 
-const lableStyle = { marginInline: '10px', width: 'min(100px , 120px )' };
-
-function EmptyResource({ keyWord, resourceName = 'resource' }) {
+function EmptyResource({ resourceName = 'resource' }) {
   const modifiedResourceName = resourceName.toLocaleLowerCase();
 
   return (
@@ -20,13 +16,7 @@ function EmptyResource({ keyWord, resourceName = 'resource' }) {
       mb={10}
       textAlign={'center'}>
       <Typography variant="h6">
-        No {modifiedResourceName} found with
-        <Chip
-          label={keyWord}
-          color="error"
-          sx={lableStyle}
-        />
-        key word ! 😓
+        No {modifiedResourceName} found with! 😓
       </Typography>
     </Box>
   );

@@ -1,6 +1,6 @@
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';

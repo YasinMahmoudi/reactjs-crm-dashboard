@@ -1,7 +1,7 @@
 import TableCell from '@mui/material/TableCell';
 import DataTable from '../../../components/Table';
-import CustomerActions from '../CustomerActions';
 import PropTypes from 'prop-types';
+import CustomerActions from './actions';
 
 CustomerTableRow.propTypes = {
   row: PropTypes.object,

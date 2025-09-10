@@ -63,17 +63,10 @@ export default function CustomersTable() {
 
   const [searchParams] = useSearchParams();
 
-  const query = searchParams.get('query');
-
   const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
   if (paginateData?.length === 0)
-    return (
-      <EmptyResource
-        keyWord={query}
-        resourceName="Customer"
-      />
-    );
+    return <EmptyResource resourceName="Customer" />;
 
   return (
     <>

@@ -42,7 +42,7 @@ const headCells = [
 export default function CustomersTable() {
 
   const options = {
-    dataKey: 'customer',
+    dataKey: 'customers',
     services: {
       getPaginateDataService: getCustomersService,
       deleteDataService: deleteCustomerService,

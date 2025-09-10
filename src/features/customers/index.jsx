@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 
 import SearchField from '../core/SearchField';
 import Toolbar from '../core/Toolbar';
-import CustomersTable from './CustomersTable';
+import CustomersTable from './Table';
 
 const tableBoxStyle = { mt: 3 };
 

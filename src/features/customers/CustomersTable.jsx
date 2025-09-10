@@ -1,12 +1,11 @@
-import { useGetCustomers } from './useGetCustomers';
-
 import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
+import { getCustomersService } from '../../services/customers/customer';
+import { useGetPaginateData } from '../core/useGetPaginateResources';
 import CustomerTableBody from './CustomerTableBody';
 import { useDeleteCustomer } from './useDeleteCustomer';
 import { useDeleteManyCustomers } from './useDeleteMany';
-
 
 const headCells = [
   {
@@ -44,7 +43,11 @@ const headCells = [
 ];
 
 export default function CustomersTable() {
-  const { customers, pagination, isLoadingCustomers } = useGetCustomers();
+  const { paginateData, pagination, isLoadingPaginateData } =
+    useGetPaginateData({
+      dataKey: 'customers',
+      dataService: getCustomersService,
+    });
 
   const { deleteCustomer, isDeletingCustomer } = useDeleteCustomer();
 
@@ -57,7 +60,7 @@ export default function CustomersTable() {
 
   const isDeleteMultiple = !!searchParams.get('delete-multiple');
 
-  if (customers?.length === 0)
+  if (paginateData?.length === 0)
     return (
       <EmptyResource
         keyWord={query}
@@ -68,12 +71,16 @@ export default function CustomersTable() {
   return (
     <>
       <DataTable
-        state={isLoadingCustomers}
-        data={customers}
+        state={isLoadingPaginateData}
+        data={paginateData}
         pagination={pagination}
         hasToolbar={true}
-        isDeletingMultipleRecords={isDeleteMultiple ? isDeletingManyCustomers : isDeletingCustomer}
-        onDeleteMultipleRecords={isDeleteMultiple ? deleteManyCustomers : deleteCustomer}
+        isDeletingMultipleRecords={
+          isDeleteMultiple ? isDeletingManyCustomers : isDeletingCustomer
+        }
+        onDeleteMultipleRecords={
+          isDeleteMultiple ? deleteManyCustomers : deleteCustomer
+        }
         title="Customers">
         <DataTable.Head headCells={headCells} />
 

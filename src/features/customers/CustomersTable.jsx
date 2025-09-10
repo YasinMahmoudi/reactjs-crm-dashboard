@@ -3,12 +3,13 @@ import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import {
   deleteCustomerService,
+  deleteManyCustomersService,
   getCustomersService,
 } from '../../services/customers/customer';
 import { useDeleteData } from '../core/useDeleteData';
+import { useDeleteManyData } from '../core/useDeleteManyData';
 import { useGetPaginateData } from '../core/useGetPaginateData';
 import CustomerTableBody from './CustomerTableBody';
-import { useDeleteManyCustomers } from './useDeleteMany';
 
 const headCells = [
   {
@@ -58,8 +59,11 @@ export default function CustomersTable() {
     deleteService: deleteCustomerService,
   });
 
-  const { deleteManyCustomers, isDeletingManyCustomers } =
-    useDeleteManyCustomers();
+  const { deleteManyData, isDeletingManyData } = useDeleteManyData({
+    resourceName: 'Customer',
+    invalidateQueryKeys: ['customers'],
+    apiService: deleteManyCustomersService,
+  });
 
   const [searchParams] = useSearchParams();
 
@@ -76,10 +80,10 @@ export default function CustomersTable() {
         pagination={pagination}
         hasToolbar={true}
         isDeletingMultipleRecords={
-          isDeleteMultiple ? isDeletingManyCustomers : isDeletingData
+          isDeleteMultiple ? isDeletingManyData : isDeletingData
         }
         onDeleteMultipleRecords={
-          isDeleteMultiple ? deleteManyCustomers : deleteData
+          isDeleteMultiple ? deleteManyData : deleteData
         }
         title="Customers">
         <DataTable.Head headCells={headCells} />

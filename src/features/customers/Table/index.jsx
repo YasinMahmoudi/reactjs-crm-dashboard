@@ -1,46 +1,13 @@
-import DataTable from "../../../components/Table";
-import { deleteCustomerService, deleteManyCustomersService, getCustomersService } from "../../../services/customers/customer";
-import Table from "../../core/Table";
-import CustomerTableBody from "./Body";
-
-
-const headCells = [
-  {
-    id: 'name',
-    disablePadding: true,
-    label: 'Name',
-  },
-  {
-    id: 'country',
-    disablePadding: false,
-    label: 'Country',
-  },
-  {
-    id: 'address',
-    disablePadding: false,
-    label: 'Address',
-  },
-  {
-    id: 'phone',
-    disablePadding: true,
-    label: 'Phone',
-  },
-  {
-    id: 'email',
-    disablePadding: false,
-    label: 'Email',
-  },
-
-  {
-    id: 'action',
-    numeric: false,
-    disablePadding: false,
-    label: '',
-  },
-];
+import {
+  deleteCustomerService,
+  deleteManyCustomersService,
+  getCustomersService,
+} from '../../../services/customers/customer';
+import Table from '../../core/Table';
+import CustomerTableBody from './Body';
+import CustomerTableHead from './Head';
 
 export default function CustomersTable() {
-
   const options = {
     dataKey: 'customers',
     services: {
@@ -49,12 +16,13 @@ export default function CustomersTable() {
       deleteManyDataService: deleteManyCustomersService,
     },
     invalidateQueryKeys: ['customers'],
-  }
-
+  };
 
   return (
-    <Table resourceName="Customer" options={options}>
-      <DataTable.Head headCells={headCells}  />
+    <Table
+      resourceName="Customer"
+      options={options}>
+      <CustomerTableHead />
 
       <CustomerTableBody />
     </Table>

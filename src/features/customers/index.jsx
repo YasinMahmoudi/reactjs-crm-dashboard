@@ -9,7 +9,7 @@ const tableBoxStyle = { mt: 3 };
 export default function Customers() {
   return (
     <>
-      <Toolbar buttonLabel="Add New Client">
+      <Toolbar buttonLabel="Add New Client" to="/customers/create">
         <CustomerSearch />
       </Toolbar>
 

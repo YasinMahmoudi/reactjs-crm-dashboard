@@ -2,7 +2,7 @@ import { useSearchParams } from 'react-router';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 import { getCustomersService } from '../../services/customers/customer';
-import { useGetPaginateData } from '../core/useGetPaginateResources';
+import { useGetPaginateData } from '../core/useGetPaginateData';
 import CustomerTableBody from './CustomerTableBody';
 import { useDeleteCustomer } from './useDeleteCustomer';
 import { useDeleteManyCustomers } from './useDeleteMany';

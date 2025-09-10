@@ -15,6 +15,7 @@ export default function SearchField({ id }) {
 
     if (searchParams.has('query') && e.target.value.length === 0) {
       searchParams.delete('query');
+      searchParams.delete('page')
       setSearchParams(searchParams);
 
       return;

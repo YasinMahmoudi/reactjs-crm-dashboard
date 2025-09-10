@@ -37,14 +37,14 @@ export default function Table({
     });
 
   const { deleteData, isDeletingData } = useDeleteData({
-    resourceName: { resourceName },
+    resourceName: resourceName,
     invalidateQueryKeys: invalidateQueryKeys,
     deleteService: deleteDataService,
   });
 
   const { deleteManyData, isDeletingManyData, isDeleteMultiple } =
     useDeleteManyData({
-      resourceName: { resourceName },
+      resourceName: resourceName,
       invalidateQueryKeys: invalidateQueryKeys,
       apiService: deleteManyDataService,
     });
@@ -63,7 +63,7 @@ export default function Table({
           isDeleteMultiple ? isDeletingManyData : isDeletingData
         }
         onDeleteMultipleRecords={isDeleteMultiple ? deleteManyData : deleteData}
-        title={resourceName}>
+        title={`${resourceName}s Table`}>
         {children}
       </DataTable>
     </>

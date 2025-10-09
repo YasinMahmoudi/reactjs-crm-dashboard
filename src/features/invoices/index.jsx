@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import SearchField from '../core/SearchField';
 import Toolbar from '../core/Toolbar';
-import InvoicesTable from './InvoicesTable';
+import InvoicesTable from './Table';
 
 const tableBoxStyle = { mt: 3 };
 

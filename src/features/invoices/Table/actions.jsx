@@ -3,12 +3,11 @@ import EditIcon from '@mui/icons-material/EditOutlined';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
-
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';
-import { DOWNLOAD_BASE_URL } from '../../utils/constants';
+import { DOWNLOAD_BASE_URL } from '../../../utils/constants';
 
 InvoiceActions.propTypes = {
   id: PropTypes.string,
@@ -20,11 +19,15 @@ export default function InvoiceActions({ id }) {
   const [searchParams] = useSearchParams();
 
   function handleEdit() {
-    navigate(`/invoices/edit/${id}`);
-  }
+    const newSearchParams = new URLSearchParams(searchParams.toString());
 
-  function handleDownloadPdf() {
-    window.open(`${DOWNLOAD_BASE_URL}/invoice/invoice-${id}.pdf`, '_blank');
+    newSearchParams.set('edit', true);
+    newSearchParams.set('id', id);
+
+    navigate({
+      pathname: '/invoices/create',
+      search: newSearchParams.toString(),
+    });
   }
 
   function handleDelete() {
@@ -36,6 +39,10 @@ export default function InvoiceActions({ id }) {
       pathname: '/invoices',
       search: newSearchParams.toString(),
     });
+  }
+
+  function handleDownloadPdf() {
+    window.open(`${DOWNLOAD_BASE_URL}/invoice/invoice-${id}.pdf`, '_blank');
   }
 
   return (

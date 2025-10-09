@@ -1,7 +1,7 @@
 import TableCell from '@mui/material/TableCell';
-import DataTable from '../../components/Table';
+import DataTable from '../../../components/Table';
 import PropTypes from 'prop-types';
-import InvoiceActions from './InvoiceActions';
+import InvoiceActions from './actions';
 import dayjs from 'dayjs';
 
 InvoiceTableRow.propTypes = {

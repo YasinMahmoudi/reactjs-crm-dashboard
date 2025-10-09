@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
-import SearchField from '../core/SearchField';
 import Toolbar from '../core/Toolbar';
+import InvoiceSearch from './InvoiceSearch';
 import InvoicesTable from './Table';
 
 const tableBoxStyle = { mt: 3 };
@@ -11,7 +11,7 @@ export default function Invoices() {
       <Toolbar
         buttonLabel="Add New Invoice"
         to="/customers/create">
-        <SearchField id="invoiceSearchInput" />
+        <InvoiceSearch id="invoiceSearchInput" />
       </Toolbar>
 
       <Box sx={tableBoxStyle}>

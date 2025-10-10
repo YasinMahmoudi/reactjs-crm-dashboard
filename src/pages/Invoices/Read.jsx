@@ -1,4 +1,4 @@
-import InvoiceRead from "../../features/invoices/invoiceRead";
+import InvoiceRead from "../../features/invoices/Read";
 
 
 

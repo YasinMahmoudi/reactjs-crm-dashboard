@@ -1,11 +1,11 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { Suspense } from 'react';
-import { BoxItem } from '../../components/BoxItem';
-import KeyValueRow from '../../components/KeyValueRow';
-import TextSkeleton from '../../components/Skeletons/TextSkeleton';
-import InvoiceReadProductsTable from './InvoiceReadProductsTable';
-import InvoiceReadToolbar from './invoicesReadToolbar';
-import { useGetInvoice } from './useGetInvoice';
+import { BoxItem } from '../../../components/BoxItem';
+import KeyValueRow from '../../../components/KeyValueRow';
+import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
+import InvoiceReadProductsTable from './ProductsTable';
+import InvoiceReadToolbar from './Toolbar';
+import { useGetInvoice } from '../useGetInvoice';
 
 export default function InvoiceRead() {
   return (

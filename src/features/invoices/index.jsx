@@ -10,8 +10,8 @@ export default function Invoices() {
     <>
       <Toolbar
         buttonLabel="Add New Invoice"
-        to="/customers/create">
-        <InvoiceSearch id="invoiceSearchInput" />
+        to="/invoices/create">
+        <InvoiceSearch />
       </Toolbar>
 
       <Box sx={tableBoxStyle}>

@@ -2,7 +2,7 @@ import { Paper, Typography } from '@mui/material';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
 import PropTypes from 'prop-types';
 import SimpleTable from '../../components/SimpleTable';
-import InvoiceActions from '../invoices/InvoiceActions';
+import InvoiceActions from '../invoices/Table/actions';
 import { useRecentInvoices } from './useRecentInvoices';
 import { Suspense } from 'react';
 import RecentInvoicesSkeleton from '../../components/Skeletons/dashboard/RecentInvoicesSkeleton';

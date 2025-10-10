@@ -1,9 +1,5 @@
-import PropTypes from 'prop-types';
-import SimpleTable from '../../components/SimpleTable';
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
-import { useGetInvoice } from './useGetInvoice';
-import InvoiceProductTableSkeleton from '../../components/Skeletons/invoices/InvoiceProductTableSkeleton';
-import { Suspense } from 'react';
+import PropTypes from 'prop-types';
 
 InvoiceReadProductRow.propTypes = {
   product: PropTypes.object,
@@ -29,39 +25,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const heads = [
-  {
-    label: 'Product',
-    align: '',
-  },
-  {
-    label: 'Description',
-    align: '',
-  },
-  {
-    label: 'Price',
-  },
-  {
-    label: 'Quantity',
-  },
-  {
-    label: 'Total',
-  },
-];
-
-export default function InvoiceReadProductsTable() {
-  return (
-    <SimpleTable>
-      <SimpleTable.Head heads={heads} />
-
-      <Suspense fallback={<InvoiceProductTableSkeleton />}>
-        <ProductRows />
-      </Suspense>
-    </SimpleTable>
-  );
-}
-
-function InvoiceReadProductRow({ product }) {
+export default function InvoiceReadProductRow({ product }) {
   return (
     <StyledTableRow key={product._id}>
       <StyledTableCell
@@ -87,23 +51,5 @@ function InvoiceReadProductRow({ product }) {
         }).format(product.total)}
       </StyledTableCell>
     </StyledTableRow>
-  );
-}
-
-function ProductRows() {
-  const { invoice } = useGetInvoice();
-
-  const products = invoice?.items;
-
-  return (
-    <SimpleTable.Body
-      items={products}
-      render={(product) => (
-        <InvoiceReadProductRow
-          key={product._id}
-          product={product}
-        />
-      )}
-    />
   );
 }

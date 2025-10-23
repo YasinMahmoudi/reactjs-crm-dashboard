@@ -1,10 +1,10 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
-import { BoxItem } from '../../components/BoxItem';
-import KeyValueRow from '../../components/KeyValueRow';
-import PaymentReadToolbar from './PaymentReadToolbar';
-import { useGetPayment } from './useGetPayment';
+import { BoxItem } from '../../../components/BoxItem';
+import KeyValueRow from '../../../components/KeyValueRow';
+import PaymentReadToolbar from './Toolbar';
+import { useGetPayment } from '../useGetPayment';
 import { Suspense } from 'react';
-import TextSkeleton from '../../components/Skeletons/TextSkeleton';
+import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
 
 export default function PaymentRead() {
   return (

@@ -1,11 +1,11 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
 import { Suspense } from 'react';
 import { BoxItem } from '../../../components/BoxItem';
+import { InvoiceInfoValue } from '../../../components/InvoiceInfoValue';
 import KeyValueRow from '../../../components/KeyValueRow';
 import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
 import InvoiceReadProductsTable from './ProductsTable';
 import InvoiceReadToolbar from './Toolbar';
-import { useGetInvoice } from '../useGetInvoice';
 
 export default function InvoiceRead() {
   return (
@@ -125,14 +125,4 @@ function InvoiceGeneralInformations() {
   );
 }
 
-export function InvoiceInfoValue({ keyValue, formater }) {
-  const { invoice } = useGetInvoice();
 
-  const modifiedKey = keyValue.split('.').map((val) => val);
-
-  const value = modifiedKey.reduce((acc, key) => acc[key], invoice);
-
-  if (formater) return formater(value);
-
-  return value;
-}

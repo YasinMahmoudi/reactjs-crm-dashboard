@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { BoxItem } from '../../components/BoxItem';
 import KeyValueRow from '../../components/KeyValueRow';
 import TextSkeleton from '../../components/Skeletons/TextSkeleton';
-import { InvoiceInfoValue } from './InvoiceRead';
+import { InvoiceInfoValue } from '../../components/InvoiceInfoValue';
 
 export default function InvoicePaymentClientInfo() {
 

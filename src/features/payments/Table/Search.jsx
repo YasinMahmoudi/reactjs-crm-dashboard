@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import SearchableClients from '../../components/SearchableClients';
+import SearchableClients from '../../../components/SearchableClients';
+
 
 export default function PaymentSearch() {
   const { control } = useForm();

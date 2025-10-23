@@ -1,18 +1,18 @@
 import Typography from '@mui/material/Typography';
-import MoveBackButton from '../../components/MoveBackButton';
-import { Row } from '../../components/Row';
+import MoveBackButton from '../../../components/MoveBackButton';
+import { Row } from '../../../components/Row';
 
 import { useNavigate } from 'react-router';
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 import { Suspense } from 'react';
-import PaymentToolbarActionsSkeleton from '../../components/Skeletons/payments/PaymentToolbarActionsSkeleton';
-import TextSkeleton from '../../components/Skeletons/TextSkeleton';
-import { DOWNLOAD_BASE_URL } from '../../utils/constants';
-import { useGetPayment } from './useGetPayment';
+import PaymentToolbarActionsSkeleton from '../../../components/Skeletons/payments/PaymentToolbarActionsSkeleton';
+import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
+import { DOWNLOAD_BASE_URL } from '../../../utils/constants';
+import { useGetPayment } from '../useGetPayment';
 
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };

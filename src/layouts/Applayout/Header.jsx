@@ -8,7 +8,7 @@ const StyledHeader = styled('aside')(({ theme }) => [
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: '2rem',
-    borderBottom: '1px solid @e3e3e3',
+    borderBottom: '1px solid #e3e3e3',
 
     '@media screen and (min-width: 900px)': {
       gridColumn: '2 / -1',

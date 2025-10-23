@@ -14,8 +14,9 @@ import { createContext } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
+    fontWeight: 'bold',
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,

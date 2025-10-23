@@ -6,7 +6,7 @@ import {
   Paper,
   Skeleton,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Suspense } from 'react';
@@ -14,13 +14,16 @@ import { useInvoicesSummary } from './useInvoiceSummary';
 import { usePaymentSummary } from './usePaymentSummary';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
+  backgroundColor: theme.palette.primary.main,
+  backgroundImage: `linear-gradient(135deg , ${theme.palette.primary.main}, ${theme.palette.info.light})`,
   ...theme.typography.body2,
   paddingBlock: theme.spacing(2),
   textAlign: 'center',
-  color: (theme.vars ?? theme).palette.text.secondary,
+  color: '#f2f2f3',
   ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
+    backgroundColor: theme.palette.primary.main,
+    backgroundImage: `linear-gradient(135deg , ${theme.palette.primary.main}, ${theme.palette.info.light})`,
+    boxShadow: '0px 1px 1px rgba(255,255,255,0.4)',
   }),
 }));
 
@@ -56,7 +59,14 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+              <Suspense
+                fallback={
+                  <Skeleton
+                    variant="rounded"
+                    width={85}
+                    height={32}
+                  />
+                }>
                 <InvoicePrice dataKey={'total'} />
               </Suspense>
             </Stack>
@@ -88,7 +98,14 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+              <Suspense
+                fallback={
+                  <Skeleton
+                    variant="rounded"
+                    width={85}
+                    height={32}
+                  />
+                }>
                 <PaymentPrice dataKey={'total'} />
               </Suspense>
             </Stack>
@@ -120,7 +137,14 @@ export default function Summary() {
                 fontWeight={500}>
                 This Month
               </Typography>
-              <Suspense fallback={<Skeleton variant='rounded' width={85} height={32} />}>
+              <Suspense
+                fallback={
+                  <Skeleton
+                    variant="rounded"
+                    width={85}
+                    height={32}
+                  />
+                }>
                 <InvoicePrice dataKey={'total_undue'} />
               </Suspense>
             </Stack>
@@ -136,8 +160,11 @@ function InvoicePrice({ dataKey }) {
 
   return (
     <Chip
+      sx={{
+        color: '#f2f2f3',
+        fontWeight: '700',
+      }}
       label={`$ ${new Intl.NumberFormat('en-US').format(invoices[dataKey])}`}
-      color="error"
       variant="filled"
     />
   );
@@ -148,10 +175,13 @@ function PaymentPrice({ dataKey }) {
 
   return (
     <Chip
+      sx={{
+        color: '#f2f2f3',
+        fontWeight: '700',
+      }}
       label={`$ ${new Intl.NumberFormat('en-US').format(
         paymentSummary[dataKey]
       )}`}
-      color="error"
       variant="filled"
     />
   );

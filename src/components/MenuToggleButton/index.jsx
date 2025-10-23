@@ -1,15 +1,13 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
-
-
+import { IconButton } from '@mui/material';
 
 function MenuToggleButton({ toggleSidebar }) {
   return (
-    <Button
+    <IconButton
       onClick={toggleSidebar(true)}
-      sx={{ display: { md: 'none' } }}>
-      <MenuIcon sx={{ fill: '#141414' }} />
-    </Button>
+      sx={{ display: { md: 'none' }}}>
+      <MenuIcon />
+    </IconButton>
   );
 }
 

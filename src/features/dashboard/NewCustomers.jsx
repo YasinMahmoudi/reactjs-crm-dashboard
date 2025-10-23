@@ -45,7 +45,7 @@ function NewMonthyCustomers() {
   return (
     <PieChartWithCenterLabel
       label={`${clientSummary.new}%`}
-      progressPercentage={4}
+      progressPercentage={clientSummary.new}
     />
   );
 }

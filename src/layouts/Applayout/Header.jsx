@@ -1,19 +1,25 @@
 import Box from '@mui/material/Box';
 
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 
-const StyledHeader = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 2rem;
-  border-bottom: 1px solid #e3e3e3;
+const StyledHeader = styled('aside')(({ theme }) => [
+  {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: '2rem',
+    borderBottom: '1px solid @e3e3e3',
 
-  @media screen and (min-width: 900px) {
-    grid-column: 2 / -1;
-    grid-row: 1 / 2;
-  }
-`;
+    '@media screen and (min-width: 900px)': {
+      gridColumn: '2 / -1',
+      gridRow: '1 / 2',
+    },
+  },
+
+  theme.applyStyles('dark', {
+    borderBottom: '1px solid #363434 !important',
+  }),
+]);
 
 const headerBoxStyle = {
   display: 'flex',

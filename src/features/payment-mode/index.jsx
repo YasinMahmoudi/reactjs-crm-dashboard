@@ -1,16 +1,21 @@
 import { Box } from '@mui/material';
-import PaymentModesTable from './PaymentModeTable';
-import PaymentModeToolbar from './PaymentModeToolbar';
+import SearchField from '../core/SearchField';
+import Toolbar from '../core/Toolbar';
+import PaymentModeTable from './Table';
 
 const tableBoxStyle = { mt: 3 };
 
 export default function PaymentMode() {
   return (
     <>
-      <PaymentModeToolbar />
+      <Toolbar
+        buttonLabel="Add New Payment Mode"
+        to="/payment/mode/create">
+        <SearchField id="paymentModeSearchInput" />
+      </Toolbar>
 
       <Box sx={tableBoxStyle}>
-        <PaymentModesTable />
+        <PaymentModeTable />
       </Box>
     </>
   );

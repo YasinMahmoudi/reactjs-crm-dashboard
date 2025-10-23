@@ -1,13 +1,7 @@
 import { Button, Grid } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router';
 import { useCreateTax } from './useCreateTax';
 import { useUpdateTax } from './useUpdateTax';
-
-TaxCreateForm.propTypes = {
-  children: PropTypes.object,
-  handleSubmit: PropTypes.func,
-};
 
 function TaxCreateForm({ children, handleSubmit }) {
   const [searchParams] = useSearchParams();

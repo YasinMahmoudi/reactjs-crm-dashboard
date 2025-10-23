@@ -1,11 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 
-import PropTypes from 'prop-types';
 
-KeyValueRow.propTypes = {
-  keyName: PropTypes.string,
-  children: PropTypes.object,
-};
+
 
 export default function KeyValueRow({ keyName = 'Key', children = <></> }) {
   return (

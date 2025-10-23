@@ -2,8 +2,6 @@ import Box from '@mui/material/Box';
 
 import styled from 'styled-components';
 
-import PropTypes from 'prop-types';
-
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
@@ -23,10 +21,6 @@ const headerBoxStyle = {
   textAlign: 'center',
   justifyContent: 'space-between',
   width: '100%',
-};
-
-Header.propTypes = {
-  children: PropTypes.object,
 };
 
 export default function Header({ children }) {

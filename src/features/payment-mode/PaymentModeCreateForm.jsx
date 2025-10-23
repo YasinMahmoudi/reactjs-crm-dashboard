@@ -1,13 +1,7 @@
 import { Button, Grid } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router';
 import { useCreatePaymentMode } from './useCreatePaymentMode';
 import { useUpdatePaymentMode } from './useUpdatePaymentMode';
-
-PaymentModeCreateForm.propTypes = {
-  children: PropTypes.object,
-  handleSubmit: PropTypes.func,
-};
 
 function PaymentModeCreateForm({ children, handleSubmit }) {
   const [searchParams] = useSearchParams();

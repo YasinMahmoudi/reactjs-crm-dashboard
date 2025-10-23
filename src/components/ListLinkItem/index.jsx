@@ -1,14 +1,10 @@
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router';
 
 import ListItemButton from '@mui/material/ListItemButton';
-import styled from 'styled-components';
 import { forwardRef } from 'react';
+import styled from 'styled-components';
 
-ListItemLink.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.object,
-};
+
 
 const StyledListItemLink = styled(ListItemButton)`
   &:hover,

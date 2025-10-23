@@ -1,12 +1,8 @@
 import PlusIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import PropTypes from 'prop-types';
 
-InvoiceItemContainer.propTypes = {
-  children: PropTypes.element,
-  onAddItems: PropTypes.func,
-};
+
 
 function InvoiceItemContainer({ onAddItems, children }) {
   function InsertItemHandler() {

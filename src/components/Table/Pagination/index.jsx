@@ -1,14 +1,8 @@
 import TablePagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router';
 import { useTable } from '../TableContext/useTable';
-
-Pagination.propTypes = {
-  data: PropTypes.array,
-  pagination: PropTypes.object,
-};
 
 export default function Pagination() {
   const { pagination, setSelected } = useTable();

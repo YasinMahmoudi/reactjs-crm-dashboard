@@ -1,12 +1,7 @@
 import EditIcon from '@mui/icons-material/EditOutlined';
 import ContextMenu from '../../components/ContextMenu';
 
-import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router';
-
-TaxActions.propTypes = {
-  id: PropTypes.string,
-};
 
 export default function TaxActions({ id }) {
   const navigate = useNavigate();

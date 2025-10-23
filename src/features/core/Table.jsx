@@ -1,24 +1,9 @@
-import PropTypes from 'prop-types';
 import EmptyResource from '../../components/EmptyResource';
 import DataTable from '../../components/Table';
 
 import { useDeleteData } from './useDeleteData';
 import { useDeleteManyData } from './useDeleteManyData';
 import { useGetPaginateData } from './useGetPaginateData';
-
-Table.propTypes = {
-  resourceName: PropTypes.string,
-  children: PropTypes.array,
-  options: PropTypes.shape({
-    dataKey: PropTypes.string,
-    services: PropTypes.shape({
-      getPaginateDataService: PropTypes.func,
-      deleteDataService: PropTypes.func,
-      deleteManyDataService: PropTypes.func,
-    }),
-    invalidateQueryKeys: PropTypes.array,
-  }),
-};
 
 export default function Table({
   resourceName = 'Data Table',
@@ -65,8 +50,7 @@ export default function Table({
         }
         onDeleteMultipleRecords={isDeleteMultiple ? deleteManyData : deleteData}
         title={`${resourceName}s Table`}
-        hasChechBox={hasCheckbox}
-        >
+        hasChechBox={hasCheckbox}>
         {children}
       </DataTable>
     </>

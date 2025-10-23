@@ -1,9 +1,7 @@
-import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
+import TableCell from '@mui/material/TableCell';
 
 import { useTable } from '../TableContext/useTable';
-
-HeadCheckAll.propTypes = {};
 
 function HeadCheckAll() {
   const { selected, setSelected, data, isDeletingMultipleRecords } = useTable();

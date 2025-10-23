@@ -1,14 +1,11 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-ContextMenu.propTypes = {
-  options: PropTypes.array,
-};
+
 
 export default function ContextMenu({ options }) {
   const [anchorEl, setAnchorEl] = useState(null);

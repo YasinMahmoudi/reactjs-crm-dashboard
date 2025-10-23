@@ -1,12 +1,7 @@
 import EditIcon from '@mui/icons-material/EditOutlined';
 import ContextMenu from '../../../components/ContextMenu';
 
-import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';
-
-PaymentModeActions.propTypes = {
-  id: PropTypes.string,
-};
 
 export default function PaymentModeActions({ id }) {
   const navigate = useNavigate();

@@ -1,7 +1,6 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
-import PropTypes from 'prop-types';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -15,9 +14,7 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-FileUpload.propTypes = {
-  onGetFile: PropTypes.func,
-};
+
 
 function FileUpload({ onGetFile }) {
   return (

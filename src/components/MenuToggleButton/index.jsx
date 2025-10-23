@@ -1,10 +1,7 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import  Button  from '@mui/material/Button';
-import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
 
-MenuToggleButton.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired,
-};
+
 
 function MenuToggleButton({ toggleSidebar }) {
   return (

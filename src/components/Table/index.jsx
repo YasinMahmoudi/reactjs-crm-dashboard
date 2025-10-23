@@ -1,27 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import Paper from '@mui/material/Paper';
 import Body from './Body';
 import Row from './Body/Row';
+import DataTable from './DataTable';
 import Head from './Head';
 import { TableContext } from './TableContext';
-import TableLoader from './TableLoader';
-import DataTable from './DataTable';
 import TableDeleteConfirm from './TableDeleteConfirm';
+import TableLoader from './TableLoader';
 
-Table.propTypes = {
-  children: PropTypes.array,
-  data: PropTypes.array,
-  pagination: PropTypes.object,
-  hasPagination: PropTypes.bool,
-  hasToolbar: PropTypes.bool,
-  title: PropTypes.string,
-  state: PropTypes.bool,
-  isDeletingMultipleRecords: PropTypes.bool,
-  onDeleteMultipleRecords: PropTypes.func,
-  hasChechBox:PropTypes.bool
-};
+
 
 export default function Table({
   children,

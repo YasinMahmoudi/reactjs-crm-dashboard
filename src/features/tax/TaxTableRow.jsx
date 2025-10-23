@@ -1,12 +1,7 @@
+import { Switch } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
-import PropTypes from 'prop-types';
 import DataTable from '../../components/Table';
 import TaxActions from './TaxActions';
-import { Switch } from '@mui/material';
-
-TaxTableRow.propTypes = {
-  row: PropTypes.object,
-};
 
 export default function TaxTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;

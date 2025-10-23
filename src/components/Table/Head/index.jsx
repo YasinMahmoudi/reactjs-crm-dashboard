@@ -1,14 +1,9 @@
-import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
-import PropTypes from 'prop-types';
+import { useTable } from '../TableContext/useTable';
 import HeadCell from './HeadCell';
 import HeadCheckAll from './HeadCheckAll';
-import { useTable } from '../TableContext/useTable';
-
-Head.propTypes = {
-  headCells: PropTypes.array,
-};
 
 export default function Head({ headCells }) {
   const { hasChechBox } = useTable();

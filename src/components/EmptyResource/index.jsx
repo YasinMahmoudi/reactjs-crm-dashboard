@@ -1,11 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import PropTypes from 'prop-types';
 
-EmptyResource.propTypes = {
-  resourceName: PropTypes.string,
-};
 
 function EmptyResource({ resourceName = 'resource' }) {
   const modifiedResourceName = resourceName.toLocaleLowerCase();

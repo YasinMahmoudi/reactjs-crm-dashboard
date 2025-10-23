@@ -1,17 +1,13 @@
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
-import PropTypes from 'prop-types';
 import React from 'react';
 import { LIMIT_ITEMS } from '../../../services/customers/customer';
 import { getComparator } from '../../../utils/getComparator';
 import Overlay from '../../Overlay';
 import { useTable } from '../TableContext/useTable';
 
-Body.propTypes = {
-  render: PropTypes.func,
-};
 
 export default function Body({ render }) {
   const {

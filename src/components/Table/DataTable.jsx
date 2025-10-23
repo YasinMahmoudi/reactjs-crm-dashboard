@@ -1,15 +1,9 @@
-import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
+import TableContainer from '@mui/material/TableContainer';
 
-import PropTypes from 'prop-types';
-import Toolbar from './Toolbar';
 import Pagination from './Pagination';
+import Toolbar from './Toolbar';
 
-DataTable.propTypes = {
-  children: PropTypes.array,
-  pagination: PropTypes.object,
-  hasToolbar: PropTypes.bool,
-};
 
 function DataTable({ hasToolbar = true, pagination, children }) {
   return (

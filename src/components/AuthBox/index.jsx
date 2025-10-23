@@ -1,12 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import PropTypes from 'prop-types';
 
-AuthBox.propTypes = {
-  children: PropTypes.object,
-  title: PropTypes.string,
-};
 
 const style = {
   width: ' min(90% , 30rem)',

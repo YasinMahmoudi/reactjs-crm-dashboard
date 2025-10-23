@@ -1,16 +1,13 @@
-import TableContainer from '@mui/material/TableContainer';
-import TableBody from '@mui/material/TableBody';
 import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
 
-import PropTypes from 'prop-types';
 import SkeletonType from './SkeletonType';
 import PaginationSkeleton from './SkeletonType/PaginationSkeleton';
 import RowSkeleton from './SkeletonType/RowSkeleton';
 import Toolbar from './Toolbar';
 
-TableLoader.propTypes = {
-  hasToolbar: PropTypes.bool,
-};
+
 
 function TableLoader({ hasToolbar = true }) {
   return (

@@ -5,19 +5,9 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 import { useController } from 'react-hook-form';
 
-DropDown.propTypes = {
-  label: PropTypes.string,
-  id: PropTypes.string,
-  control: PropTypes.object,
-  items: PropTypes.array,
-  onChange:PropTypes.func,
-  fields: PropTypes.shape({
-    name: PropTypes.string,
-  }),
-};
+
 
 export default function DropDown({
   label = 'Dropdown label ',

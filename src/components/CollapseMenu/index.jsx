@@ -1,9 +1,8 @@
 import IconButton from '@mui/material/IconButton';
 import PortalMenu from '@mui/material/Menu';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItemMui from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 
-import PropTypes from 'prop-types';
 import { createContext, useContext, useState } from 'react';
 
 const menuStyle = {
@@ -28,23 +27,6 @@ const menuStyle = {
     transform: 'translateY(-50%) rotate(45deg)',
     zIndex: 0,
   },
-};
-
-CollapseMenu.propTypes = {
-  children: PropTypes.object,
-};
-
-Button.propTypes = {
-  children: PropTypes.object,
-};
-
-Menu.propTypes = {
-  children: PropTypes.object,
-};
-
-MenuItem.propTypes = {
-  children: PropTypes.object,
-  onClick: PropTypes.func,
 };
 
 const CollapseMenuContext = createContext();

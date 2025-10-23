@@ -1,17 +1,12 @@
+import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
-import CreditCardOutlined from '@mui/icons-material/CreditCardOutlined';
+import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ContextMenu from '../../../components/ContextMenu';
 
-import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';
 import { DOWNLOAD_BASE_URL } from '../../../utils/constants';
-
-InvoiceActions.propTypes = {
-  id: PropTypes.string,
-};
 
 export default function InvoiceActions({ id }) {
   const navigate = useNavigate();

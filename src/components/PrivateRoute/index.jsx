@@ -1,11 +1,8 @@
 import { useEffect, useTransition } from 'react';
 import { useNavigate } from 'react-router';
-import PropTypes from 'prop-types';
 import { useVerifyUser } from '../../features/auth/useVerifyUser';
 
-PrivateRoute.propTypes = {
-  children: PropTypes.object,
-};
+
 
 export default function PrivateRoute({ children }) {
   const navigate = useNavigate();

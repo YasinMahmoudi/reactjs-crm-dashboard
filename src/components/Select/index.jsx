@@ -1,14 +1,9 @@
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
-import PropTypes from 'prop-types';
 import { useController } from 'react-hook-form';
 import { countries } from '../../data/countries';
 
-Select.propTypes = {
-  isEditing: PropTypes.bool,
-  renderOption: PropTypes.func,
-  control: PropTypes.object,
-};
+
 
 function Select({ isEditing, renderOption, control, ...fields }) {
   const {

@@ -1,19 +1,16 @@
-import { Paper, Typography } from '@mui/material';
-import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
-import PropTypes from 'prop-types';
+import {
+  Paper,
+  styled,
+  TableCell,
+  tableCellClasses,
+  TableRow,
+  Typography,
+} from '@mui/material';
+import { Suspense } from 'react';
 import SimpleTable from '../../components/SimpleTable';
+import RecentInvoicesSkeleton from '../../components/Skeletons/dashboard/RecentInvoicesSkeleton';
 import InvoiceActions from '../invoices/Table/actions';
 import { useRecentInvoices } from './useRecentInvoices';
-import { Suspense } from 'react';
-import RecentInvoicesSkeleton from '../../components/Skeletons/dashboard/RecentInvoicesSkeleton';
-
-InvoiceRecentTable.propTypes = {
-  invoices: PropTypes.array,
-};
-
-InvoiceRecentRow.propTypes = {
-  invoice: PropTypes.object,
-};
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

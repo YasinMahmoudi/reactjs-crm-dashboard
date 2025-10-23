@@ -5,13 +5,8 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import PropTypes from 'prop-types';
 
-LinearProgressWithLabel.propTypes = {
-  value: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
 
-};
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,

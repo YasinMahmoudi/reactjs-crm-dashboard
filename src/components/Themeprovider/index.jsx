@@ -1,11 +1,6 @@
+import '@fontsource/roboto';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import PropTypes from 'prop-types';
-import '@fontsource/roboto';
-
-AppThemeProvider.propTypes = {
-  children: PropTypes.object,
-};
 
 const theme = createTheme({
   typography: {

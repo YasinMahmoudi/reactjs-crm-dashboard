@@ -1,16 +1,11 @@
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
-import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
+import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import ContextMenu from '../../../components/ContextMenu';
 
-import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';
 import { DOWNLOAD_BASE_URL } from '../../../utils/constants';
-
-PaymentActions.propTypes = {
-  id: PropTypes.string,
-};
 
 export default function PaymentActions({ id }) {
   const navigate = useNavigate();

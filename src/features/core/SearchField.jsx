@@ -1,7 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
-import PropTypes from 'prop-types';
 
 export default function SearchField({ id }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +14,7 @@ export default function SearchField({ id }) {
 
     if (searchParams.has('query') && e.target.value.length === 0) {
       searchParams.delete('query');
-      searchParams.delete('page')
+      searchParams.delete('page');
       setSearchParams(searchParams);
 
       return;
@@ -45,7 +44,3 @@ export default function SearchField({ id }) {
     />
   );
 }
-
-SearchField.propTypes = {
-  id: PropTypes.string,
-};

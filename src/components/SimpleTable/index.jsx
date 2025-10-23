@@ -10,7 +10,6 @@ import {
   TableRow,
 } from '@mui/material';
 
-import PropTypes from 'prop-types';
 import { createContext } from 'react';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -62,16 +61,3 @@ function Body({ render, items }) {
 SimpleTable.Head = Head;
 SimpleTable.Body = Body;
 
-Head.propTypes = {
-  heads: PropTypes.array,
-};
-
-SimpleTable.propTypes = {
-  items: PropTypes.array,
-  children: PropTypes.array,
-};
-
-Body.propTypes = {
-  render: PropTypes.func,
-  items: PropTypes.array,
-};

@@ -1,7 +1,7 @@
 import DeleteConfirmModal from '../DeleteConfimModal';
 import { useTable } from './TableContext/useTable';
 
-TableDeleteConfirm.propTypes = {};
+
 
 export default function TableDeleteConfirm() {
   const {

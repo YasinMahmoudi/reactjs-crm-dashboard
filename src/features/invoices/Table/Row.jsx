@@ -1,16 +1,10 @@
 import TableCell from '@mui/material/TableCell';
-import DataTable from '../../../components/Table';
-import PropTypes from 'prop-types';
-import InvoiceActions from './actions';
 import dayjs from 'dayjs';
-
-InvoiceTableRow.propTypes = {
-  row: PropTypes.object,
-};
+import DataTable from '../../../components/Table';
+import InvoiceActions from './actions';
 
 export default function InvoiceTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;
-
 
   return (
     <DataTable.Row

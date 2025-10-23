@@ -1,11 +1,6 @@
 import TableCell from '@mui/material/TableCell';
 import DataTable from '../../../components/Table';
-import PropTypes from 'prop-types';
 import CustomerActions from './actions';
-
-CustomerTableRow.propTypes = {
-  row: PropTypes.object,
-};
 
 export default function CustomerTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;

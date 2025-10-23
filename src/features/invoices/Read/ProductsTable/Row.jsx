@@ -1,9 +1,4 @@
 import { styled, TableCell, tableCellClasses, TableRow } from '@mui/material';
-import PropTypes from 'prop-types';
-
-InvoiceReadProductRow.propTypes = {
-  product: PropTypes.object,
-};
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

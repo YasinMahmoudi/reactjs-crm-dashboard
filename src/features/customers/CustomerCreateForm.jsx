@@ -96,7 +96,6 @@ function CustomerCreateForm() {
                 control={control}
                 defaultValue={customer?.country}
                 renderOption={(props, option) => {
-                  // eslint-disable-next-line react/prop-types
                   const { key, ...optionProps } = props;
 
                   return (

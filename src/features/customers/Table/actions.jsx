@@ -2,12 +2,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/EditOutlined';
 import ContextMenu from '../../../components/ContextMenu';
 
-import PropTypes from 'prop-types';
 import { useNavigate, useSearchParams } from 'react-router';
-
-CustomerActions.propTypes = {
-  id: PropTypes.string,
-};
 
 export default function CustomerActions({ id }) {
   const navigate = useNavigate();

@@ -1,14 +1,11 @@
-import TableSortLabel from '@mui/material/TableSortLabel';
-import TableCell from '@mui/material/TableCell';
 import Box from '@mui/material/Box';
+import TableCell from '@mui/material/TableCell';
+import TableSortLabel from '@mui/material/TableSortLabel';
 
-import PropTypes from 'prop-types';
 import { visuallyHidden } from '@mui/utils';
 import { useTable } from '../TableContext/useTable';
 
-HeadCell.propTypes = {
-  headCell: PropTypes.object,
-};
+
 
 export default function HeadCell({ headCell }) {
   const { order, setOrder, orderBy, setOrderBy, isDeletingMultipleRecords } =

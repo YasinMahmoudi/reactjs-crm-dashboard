@@ -1,22 +1,11 @@
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import PropTypes from 'prop-types';
 import { useController } from 'react-hook-form';
 
-EnhancedDatePicker.propTypes = {
-  label: PropTypes.string,
-  view: PropTypes.string,
-  views: PropTypes.array,
-  openTo: PropTypes.string,
-  control: PropTypes.object,
-  defaultValue:PropTypes.string,
-  fields: PropTypes.shape({
-    name: PropTypes.string,
-  }),
-};
+
 
 export default function EnhancedDatePicker({
   label = 'Your label ...',

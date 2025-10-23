@@ -1,14 +1,10 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router';
 import { useSearchCustomers } from '../../features/customers/useSearchCustomers';
 import { useIsEditing } from '../../hooks/useIsEditing';
-import { useSearchParams } from 'react-router';
 
-SearchableClients.propTypes = {
-  field: PropTypes.object,
-  defaultValue: PropTypes.string,
-};
+
 
 export default function SearchableClients({ field, defaultValue }) {
   const { searchCustomers = [], isSearchingCustomers } = useSearchCustomers({

@@ -1,15 +1,14 @@
 import { useState } from 'react';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import CloseRounded from '@mui/icons-material/CloseRounded';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
 
 import { useBack } from '../../hooks/useBack';
 
-import PropTypes from 'prop-types';
-import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
 
 const style = {
   position: 'absolute',
@@ -23,11 +22,7 @@ const style = {
   borderRadius: 2,
 };
 
-EnhancedModal.propTypes = {
-  children: PropTypes.object,
-  title: PropTypes.string,
-  isOpen: PropTypes.bool,
-};
+
 
 export default function EnhancedModal({ children, title = '', isOpen = true }) {
   const moveBack = useBack();

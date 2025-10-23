@@ -1,18 +1,10 @@
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { Controller, useController } from 'react-hook-form';
 import FormInput from '../FormInput';
 
-InvoiceItem.propTypes = {
-  control: PropTypes.object,
-  initial: PropTypes.bool,
-  position: PropTypes.string,
-  item: PropTypes.object,
-  onSetItems: PropTypes.func,
-};
 
 export default function InvoiceItem({
   control,

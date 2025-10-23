@@ -1,12 +1,7 @@
+import { Switch } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import DataTable from '../../../components/Table';
-import PropTypes from 'prop-types';
 import PaymentModeActions from './Actions';
-import { Switch } from '@mui/material';
-
-PaymentModeTableRow.propTypes = {
-  row: PropTypes.object,
-};
 
 export default function PaymentModeTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;

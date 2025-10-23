@@ -2,12 +2,6 @@ import Paper from '@mui/material/Paper';
 
 import styled from 'styled-components';
 
-import PropTypes from 'prop-types';
-
-Sidebar.propTypes = {
-  children: PropTypes.object,
-};
-
 const StyledSidebar = styled.aside`
   grid-column: 1 / 2;
   grid-row: 1/ -1;
@@ -24,7 +18,7 @@ const StyledPaper = styled(Paper)`
   background-color: transparent !important;
 `;
 
-export default function Sidebar({ children,  }) {
+export default function Sidebar({ children }) {
   return (
     <StyledSidebar>
       <StyledPaper elevation={0}>{children}</StyledPaper>

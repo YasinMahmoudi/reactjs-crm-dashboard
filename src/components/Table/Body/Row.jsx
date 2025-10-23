@@ -1,16 +1,10 @@
-import PropTypes from 'prop-types';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
 import Checkbox from '@mui/material/Checkbox';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 
 import { useTable } from '../TableContext/useTable';
 
-Row.propTypes = {
-  rowId: PropTypes.string,
-  ActionsComponent: PropTypes.object,
-  hasChechBox: PropTypes.bool,
-  children: PropTypes.object,
-};
+
 function Row({ rowId, ActionsComponent = <></>, children }) {
   const { selected, setSelected, isDeletingMultipleRecords, hasChechBox } =
     useTable();

@@ -1,4 +1,4 @@
-import PaymentReadFeature from '../../features/payments/PaymentRead';
+import PaymentReadFeature from '../../features/payments/Read';
 
 export default function PaymentRead() {
   return <PaymentReadFeature />;

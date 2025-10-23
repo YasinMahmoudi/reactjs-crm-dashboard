@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' } };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
 
-export default function Toolbar({ buttonLabel,to, children }) {
+export default function Toolbar({ buttonLabel = '', to, children }) {
   return (
     <Row sx={mainRowStyle}>
       <MoveBackButton />
@@ -18,9 +18,11 @@ export default function Toolbar({ buttonLabel,to, children }) {
 
         <RefreshButton />
 
-        <MainButton to={to}>
-          <Typography>{buttonLabel}</Typography>
-        </MainButton>
+        {buttonLabel && (
+          <MainButton to={to}>
+            <Typography>{buttonLabel}</Typography>
+          </MainButton>
+        )}
       </Row>
     </Row>
   );
@@ -29,5 +31,5 @@ export default function Toolbar({ buttonLabel,to, children }) {
 Toolbar.propTypes = {
   buttonLabel: PropTypes.string,
   children: PropTypes.object,
-  to:PropTypes.string
+  to: PropTypes.string,
 };

@@ -33,8 +33,8 @@ export default function Summary() {
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
+        columns={{ xs: 4, sm: 8, lg: 12 }}>
+        <Grid size={{ xs: 4, sm: 4, lg: 4 }}>
           <Item>
             <Typography
               variant="h6"
@@ -73,7 +73,7 @@ export default function Summary() {
           </Item>
         </Grid>
 
-        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
+        <Grid size={{ xs: 4, sm: 4, lg: 4 }}>
           <Item>
             <Typography
               variant="h6"
@@ -112,7 +112,7 @@ export default function Summary() {
           </Item>{' '}
         </Grid>
 
-        <Grid size={{ xs: 4, sm: 2, md: 4 }}>
+        <Grid size={{ xs: 4, sm: 8, lg: 4 }}>
           <Item>
             <Typography
               variant="h6"

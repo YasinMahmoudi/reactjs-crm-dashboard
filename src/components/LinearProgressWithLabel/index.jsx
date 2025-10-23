@@ -6,22 +6,23 @@ import {
   Typography,
 } from '@mui/material';
 
-
-
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
   borderRadius: 5,
   [`&.${linearProgressClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.grey[100],
     ...theme.applyStyles('dark', {
-      backgroundColor: theme.palette.grey[800],
+      backgroundColor: theme.palette.grey[900],
     }),
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 5,
-    backgroundColor: '#1f252a',
+    backgroundColor: theme.palette.primary.light,
+    backgroundImage: `linear-gradient(135deg , ${theme.palette.primary.main}, ${theme.palette.info.light})`,
+
     ...theme.applyStyles('dark', {
-      backgroundColor: '#2b3136',
+      backgroundColor: theme.palette.primary.light,
+      backgroundImage: `linear-gradient(135deg , ${theme.palette.primary.main}, ${theme.palette.info.light})`,
     }),
   },
 }));
@@ -33,7 +34,7 @@ export default function LinearProgressWithLabel(props) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: .5,
+        gap: 0.5,
       }}>
       <Box
         sx={{

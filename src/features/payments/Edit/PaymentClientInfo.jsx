@@ -2,8 +2,8 @@ import { Grid } from '@mui/material';
 import { Suspense } from 'react';
 import { BoxItem } from '../../../components/BoxItem';
 import KeyValueRow from '../../../components/KeyValueRow';
+import { PaymentInfoValue } from '../../../components/PaymentInfoValue';
 import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
-import { PaymentInfoValue } from '../Read';
 
 export default function PaymentClientInfo() {
   return (

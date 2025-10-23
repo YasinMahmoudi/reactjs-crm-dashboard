@@ -1,10 +1,10 @@
 import { Chip, Divider, Grid, Stack } from '@mui/material';
+import { Suspense } from 'react';
 import { BoxItem } from '../../../components/BoxItem';
 import KeyValueRow from '../../../components/KeyValueRow';
-import PaymentReadToolbar from './Toolbar';
-import { useGetPayment } from '../useGetPayment';
-import { Suspense } from 'react';
+import { PaymentInfoValue } from '../../../components/PaymentInfoValue';
 import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
+import PaymentReadToolbar from './Toolbar';
 
 export default function PaymentRead() {
   return (
@@ -171,29 +171,3 @@ export default function PaymentRead() {
   );
 }
 
-export function PaymentInfoValue({ keyValue, formater }) {
-  const { payment } = useGetPayment();
-
-  let modifiedKey, value;
-
-  if (keyValue.includes('-')) {
-    modifiedKey = keyValue.split('-').map((val) => val.trim());
-
-    const [firstValue, secondValue] = modifiedKey;
-
-    const first = firstValue.split('.').map((val) => val);
-    const second = secondValue.split('.').map((val) => val);
-
-    value =
-      first.reduce((acc, key) => acc[key], payment) -
-      second.reduce((acc, key) => acc[key], payment);
-  } else {
-    modifiedKey = keyValue.split('.').map((val) => val);
-
-    value = modifiedKey.reduce((acc, key) => acc[key], payment);
-  }
-
-  if (formater) return formater(value);
-
-  return value;
-}

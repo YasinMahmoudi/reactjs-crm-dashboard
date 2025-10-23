@@ -1,8 +1,8 @@
 import EditIcon from '@mui/icons-material/EditOutlined';
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 
 PaymentModeActions.propTypes = {
   id: PropTypes.string,
@@ -11,8 +11,18 @@ PaymentModeActions.propTypes = {
 export default function PaymentModeActions({ id }) {
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+
   function handleEdit() {
-    navigate(`/payment/mode/create?edit=true&id=${id}`);
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    newSearchParams.set('edit', true);
+    newSearchParams.set('id', id);
+
+    navigate({
+      pathname: '/payment/mode/create',
+      search: newSearchParams.toString(),
+    });
   }
 
   return (

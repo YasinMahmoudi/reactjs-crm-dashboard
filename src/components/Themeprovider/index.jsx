@@ -7,6 +7,11 @@ const theme = createTheme({
     fontFamily: ['Roboto', 'sans-serif'].join(','),
   },
 
+  colorSchemes: {
+    light: true,
+    dark: {},
+  },
+
   components: {
     MuiCssBaseline: {
       styleOverrides: `

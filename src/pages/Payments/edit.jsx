@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
-import PaymentUpdateForm from '../../features/payments/PaymentUpdateForm';
-import PaymentClientInfo from '../../features/payments/PaymentClientInfo';
-import PaymentEditToolbar from '../../features/payments/PaymentEditToolbar';
+import PaymentUpdateForm from '../../features/payments/Edit/PaymentUpdateForm';
+import PaymentClientInfo from '../../features/payments/Edit/PaymentClientInfo';
+import PaymentEditToolbar from '../../features/payments/Edit/PaymentEditToolbar';
 import { Suspense } from 'react';
 import PaymentUpdateFormSkeleton from '../../components/Skeletons/payments/PaymentUpdateFormSkeleton';
 

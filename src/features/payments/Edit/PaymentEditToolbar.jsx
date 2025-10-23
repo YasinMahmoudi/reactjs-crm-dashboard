@@ -1,16 +1,16 @@
 import Typography from '@mui/material/Typography';
-import MoveBackButton from '../../components/MoveBackButton';
-import { Row } from '../../components/Row';
+import MoveBackButton from '../../../components/MoveBackButton';
+import { Row } from '../../../components/Row';
 
 import { useNavigate } from 'react-router';
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined';
 
-import { useGetPayment } from './useGetPayment';
+import { useGetPayment } from '../useGetPayment';
 
-import TextSkeleton from '../../components/Skeletons/TextSkeleton';
+import TextSkeleton from '../../../components/Skeletons/TextSkeleton';
 import { Suspense } from 'react';
 import { IconButton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';

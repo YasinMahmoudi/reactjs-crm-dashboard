@@ -51,7 +51,7 @@ export default function AppLayout() {
         <MobileSidebar
           toggleSidebar={toggleSidebar}
           open={open}>
-          <MainNav />
+          <MainNav sx={{ width: 300, padding: '10px' }} />
         </MobileSidebar>
       </Sidebar>
 

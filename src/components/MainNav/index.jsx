@@ -12,9 +12,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemLink from '../ListLinkItem';
 
-export default function MainNav() {
+
+export default function MainNav({sx}) {
   return (
-    <List aria-label="main folders">
+    <List
+      aria-label="main folders"
+      sx={sx}>
       <ListItem disablePadding>
         <ListItemLink to="/dashboard">
           <ListItemIcon>

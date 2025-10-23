@@ -4,9 +4,7 @@ import { useSearchParams } from 'react-router';
 import { useSearchCustomers } from '../../features/customers/useSearchCustomers';
 import { useIsEditing } from '../../hooks/useIsEditing';
 
-
-
-export default function SearchableClients({ field, defaultValue }) {
+export default function SearchableClients({ field, defaultValue , style={} }) {
   const { searchCustomers = [], isSearchingCustomers } = useSearchCustomers({
     searchQuery: field.field.value,
   });
@@ -32,6 +30,7 @@ export default function SearchableClients({ field, defaultValue }) {
   return (
     <Autocomplete
       sx={{ width: { xs: '100%', sm: 235 } }}
+      style={style}
       loading={isSearchingCustomers}
       id="client"
       disablePortal

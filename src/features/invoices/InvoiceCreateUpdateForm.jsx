@@ -135,6 +135,7 @@ export default function InvoiceCreateUpdateForm() {
             }}
             render={(field) => (
               <SearchableSelect
+                style={{ width: '100%' }}
                 field={field}
                 defaultValue={invoice?.client?.name || null}
               />

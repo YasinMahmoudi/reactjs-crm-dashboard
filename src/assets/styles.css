@@ -1,0 +1,14 @@
+html {
+  font-size: 80%;
+}
+
+body {
+  max-width: 180rem;
+  margin-inline: auto !important;
+}
+
+@media screen and (max-width: 900px) {
+  html {
+    font-size: 62.5%;
+  }
+}

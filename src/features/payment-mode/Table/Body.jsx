@@ -1,7 +1,7 @@
-import DataTable from '../../components/Table';
-import PaymentModeTableRow from './PaymentModeTableRow';
+import DataTable from '../../../components/Table';
+import PaymentModeTableRow from './Row';
 
-export default function TaxTableBody() {
+export default function PaymentModeTableBody() {
   return (
     <DataTable.Body
       render={(row) => (

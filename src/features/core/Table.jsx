@@ -24,6 +24,7 @@ export default function Table({
   resourceName = 'Data Table',
   children,
   options = {},
+  hasCheckbox = true,
 }) {
   const { dataKey, services, invalidateQueryKeys } = options;
 
@@ -63,7 +64,9 @@ export default function Table({
           isDeleteMultiple ? isDeletingManyData : isDeletingData
         }
         onDeleteMultipleRecords={isDeleteMultiple ? deleteManyData : deleteData}
-        title={`${resourceName}s Table`}>
+        title={`${resourceName}s Table`}
+        hasChechBox={hasCheckbox}
+        >
         {children}
       </DataTable>
     </>

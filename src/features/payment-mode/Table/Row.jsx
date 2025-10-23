@@ -1,7 +1,7 @@
 import TableCell from '@mui/material/TableCell';
+import DataTable from '../../../components/Table';
 import PropTypes from 'prop-types';
-import DataTable from '../../components/Table';
-import PaymentModeActions from './PaymentModeActions';
+import PaymentModeActions from './Actions';
 import { Switch } from '@mui/material';
 
 PaymentModeTableRow.propTypes = {

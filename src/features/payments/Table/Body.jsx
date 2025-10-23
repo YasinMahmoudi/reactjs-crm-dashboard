@@ -1,4 +1,4 @@
-import DataTable from '../../components/Table';
+import DataTable from '../../../components/Table';
 import PaymentTableRow from './Row';
 
 export default function InvoiceTableBody() {

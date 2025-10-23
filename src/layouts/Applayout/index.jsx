@@ -1,13 +1,15 @@
-import styled from 'styled-components';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import { Outlet } from 'react-router';
-import Main from './Main';
 import { useState } from 'react';
-import MobileSidebar from '../../components/MobileSidebar';
+import { Outlet } from 'react-router';
+import styled from 'styled-components';
+import HeaderMenu from '../../components/HeaderMenu';
 import MainNav from '../../components/MainNav';
 import MenuToggleButton from '../../components/MenuToggleButton';
-import HeaderMenu from '../../components/HeaderMenu';
+import MobileSidebar from '../../components/MobileSidebar';
+import ModeToggle from '../../components/ModeToggle';
+import Header from './Header';
+import Main from './Main';
+import Sidebar from './Sidebar';
+import { Row } from '../../components/Row';
 
 const StyledAppLayout = styled.div`
   --sidebar-width: 300px;
@@ -36,7 +38,11 @@ export default function AppLayout() {
     <StyledAppLayout>
       <Header>
         <MenuToggleButton toggleSidebar={toggleSidebar} />
-        <HeaderMenu />
+
+        <Row ml={'auto'}>
+          <ModeToggle />
+          <HeaderMenu />
+        </Row>
       </Header>
 
       <Sidebar>

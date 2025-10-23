@@ -8,8 +8,38 @@ const theme = createTheme({
   },
 
   colorSchemes: {
-    light: true,
-    dark: {},
+    light: {
+      palette: {
+        primary: {
+          light: '#757ce8',
+          main: '#3f50b5',
+          dark: '#002884',
+          contrastText: '#fff',
+        },
+
+        info: {
+          light: '#7357b9',
+          main: '#512da8',
+          dark: '#381f75',
+        },
+      },
+    },
+    dark: {
+      palette: {
+        primary: {
+          light: '#757ce8',
+          main: '#3f50b5',
+          dark: '#002884',
+          contrastText: '#fff',
+        },
+
+        info: {
+          light: '#7357b9',
+          main: '#512da8',
+          dark: '#381f75',
+        },
+      },
+    },
   },
 
   components: {

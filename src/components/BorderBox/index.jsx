@@ -1,14 +1,17 @@
 import Box from '@mui/material/Box';
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 
-const BorderBox = styled(Box)`
-  --box-padding: max(1rem, 2vw);
-  --border-radius: 10px;
+const BorderBox = styled(Box)(({ theme }) => [
+  {
+    border: '1px solid #e3e3e3',
+    padding: 'max(1rem , 2vw)',
+    borderRadius: '10px',
+    minHeight: '600px',
+  },
 
-  border: 1px solid #e3e3e3;
-  padding: var(--box-padding);
-  border-radius: var(--border-radius);
-  min-height: 600px;
-`;
+  theme.applyStyles('dark', {
+    borderColor: '#373636',
+  }),
+]);
 
 export default BorderBox;

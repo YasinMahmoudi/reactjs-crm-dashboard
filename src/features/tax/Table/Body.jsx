@@ -1,5 +1,5 @@
 import DataTable from '../../components/Table';
-import TaxTableRow from './TaxTableRow';
+import TaxTableRow from './Row';
 
 export default function TaxTableBody() {
   return (

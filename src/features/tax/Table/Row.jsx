@@ -1,7 +1,7 @@
 import { Switch } from '@mui/material';
 import TableCell from '@mui/material/TableCell';
 import DataTable from '../../components/Table';
-import TaxActions from './TaxActions';
+import TaxActions from './Actions';
 
 export default function TaxTableRow({ row }) {
   const labelId = `enhanced-table-checkbox-${row._id}`;

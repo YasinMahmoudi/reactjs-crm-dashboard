@@ -12,7 +12,7 @@ function EmptyResource({ resourceName = 'resource' }) {
       mb={10}
       textAlign={'center'}>
       <Typography variant="h6">
-        No {modifiedResourceName} found with! 😓
+        No {modifiedResourceName} found ! 😓
       </Typography>
     </Box>
   );

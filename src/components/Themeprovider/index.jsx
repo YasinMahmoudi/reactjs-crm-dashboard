@@ -59,7 +59,7 @@ export default function AppThemeProvider({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         {children}
       </>
     </ThemeProvider>

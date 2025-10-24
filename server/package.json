@@ -6,7 +6,7 @@
     "node": "22.11.0"
   },
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js --ignore public/",
     "production": "NODE_ENV=production",
     "setup": "node src/setup/setup.js",

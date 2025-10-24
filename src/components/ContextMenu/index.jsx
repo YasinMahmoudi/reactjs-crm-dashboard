@@ -5,8 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { useState } from 'react';
 
-
-
 export default function ContextMenu({ options }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -55,7 +53,7 @@ export default function ContextMenu({ options }) {
               option.onClick?.();
               handleCloseDots();
             }}
-            sx={option.icon ? { gap: '5px' } : {}}>
+            sx={option.icon ? { gap: '5px', minHeight: { xs: 20 } } : {}}>
             {option.icon}
             {option.name}
           </MenuItem>

@@ -7,7 +7,7 @@ const AppLayout = lazy(() => import('./layouts/Applayout'));
 
 const Login = lazy(() => import('./pages/Auth'));
 const ForgetPassword = lazy(() => import('./features/auth/ForgetPassword'));
-const Dashboard = lazy(() => import('./pages/dashboard'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
 const CustomerCreateModal = lazy(() =>
   import('./features/customers/CustomerCreateModal')
 );

@@ -8,7 +8,16 @@ import CustomersPieChartSkeleton from '../../components/Skeletons/dashboard/Cust
 
 export default function NewCustomers() {
   return (
-    <Paper sx={{ p: 5, height: '100%' }}>
+    <Paper
+      sx={{
+        p: 5,
+        height: '100%',
+        background: (theme) =>
+          theme.applyStyles(
+            'dark',
+            `linear-gradient(135deg , #141414, #1e1e1e)`
+          ),
+      }}>
       <Typography
         variant="h5"
         mb={4}

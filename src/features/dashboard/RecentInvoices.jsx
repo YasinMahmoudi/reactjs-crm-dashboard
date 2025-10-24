@@ -52,7 +52,15 @@ const heads = [
 
 export default function RecentInvoices() {
   return (
-    <Paper sx={{ p: 5 }}>
+    <Paper
+      sx={{
+        p: 5,
+        background: (theme) =>
+          theme.applyStyles(
+            'dark',
+            `linear-gradient(135deg , #141414, #1e1e1e)`
+          ),
+      }}>
       <Typography
         variant="h5"
         mb={4}>

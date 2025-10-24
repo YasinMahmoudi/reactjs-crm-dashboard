@@ -12,15 +12,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemLink from '../ListLinkItem';
 
-
-export default function MainNav({sx}) {
+export default function MainNav({ sx }) {
   return (
     <List
       aria-label="main folders"
       sx={sx}>
       <ListItem disablePadding>
         <ListItemLink to="/dashboard">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <DashboardOutlined />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
@@ -29,7 +28,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/customers">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <HeadphonesOutlined />
           </ListItemIcon>
           <ListItemText primary="Customers" />
@@ -38,7 +37,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/invoices">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <DescriptionOutlined />
           </ListItemIcon>
           <ListItemText primary="invoices" />
@@ -47,7 +46,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/payment">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <CreditCardOutlined />
           </ListItemIcon>
           <ListItemText primary="Payment" />
@@ -56,7 +55,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/payment/mode">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <WalletOutlined />
           </ListItemIcon>
           <ListItemText primary="Payments Mode" />
@@ -65,7 +64,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/taxes">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <StoreOutlined />
           </ListItemIcon>
           <ListItemText primary="Taxes" />
@@ -74,7 +73,7 @@ export default function MainNav({sx}) {
 
       <ListItem disablePadding>
         <ListItemLink to="/about">
-          <ListItemIcon>
+          <ListItemIcon sx={{ minWidth: '26px' }}>
             <ListAltOutlined />
           </ListItemIcon>
           <ListItemText primary="About" />

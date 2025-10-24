@@ -4,7 +4,6 @@ import TableRow from '@mui/material/TableRow';
 
 import { useTable } from '../TableContext/useTable';
 
-
 function Row({ rowId, ActionsComponent = <></>, children }) {
   const { selected, setSelected, isDeletingMultipleRecords, hasChechBox } =
     useTable();
@@ -38,7 +37,11 @@ function Row({ rowId, ActionsComponent = <></>, children }) {
         role="checkbox"
         tabIndex={-1}
         key={rowId}
-        sx={{ cursor: 'pointer' }}>
+        sx={{
+          cursor: 'pointer',
+          '& > *': { fontSize: '1rem' },
+          '&:last-child td, &:last-child th': { border: 0 },
+        }}>
         {hasChechBox && (
           <TableCell padding="checkbox">
             <Checkbox

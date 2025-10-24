@@ -5,9 +5,9 @@ import FormInput from '../../components/FormInput';
 
 import dayjs from 'dayjs';
 import { useIsEditing } from '../../hooks/useIsEditing';
-import { PaymentModesDropDown } from '../payments/PaymentUpdateForm';
 import { useCreateInvoicepayment } from './useCreateInvoicePayment';
 import { useGetInvoice } from './useGetInvoice';
+import { PaymentModesDropDown } from '../payments/Edit/PaymentUpdateForm';
 
 export default function InvoicePaymentUpdateForm() {
   const { control, handleSubmit } = useForm();

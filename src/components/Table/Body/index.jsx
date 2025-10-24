@@ -8,7 +8,6 @@ import { getComparator } from '../../../utils/getComparator';
 import Overlay from '../../Overlay';
 import { useTable } from '../TableContext/useTable';
 
-
 export default function Body({ render }) {
   const {
     data,
@@ -28,7 +27,11 @@ export default function Body({ render }) {
   );
 
   return (
-    <TableBody sx={{ position: 'relative' }}>
+    <TableBody
+      sx={{
+        position: 'relative',
+        bgcolor: (theme) => theme.palette.background.default,
+      }}>
       {isDeletingMultipleRecords && <Overlay />}
 
       {visibleRows.map(render)}
@@ -36,9 +39,15 @@ export default function Body({ render }) {
       {emptyRows > 0 && (
         <TableRow
           style={{
-            height: 73 * emptyRows,
+            height: 70 * emptyRows,
           }}>
-          <TableCell colSpan={10} />
+          <TableCell
+            colSpan={10}
+            sx={{
+              bgcolor: (theme) => theme.palette.background.default,
+              border: 0,
+            }}
+          />
         </TableRow>
       )}
     </TableBody>

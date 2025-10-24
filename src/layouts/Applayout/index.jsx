@@ -51,7 +51,20 @@ export default function AppLayout() {
         <MobileSidebar
           toggleSidebar={toggleSidebar}
           open={open}>
-          <MainNav sx={{ width: 200, padding: '10px' }} />
+          <MainNav
+            sx={{
+              width: 200,
+              padding: '10px',
+              height: '100%',
+              backgroundImage: (theme) =>
+                theme.applyStyles(
+                  'dark',
+                  `linear-gradient(135deg , ${theme.palette.primary.dark}, ${theme.palette.info.light})`
+                ),
+              backgroundColor: (theme) =>
+                theme.applyStyles('dark', theme.palette.background.default),
+            }}
+          />
         </MobileSidebar>
       </Sidebar>
 

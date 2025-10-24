@@ -10,7 +10,7 @@ function DataTable({ hasToolbar = true, pagination, children }) {
     <>
       {hasToolbar && <Toolbar />}
 
-      <TableContainer sx={{ minHeight: 400, maxHeight: 500 }}>
+      <TableContainer sx={{ minHeight: 360, maxHeight: 500 }}>
         <Table stickyHeader>{children}</Table>
       </TableContainer>
 

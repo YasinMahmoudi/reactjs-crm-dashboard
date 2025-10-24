@@ -8,7 +8,7 @@ export const BoxItem = styled(Paper)(({ theme }) => ({
   maxWidth: '100%',
   color: (theme.vars ?? theme).palette.text.secondary,
   ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
+    background: `linear-gradient(135deg , #141414, #1e1e1e)`,
   }),
   flex: '100%',
 

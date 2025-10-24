@@ -1,5 +1,5 @@
 import EditIcon from '@mui/icons-material/EditOutlined';
-import ContextMenu from '../../components/ContextMenu';
+import ContextMenu from '../../../components/ContextMenu';
 
 import { useNavigate } from 'react-router';
 

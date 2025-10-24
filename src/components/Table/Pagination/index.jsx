@@ -23,7 +23,8 @@ export default function Pagination() {
     <Stack
       width={'100%'}
       borderTop={1}
-      borderColor={'#e3e3e3'}
+      borderColor={(theme) => theme.palette.divider}
+      bgcolor={(theme) => theme.palette.background.default}
       sx={{
         padding: '1.25rem',
         alignItems: 'flex-end',

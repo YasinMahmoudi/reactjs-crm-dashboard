@@ -33,6 +33,7 @@ export default function Toolbar() {
         {
           pl: { sm: 2 },
           pr: { xs: 1, sm: 1 },
+          bgcolor:theme => theme.palette.background.default
         },
         numSelected > 0 && {
           bgcolor: (theme) =>

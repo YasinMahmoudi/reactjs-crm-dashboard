@@ -5,8 +5,6 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import { visuallyHidden } from '@mui/utils';
 import { useTable } from '../TableContext/useTable';
 
-
-
 export default function HeadCell({ headCell }) {
   const { order, setOrder, orderBy, setOrderBy, isDeletingMultipleRecords } =
     useTable();
@@ -27,6 +25,7 @@ export default function HeadCell({ headCell }) {
       padding={'normal'}
       sortDirection={orderBy === headCell.id ? order : false}>
       <TableSortLabel
+        sx={{ fontSize: '1rem', fontWeight: 'bold' }}
         active={orderBy === headCell.id}
         direction={orderBy === headCell.id ? order : 'asc'}
         onClick={

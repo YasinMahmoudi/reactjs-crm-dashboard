@@ -43,7 +43,7 @@ export default function Table({
         onDeleteMultipleRecords,
         hasChechBox
       }}>
-      <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' , boxShadow:theme => theme.applyStyles('dark', { boxShadow: '0px 0px 1px rgba(255,255,255,0.5)' }) }}>
+      <Paper sx={{ width: '100%', mb: 2, overflow: 'hidden' , background:theme => theme.applyStyles('dark' , theme.palette.background.default), boxShadow:theme => theme.applyStyles('dark', { boxShadow: '0px 0px 1px rgba(255,255,255,0.5)' }) }}>
         {state ? (
           <TableLoader />
         ) : (

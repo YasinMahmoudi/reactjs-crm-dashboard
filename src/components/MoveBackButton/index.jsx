@@ -7,7 +7,7 @@ const buttonStyle = {
   marginBottom: { xs: '10px', sm: 0 },
 };
 
-export default function MoveBackButton() {
+export default function MoveBackButton({sx}) {
   const moveBack = useBack();
 
   return (
@@ -15,7 +15,7 @@ export default function MoveBackButton() {
       aria-label="nivigate back"
       color="warning"
       onClick={moveBack}
-      sx={buttonStyle}>
+      sx={{...buttonStyle , ...sx}}>
       <ArrowBack />
     </IconButton>
   );

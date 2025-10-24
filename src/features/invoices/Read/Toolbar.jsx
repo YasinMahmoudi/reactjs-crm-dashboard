@@ -17,14 +17,15 @@ import { useGetInvoice } from '../useGetInvoice';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
+const mainRowStyle = {  mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
+const movbackStyle = {marginBottom: { xs: 0, sm: 0 }}
 
 export default function InvoiceReadToolbar() {
   return (
     <Row sx={mainRowStyle}>
       <Row>
-        <MoveBackButton />
+        <MoveBackButton sx={movbackStyle} />
         <Row
           gap={2}
           alignItems="center">
@@ -43,7 +44,7 @@ export default function InvoiceReadToolbar() {
           <Typography
             variant="caption"
             textTransform="capitalize"
-            fontSize="medium"
+            fontSize="small"
             fontWeight={600}>
             <Suspense
               fallback={

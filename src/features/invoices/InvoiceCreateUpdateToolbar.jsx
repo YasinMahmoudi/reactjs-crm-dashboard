@@ -12,8 +12,9 @@ import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 import { useIsEditing } from '../../hooks/useIsEditing';
 import { useGetInvoice } from './useGetInvoice';
 
-const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
+const mainRowStyle = { mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
+const movbackStyle = {marginBottom: { xs: 0, sm: 0 }}
 
 export default function InvoiceCreateUpdateToolbar() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function InvoiceCreateUpdateToolbar() {
   return (
     <Row sx={mainRowStyle}>
       <Row>
-        <MoveBackButton />
+        <MoveBackButton sx={movbackStyle} />
 
         <Row
           gap={2}

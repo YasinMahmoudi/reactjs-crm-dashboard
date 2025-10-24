@@ -14,14 +14,15 @@ import { Suspense } from 'react';
 import { useGetInvoice } from './useGetInvoice';
 import TextSkeleton from '../../components/Skeletons/TextSkeleton';
 
-const mainRowStyle = { flexDirection: { xs: 'column', sm: 'row' }, mb: 5 };
+const mainRowStyle = { mb: 5 };
 const actionRowStyle = { gap: '10px', flexWrap: 'wrap' };
+const movbackStyle = { marginBottom: { xs: 0, sm: 0 } };
 
 export default function InvoicePaymentToolbar() {
   return (
     <Row sx={mainRowStyle}>
       <Row>
-        <MoveBackButton />
+        <MoveBackButton sx={movbackStyle} />
 
         <Suspense fallback={<InvociePaymentToolbarStatusSkeleton />}>
           <Row
@@ -77,15 +78,15 @@ function InvoicePaymentToolbarStatus() {
       <Typography
         variant="caption"
         fontWeight={600}
-        fontSize="larger">
+        sx={{ fontSize: { xs: '1.1rem', sm: '1.4rem' } }}>
         Record Payment for Invoice # {invoice.number}/{invoice.year}
       </Typography>
 
       <Typography
         variant="caption"
         textTransform="capitalize"
-        fontSize="medium"
-        fontWeight={600}>
+        fontWeight={600}
+        sx={{ fontSize: { xs: '1rem', sm: '1.4rem' } }}>
         {invoice.paymentStatus}
       </Typography>
     </>

@@ -49,7 +49,7 @@ export default function Table({
           isDeleteMultiple ? isDeletingManyData : isDeletingData
         }
         onDeleteMultipleRecords={isDeleteMultiple ? deleteManyData : deleteData}
-        title={`${resourceName}s Table`}
+        title={`${resourceName} Table`}
         hasChechBox={hasCheckbox}>
         {children}
       </DataTable>

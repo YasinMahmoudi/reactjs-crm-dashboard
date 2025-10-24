@@ -54,7 +54,8 @@ export default function Toolbar() {
       ) : (
         <Typography
           sx={{ marginRight: 'auto' }}
-          variant="h6"
+          variant="h5"
+          fontWeight='bold'
           id="tableTitle"
           component="div">
           {title ?? 'Table name'}
@@ -76,6 +77,7 @@ export default function Toolbar() {
       ) : (
         <Typography
           variant="subtitle1"
+          fontSize='1.1rem'
           sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <span>Totla items :</span>
           {state ? (

@@ -1,9 +1,16 @@
-// export const API_URL = 'http://localhost:8888/api';
-// export const UPLOAD_URL = 'http://localhost:8888';
-// export const DOWNLOAD_BASE_URL = 'http://localhost:8888/download';
+const devMode = import.meta.env.VITE_REACT_ENV;
 
-export const API_URL = 'https://server-crm-dashboard.onrender.com/api';
-export const UPLOAD_URL = 'https://server-crm-dashboard.onrender.com';
-export const DOWNLOAD_BASE_URL = 'https://server-crm-dashboard.onrender.com/download';
+export const API_URL =
+  devMode === 'Development'
+    ? import.meta.env.VITE_API_URL_DEV
+    : import.meta.env.VITE_API_URL_PROD;
 
+export const UPLOAD_URL =
+  devMode === 'Development'
+    ? import.meta.env.VITE_UPLOAD_URL_DEV
+    : import.meta.env.VITE_UPLOAD_URL_PROD;
 
+export const DOWNLOAD_BASE_URL =
+  devMode === 'Development'
+    ? import.meta.env.VITE_DOWNLOAD_BASE_URL_DEV
+    : import.meta.env.VITE_DOWNLOAD_BASE_URL_PROD;

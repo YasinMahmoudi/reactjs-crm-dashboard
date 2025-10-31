@@ -1,5 +1,6 @@
 import { Paper, Stack, Typography } from '@mui/material';
 import { Suspense } from 'react';
+import EmptyResource from '../../components/EmptyResource';
 import LinearProgressWithLabel from '../../components/LinearProgressWithLabel';
 import InvoiceStatusProgressSkeleton from '../../components/Skeletons/dashboard/InvoiceStatusProgressSkeleton';
 import { useInvoicesSummary } from './useInvoiceSummary';
@@ -33,6 +34,8 @@ function InvoiceStatusProgressList() {
   const { invoices } = useInvoicesSummary();
 
   const { performance } = invoices;
+
+  if (!performance.length) return <EmptyResource resourceName="Invoice" />;
 
   return (
     <Stack spacing={3}>

@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Suspense } from 'react';
+import EmptyResource from '../../components/EmptyResource';
 import SimpleTable from '../../components/SimpleTable';
 import RecentInvoicesSkeleton from '../../components/Skeletons/dashboard/RecentInvoicesSkeleton';
 import InvoiceActions from '../invoices/Table/actions';
@@ -74,13 +75,9 @@ export default function RecentInvoices() {
 
 function InvoiceRecentTable() {
   return (
-    <SimpleTable>
-      <SimpleTable.Head heads={heads} />
-
       <Suspense fallback={<RecentInvoicesSkeleton />}>
         <RecentInvoicesList />
       </Suspense>
-    </SimpleTable>
   );
 }
 
@@ -112,15 +109,24 @@ function InvoiceRecentRow({ invoice }) {
 function RecentInvoicesList() {
   const { recentInvoices } = useRecentInvoices();
 
+  if (!recentInvoices.length) return <EmptyResource resourceName="Invoices" />;
+
   return (
-    <SimpleTable.Body
-      items={recentInvoices}
-      render={(invoice) => (
-        <InvoiceRecentRow
-          key={invoice._id}
-          invoice={invoice}
-        />
-      )}
-    />
+    <SimpleTable>
+      <SimpleTable.Head heads={heads} />
+      <SimpleTable.Body
+        items={recentInvoices}
+        render={(invoice) => (
+          <InvoiceRecentRow
+            key={invoice._id}
+            invoice={invoice}
+          />
+        )}
+      />
+    </SimpleTable>
   );
+}
+
+export function RecentInvoicesHead() {
+  return <SimpleTable.Head heads={heads} />;
 }

@@ -158,13 +158,21 @@ export default function Summary() {
 function InvoicePrice({ dataKey }) {
   const { invoices } = useInvoicesSummary();
 
+  const totalInvoicesPrice = isFinite(
+    new Intl.NumberFormat('en-US').format(invoices[dataKey])
+  )
+    ? new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+      }).format(invoices[dataKey])
+    : '0.00';
+
   return (
     <Chip
       sx={{
         color: '#f2f2f3',
         fontWeight: '700',
       }}
-      label={`$ ${new Intl.NumberFormat('en-US').format(invoices[dataKey])}`}
+      label={`$ ${totalInvoicesPrice}`}
       variant="filled"
     />
   );
@@ -179,9 +187,9 @@ function PaymentPrice({ dataKey }) {
         color: '#f2f2f3',
         fontWeight: '700',
       }}
-      label={`$ ${new Intl.NumberFormat('en-US').format(
-        paymentSummary[dataKey]
-      )}`}
+      label={`$ ${new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+      }).format(paymentSummary[dataKey])}`}
       variant="filled"
     />
   );

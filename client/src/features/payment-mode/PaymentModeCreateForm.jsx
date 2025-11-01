@@ -1,12 +1,18 @@
 import { Button, Grid } from '@mui/material';
 import { useSearchParams } from 'react-router';
-import { useCreatePaymentMode } from './useCreatePaymentMode';
+import { createPaymentModeService } from '../../services/payment-mode';
+import { useCreateData } from '../core/useCreateData';
 import { useUpdatePaymentMode } from './useUpdatePaymentMode';
 
 function PaymentModeCreateForm({ children, handleSubmit }) {
   const [searchParams] = useSearchParams();
 
-  const { createPaymentMode, isCreatingPaymentMode } = useCreatePaymentMode();
+  const { createData:createPaymentMode, isCreatingData:isCreatingPaymentMode } = useCreateData({
+    dataKey:'paymentModes',
+    respurceName:'Payment mode',
+    dataService:createPaymentModeService,
+    redirectLink:'/payment/mode'
+  });
   const { updatePaymentMode, isUpdatingPaymentMode } = useUpdatePaymentMode();
 
   const isEditing = searchParams.get('edit') === 'true';

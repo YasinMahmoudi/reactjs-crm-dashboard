@@ -3,9 +3,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router';
 import FormInput from '../../components/FormInput';
 import Select from '../../components/Select';
-import { createCustomerService } from '../../services/customers/customer';
+import {
+  createCustomerService,
+  getCustomerService,
+} from '../../services/customers/customer';
 import { useCreateData } from '../core/useCreateData';
-import { useGetCustomer } from './useGetCustomer';
+import { useGetData } from '../core/useGetData';
 import { useUpdateCustomer } from './useUpdateCustomer';
 
 function CustomerCreateForm() {
@@ -13,7 +16,10 @@ function CustomerCreateForm() {
 
   const [searchParams] = useSearchParams();
 
-  const { customer } = useGetCustomer();
+  const { data: customer } = useGetData({
+    dataKey: 'customer',
+    dataService: getCustomerService,
+  });
   const { createData: createCustomer, isCreatingData: isCreatingCustomer } =
     useCreateData({
       respurceName: 'Customer',

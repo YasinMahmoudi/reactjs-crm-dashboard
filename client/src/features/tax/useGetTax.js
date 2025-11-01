@@ -1,20 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router';
 import { getTaxService } from '../../services/tax';
+import { useGetData } from '../core/useGetData';
 
 function useGetTax() {
-  const [searchParams] = useSearchParams();
-
-  const id = searchParams.get('id');
-
-
-  const { data: tax, isLoading: isLoadingTax } = useQuery({
-    queryKey: ['tax', id],
-    queryFn: () => getTaxService(id),
-    enabled: id !== null,
+  const { data: tax } = useGetData({
+    dataKey: 'tax',
+    dataService: getTaxService,
   });
 
-  return { tax, isLoadingTax };
+  return { tax };
 }
 
 export { useGetTax };

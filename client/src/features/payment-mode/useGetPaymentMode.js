@@ -1,20 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router';
 import { getPaymentModeService } from '../../services/payment-mode';
+import { useGetData } from '../core/useGetData';
 
 function useGetPaymentMode() {
-  const [searchParams] = useSearchParams();
-
-  const id = searchParams.get('id');
-
-
-  const { data: paymentMode, isLoading: isLoadingPaymentMode } = useQuery({
-    queryKey: ['paymentMode', id],
-    queryFn: () => getPaymentModeService(id),
-    enabled: id !== null,
+  const { data: paymentMode } = useGetData({
+    dataKey: 'paymentMode',
+    dataService: getPaymentModeService,
   });
 
-  return { paymentMode, isLoadingPaymentMode };
+  return { paymentMode };
 }
 
 export { useGetPaymentMode };

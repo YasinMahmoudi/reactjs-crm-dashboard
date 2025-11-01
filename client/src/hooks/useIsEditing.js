@@ -7,7 +7,7 @@ export function useIsEditing() {
   const isEditing = searchParams.get('edit') === 'true';
 
   if(editId) {
-    return { editId, readId, isEditing };
+    return { editId, readId:editId, isEditing };
   }
 
 

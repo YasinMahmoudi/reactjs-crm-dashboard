@@ -1,12 +1,19 @@
 import { Button, Grid } from '@mui/material';
 import { useSearchParams } from 'react-router';
-import { useCreateTax } from './useCreateTax';
+import { createTaxService } from '../../services/tax';
+import { useCreateData } from '../core/useCreateData';
 import { useUpdateTax } from './useUpdateTax';
 
 function TaxCreateForm({ children, handleSubmit }) {
   const [searchParams] = useSearchParams();
 
-  const { createTax, isCreatingTax } = useCreateTax();
+  const { createData: createTax, isCreatingData: isCreatingTax } =
+    useCreateData({
+      dataKey: 'taxes',
+      respurceName: 'Tax',
+      dataService: createTaxService,
+      redirectLink: '/taxes',
+    });
   const { updateTax, isUpdatingTax } = useUpdateTax();
 
   const isEditing = searchParams.get('edit') === 'true';

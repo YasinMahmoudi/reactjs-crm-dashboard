@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useCreateInvoice } from './useCreateInvoice';
 
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -19,6 +18,8 @@ import InvoiceItem from '../../components/InvoiceItem';
 import InvoiceItemContainer from '../../components/InvoiceItemContainer';
 import SearchableSelect from '../../components/SearchableClients';
 import { useIsEditing } from '../../hooks/useIsEditing';
+import { createInvoiceService } from '../../services/invoices';
+import { useCreateData } from '../core/useCreateData';
 import { useGetTaxes } from '../tax/useGetTaxes';
 import { useGetInvoice } from './useGetInvoice';
 import { useUpdateInvoice } from './useUpdateInvoice';
@@ -54,7 +55,13 @@ export default function InvoiceCreateUpdateForm() {
 
   const { invoice, isLoadingInvoice } = useGetInvoice();
   const { taxes, isLoadingTaxes } = useGetTaxes();
-  const { createInvoice, isCreatingInvoice } = useCreateInvoice();
+  const { createData: createInvoice, isCreatingData: isCreatingInvoice } =
+    useCreateData({
+      dataKey: 'invoices',
+      respurceName: 'Invoice',
+      dataService: createInvoiceService,
+      redirectLink: '/invoices',
+    });
   const { updateInvoice, isUpdatingInvoice } = useUpdateInvoice();
 
   const { isEditing } = useIsEditing();

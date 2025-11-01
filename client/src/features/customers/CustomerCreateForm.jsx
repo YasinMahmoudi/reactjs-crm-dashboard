@@ -3,7 +3,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router';
 import FormInput from '../../components/FormInput';
 import Select from '../../components/Select';
-import { useCreateCustomer } from './useCreateCustomer';
+import { createCustomerService } from '../../services/customers/customer';
+import { useCreateData } from '../core/useCreateData';
 import { useGetCustomer } from './useGetCustomer';
 import { useUpdateCustomer } from './useUpdateCustomer';
 
@@ -13,7 +14,13 @@ function CustomerCreateForm() {
   const [searchParams] = useSearchParams();
 
   const { customer } = useGetCustomer();
-  const { createCustomer, isCreatingCustomer } = useCreateCustomer();
+  const { createData: createCustomer, isCreatingData: isCreatingCustomer } =
+    useCreateData({
+      respurceName: 'Customer',
+      dataKey: 'customers',
+      dataService: createCustomerService,
+      redirectLink: '/customers',
+    });
   const { updateCustomer, isUpdatingCustomer } = useUpdateCustomer();
 
   const isEditing = searchParams.get('edit') === 'true';

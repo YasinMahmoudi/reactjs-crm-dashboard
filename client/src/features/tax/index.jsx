@@ -10,8 +10,8 @@ export default function Tax() {
   return (
     <>
       <Toolbar
-        buttonLabel="Add New Payment Mode"
-        to="/payment/mode/create">
+        buttonLabel="Add New Tax"
+        to="/taxes/create">
         <SearchField id="taxSearchInput" />
       </Toolbar>
 

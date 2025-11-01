@@ -1,21 +1,18 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useSearchParams } from 'react-router';
+import { useIsEditing } from '../../hooks/useIsEditing';
 
-function useGetData({
-    dataKey = '',
-    dataService
-}) {
-  const [searchParams] = useSearchParams();
+function useGetData({ dataKey = '', dataService }) {
+  const { editId, readId, isEditing } = useIsEditing();
 
-  const id = searchParams.get('id');
+  const selectedId = isEditing ? editId : readId;
 
-  const { data } = useSuspenseQuery({
-    queryKey: [dataKey, id],
-    queryFn: () => dataService(id),
+  const { data = {} } = useSuspenseQuery({
+    queryKey: [dataKey, selectedId],
+    queryFn: () => dataService(selectedId),
+    enabled: selectedId !== null && selectedId !== undefined,
   });
 
   return { data };
 }
 
 export { useGetData };
-

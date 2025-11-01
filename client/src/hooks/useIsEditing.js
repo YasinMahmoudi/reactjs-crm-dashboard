@@ -1,9 +1,17 @@
-import { useParams } from 'react-router';
+import { useParams, useSearchParams } from 'react-router';
 
 export function useIsEditing() {
-  const { editId, readId } = useParams();
+  let { editId, readId } = useParams();
+  const [searchParams] = useSearchParams();
 
-  const isEditing = !!editId;
+  const isEditing = searchParams.get('edit') === 'true';
+
+  if(editId) {
+    return { editId, readId, isEditing };
+  }
+
+
+  editId = searchParams.get('id');
 
   return { editId, readId, isEditing };
 }

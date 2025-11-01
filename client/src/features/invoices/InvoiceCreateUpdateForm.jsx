@@ -53,7 +53,7 @@ export default function InvoiceCreateUpdateForm() {
   const [items, setItems] = useState([]);
   const [taxRate, setTaxRate] = useState('');
 
-  const { invoice, isLoadingInvoice } = useGetInvoice();
+  const { invoice } = useGetInvoice();
   const { taxes, isLoadingTaxes } = useGetTaxes();
   const { createData: createInvoice, isCreatingData: isCreatingInvoice } =
     useCreateData({
@@ -68,8 +68,6 @@ export default function InvoiceCreateUpdateForm() {
 
   useEffect(
     function () {
-      if (isLoadingInvoice) return;
-
       setTaxRate(invoice.taxRate);
 
       const fetchItems = invoice.items?.map((item, index) => ({
@@ -83,7 +81,7 @@ export default function InvoiceCreateUpdateForm() {
 
       fetchItems ? setItems(fetchItems) : setItems([initialItems]);
     },
-    [invoice.items, invoice.taxRate, isLoadingInvoice]
+    [invoice.items, invoice.taxRate]
   );
 
   function onSubmit(data) {
@@ -108,7 +106,7 @@ export default function InvoiceCreateUpdateForm() {
         });
   }
 
-  if (isLoadingInvoice || isLoadingTaxes) return <CircularProgress />;
+  if (isLoadingTaxes) return <CircularProgress />;
 
   const subTotal = items.reduce((acc, cur) => acc + cur.totlaItemPrice, 0);
 

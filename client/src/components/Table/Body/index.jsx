@@ -7,6 +7,7 @@ import { LIMIT_ITEMS } from '../../../services/customers/customer';
 import { getComparator } from '../../../utils/getComparator';
 import Overlay from '../../Overlay';
 import { useTable } from '../TableContext/useTable';
+import { createPortal } from 'react-dom';
 
 export default function Body({ render }) {
   const {
@@ -32,7 +33,7 @@ export default function Body({ render }) {
         position: 'relative',
         bgcolor: (theme) => theme.palette.background.default,
       }}>
-      {isDeletingMultipleRecords && <Overlay />}
+      {isDeletingMultipleRecords && createPortal(<Overlay />, document.body)}
 
       {visibleRows.map(render)}
 

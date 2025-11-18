@@ -53,6 +53,8 @@ export default function InvoiceCreateUpdateForm() {
   const [items, setItems] = useState([]);
   const [taxRate, setTaxRate] = useState('');
 
+  console.log(items)
+
   const { invoice } = useGetInvoice();
   const { taxes, isLoadingTaxes } = useGetTaxes();
   const { createData: createInvoice, isCreatingData: isCreatingInvoice } =

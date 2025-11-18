@@ -5,7 +5,6 @@ import { useRef } from 'react';
 import { Controller, useController } from 'react-hook-form';
 import FormInput from '../FormInput';
 
-
 export default function InvoiceItem({
   control,
   initial = false,
@@ -13,6 +12,22 @@ export default function InvoiceItem({
   onSetItems,
 }) {
   const deleteButtonRef = useRef();
+
+  const {
+    field: { value: itemName },
+  } = useController({
+    name: `item-${item.id}`,
+    control,
+    defaultValue: item.name || '',
+  });
+
+  const {
+    field: { value: description },
+  } = useController({
+    name: `description-${item.id}`,
+    control,
+    defaultValue: item.description || '',
+  });
 
   const {
     field: { value: qty },
@@ -41,7 +56,8 @@ export default function InvoiceItem({
         item.id === changedId
           ? {
               ...item,
-
+              name: itemName,
+              description,
               qty: +qty,
               price: +price,
               totlaItemPrice: +totlaItemPrice,
@@ -65,8 +81,7 @@ export default function InvoiceItem({
         container
         spacing={{ md: 2 }}
         columns={{ md: 6 }}
-        sx={{ width: '100%' }}
-        onClick={() => handleChange(item.id)}>
+        sx={{ width: '100%' }}>
         <Grid size={{ xs: 2, sm: 2, md: 1 }}>
           <Controller
             name={`item-${item.id}`}
@@ -79,6 +94,7 @@ export default function InvoiceItem({
               <FormInput
                 label="Item"
                 control={control}
+                onChange={() => handleChange(item.id)}
                 {...field}
               />
             )}
@@ -94,6 +110,7 @@ export default function InvoiceItem({
               <FormInput
                 label="Description"
                 control={control}
+                onChange={() => handleChange(item.id)}
                 {...field}
               />
             )}
@@ -116,6 +133,7 @@ export default function InvoiceItem({
                 label="Quantity"
                 type="number"
                 control={control}
+                onChange={() => handleChange(item.id)}
                 {...field}
               />
             )}
@@ -134,6 +152,7 @@ export default function InvoiceItem({
                 label="Price"
                 control={control}
                 type="number"
+                onChange={() => handleChange(item.id)}
                 {...field}
               />
             )}
@@ -155,6 +174,7 @@ export default function InvoiceItem({
                     ? `$ ${totlaItemPrice.toFixed(2)}`
                     : `$ 1.00`
                 }
+                onChange={() => handleChange(item.id)}
                 {...field}
               />
             )}

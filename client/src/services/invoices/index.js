@@ -67,7 +67,7 @@ export async function createInvoiceService(newInvoice) {
     notes: note,
     number: +number,
     status,
-    taxRate,
+    taxRate : taxRate || 0,
     year,
     items: modifiedItems,
   };
@@ -141,7 +141,7 @@ export async function updateInvoiceService({ id, updatedData }) {
     notes: note,
     number: +number,
     status,
-    taxRate,
+    taxRate : taxRate || 0,
     year,
     items: modifiedItems,
   };

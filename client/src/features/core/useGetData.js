@@ -8,7 +8,7 @@ function useGetData({ dataKey = '', dataService }) {
 
   const { data = {} } = useSuspenseQuery({
     queryKey: [dataKey, selectedId],
-    queryFn: () => dataService(selectedId),
+    queryFn: () => selectedId ? dataService(selectedId) : {},
     enabled: selectedId !== null && selectedId !== undefined,
   });
 

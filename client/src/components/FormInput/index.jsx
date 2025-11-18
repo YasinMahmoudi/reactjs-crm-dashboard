@@ -1,7 +1,6 @@
 import TextField from '@mui/material/TextField';
+import { useEffect } from 'react';
 import { useController } from 'react-hook-form';
-
-
 
 export default function FormInput({
   label = 'from input',
@@ -9,6 +8,7 @@ export default function FormInput({
   type = 'text',
   value = '',
   control,
+  onChange,
   ...fields
 }) {
   const {
@@ -20,6 +20,17 @@ export default function FormInput({
     ...fields,
   });
 
+  useEffect(
+    function () {
+      onChange?.();
+    },
+    [onChange]
+  );
+
+  function handleChange(value) {
+    field.onChange(value);
+  }
+
   return (
     <TextField
       type={type}
@@ -27,7 +38,7 @@ export default function FormInput({
       variant="outlined"
       fullWidth
       value={field.value || value}
-      onChange={field.onChange}
+      onChange={handleChange}
       onBlur={field.onBlur}
       name={field.name}
       inputRef={field.ref}

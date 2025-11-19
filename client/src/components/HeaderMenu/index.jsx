@@ -38,9 +38,13 @@ export default function HeaderMenu() {
             sx={{ width: 40, height: 40, bgcolor: deepOrange[500] }}
             alt={`Admin Avatar ${name}`}
             src={`${UPLOAD_URL}/${photo}`}
-            loading="lazy"
-            width={40}
-            height={40}>
+            slotProps={{
+              img: {
+                width: 40,
+                height: 40,
+                loading: 'lazy',
+              },
+            }}>
             {avatarDisplayName}
           </Avatar>
         </CollapseMenu.Button>
@@ -53,9 +57,13 @@ export default function HeaderMenu() {
               sx={{ width: 40, height: 40, bgcolor: deepOrange[500] }}
               alt={`Admin Avatar ${name}`}
               src={`${UPLOAD_URL}/${photo}`}
-              loading="lazy"
-              width={40}
-              height={40}>
+              slotProps={{
+                img: {
+                  width: 40,
+                  height: 40,
+                  loading: 'lazy',
+                },
+              }}>
               {avatarDisplayName}
             </Avatar>
 

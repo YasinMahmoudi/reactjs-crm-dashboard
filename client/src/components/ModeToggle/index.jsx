@@ -20,9 +20,11 @@ export default function ModeToggle() {
       onClick={handleChangeMode}
       size="large"
       sx={{ mr: 2 }}
+      type="button"
+       aria-label="modeToggleButton"
       >
-      {mode === 'light' && <DarkModeIcon fontSize='16px' />}
-      {mode === 'dark' && <LightModeIcon fontSize='16px' />}
+      {mode === 'light' && <DarkModeIcon fontSize="16px" />}
+      {mode === 'dark' && <LightModeIcon fontSize="16px" />}
     </IconButton>
   );
 }

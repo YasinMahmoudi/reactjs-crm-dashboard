@@ -18,8 +18,9 @@ export default function MainNav({ sx }) {
     <List
       aria-label="main folders"
       sx={sx}>
-      <Logo />
-
+      <ListItem>
+        <Logo />
+      </ListItem>
       <ListItem disablePadding>
         <ListItemLink to="/dashboard">
           <ListItemIcon sx={{ minWidth: '26px' }}>

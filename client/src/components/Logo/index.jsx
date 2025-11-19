@@ -20,6 +20,9 @@ export default function Logo() {
       <Img
         src="/logo.png"
         alt="Logo"
+        fetchpriority="high"
+        width="140"
+        height="32"
       />
     </Link>
   );

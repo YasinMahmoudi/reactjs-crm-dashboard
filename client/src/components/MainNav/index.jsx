@@ -10,8 +10,9 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemLink from '../ListLinkItem';
-import Logo from '../Logo';
+import { lazy } from 'react';
+const Logo = lazy(() => import('../Logo'));
+const ListItemLink = lazy(() => import('../ListLinkItem'));
 
 export default function MainNav({ sx }) {
   return (

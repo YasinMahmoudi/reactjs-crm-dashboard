@@ -17,9 +17,21 @@ Mange your invoices , payments , taxes and many advanced feature with modern rea
 [Click here to see demo](https://viz-panel.onrender.com/)
 
 
-## ⚙️ Tech Stack
+## ⚙️ Tech Stack ( Frontend )
 
 
+- **[Reactjs](https://react.dev)** is a free and open-source front-end JavaScript library that aims to make building user interfaces based on components more "seamless"
+
+- **[React Router](https://reactrouter.com)** is a library that provides routing capabilities for React applications.React Router is the standard routing library for React applications. It enables you to: Create multiple pages in your single-page application.
+
+- **[Tanstack/React-Query](https://tanstack.com/query/latest)**  is a library for providing the  missing data-fetching library for web applications, but in more technical terms, it makes fetching, caching, synchronizing and updating server state in your web applications a breeze.
+
+- **[React Hook Form](https://react-hook-form.com)** for simplifying form handling in React apps, making it efficient and less complex. It leverages React Hooks for state management, validation, and form submission, offering key benefits like minimal re-renders, smooth performance, and easy integration with UI libraries.
+
+- **[MUI](https://mui.com/)**  is an open-source React Components library that is based on Google's Material Design and provides the predefined UI components for React
+  
+- **[Styled Components](https://styled-components.com/)** React Styled-component Module allows us to write CSS within JavaScript in a very modular and reusable way in React. Instead of having one global CSS file for a React project, we can use styled-component to enhance the developer experience
+  
 
 
 ## ✨ Features
